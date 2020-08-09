@@ -103,7 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				C865770A24E0630C0004A272 /* Main.storyboard */,
-				C865771824E063940004A272 /* Model */,
+				C865771824E063940004A272 /* Models */,
 				C865771D24E063A00004A272 /* Login */,
 				C865772224E063AA0004A272 /* Friends */,
 				C865772924E063B30004A272 /* ParticularFriend */,
@@ -117,14 +117,14 @@
 			path = "vkAlissia-2";
 			sourceTree = "<group>";
 		};
-		C865771824E063940004A272 /* Model */ = {
+		C865771824E063940004A272 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				C865771924E063940004A272 /* Friend.swift */,
 				C865771A24E063940004A272 /* Group.swift */,
 				C89B6B1124E08D84002CB028 /* Session.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		C865771D24E063A00004A272 /* Login */ = {
