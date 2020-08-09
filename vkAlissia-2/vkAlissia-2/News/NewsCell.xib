@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsCell" id="29Q-sj-QVX" customClass="NewsCell" customModule="vkAlissia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="474"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="29Q-sj-QVX" id="OkH-6t-FOA">
+                <rect key="frame" x="0.0" y="0.0" width="400" height="474"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Audi" translatesAutoresizingMaskIntoConstraints="NO" id="mtA-l0-trH">
+                        <rect key="frame" x="0.0" y="74" width="400" height="400"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="mtA-l0-trH" secondAttribute="height" multiplier="1:1" id="HOp-ZE-KQ4"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="News" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkt-oJ-uxm">
+                        <rect key="frame" x="165.5" y="11" width="69" height="52"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="mtA-l0-trH" secondAttribute="trailing" id="91W-bf-G0M"/>
+                    <constraint firstItem="tkt-oJ-uxm" firstAttribute="centerX" secondItem="OkH-6t-FOA" secondAttribute="centerX" id="Y1O-hT-g4m"/>
+                    <constraint firstItem="mtA-l0-trH" firstAttribute="leading" secondItem="OkH-6t-FOA" secondAttribute="leading" id="bSd-Kd-iBN"/>
+                    <constraint firstAttribute="bottom" secondItem="mtA-l0-trH" secondAttribute="bottom" id="lvy-JU-dXG"/>
+                    <constraint firstItem="mtA-l0-trH" firstAttribute="top" secondItem="tkt-oJ-uxm" secondAttribute="bottom" constant="11" id="lwD-nr-t15"/>
+                    <constraint firstItem="tkt-oJ-uxm" firstAttribute="top" secondItem="OkH-6t-FOA" secondAttribute="top" constant="11" id="pe4-Ao-ist"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="newsImageView" destination="mtA-l0-trH" id="bqu-9S-x8M"/>
+                <outlet property="newsLabel" destination="tkt-oJ-uxm" id="R7b-Lr-qDH"/>
+            </connections>
+            <point key="canvasLocation" x="5.7971014492753632" y="14.0625"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Audi" width="800" height="600"/>
+    </resources>
+</document>

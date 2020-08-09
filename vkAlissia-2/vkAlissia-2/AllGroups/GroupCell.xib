@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" rowHeight="88" id="dcn-UW-aAb" customClass="GroupCell" customModule="vkAlissia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="424" height="88"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dcn-UW-aAb" id="DHO-tL-GCE">
+                <rect key="frame" x="0.0" y="0.0" width="424" height="88"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTf-F5-gCM">
+                        <rect key="frame" x="21" y="32" width="226" height="24"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mercedes-Benz" translatesAutoresizingMaskIntoConstraints="NO" id="Pfr-Ru-CH6">
+                        <rect key="frame" x="315" y="0.0" width="88" height="88"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="88" id="62v-W0-UWI"/>
+                            <constraint firstAttribute="width" secondItem="Pfr-Ru-CH6" secondAttribute="height" multiplier="1:1" id="fvj-OS-Ood"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="gTf-F5-gCM" firstAttribute="centerY" secondItem="DHO-tL-GCE" secondAttribute="centerY" id="66X-l3-NdB"/>
+                    <constraint firstItem="gTf-F5-gCM" firstAttribute="top" secondItem="DHO-tL-GCE" secondAttribute="top" constant="32" id="9Ws-2F-YFJ"/>
+                    <constraint firstItem="Pfr-Ru-CH6" firstAttribute="leading" secondItem="gTf-F5-gCM" secondAttribute="trailing" constant="68" id="MzO-64-Gae"/>
+                    <constraint firstAttribute="trailing" secondItem="Pfr-Ru-CH6" secondAttribute="trailing" constant="21" id="cAc-uW-keP"/>
+                    <constraint firstItem="gTf-F5-gCM" firstAttribute="leading" secondItem="DHO-tL-GCE" secondAttribute="leading" constant="21" id="neV-uw-EEc"/>
+                    <constraint firstItem="Pfr-Ru-CH6" firstAttribute="centerY" secondItem="DHO-tL-GCE" secondAttribute="centerY" id="zSm-BP-qY1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="groupAvatarView" destination="Pfr-Ru-CH6" id="h8E-Ou-P6Q"/>
+                <outlet property="groupNameLabel" destination="gTf-F5-gCM" id="UeL-dC-L0y"/>
+            </connections>
+            <point key="canvasLocation" x="163.768115942029" y="55.580357142857139"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Mercedes-Benz" width="800" height="600"/>
+    </resources>
+</document>
