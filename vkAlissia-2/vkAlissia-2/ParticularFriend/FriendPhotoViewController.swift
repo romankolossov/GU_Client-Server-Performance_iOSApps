@@ -46,16 +46,15 @@ class FriendPhotoViewController: UIViewController {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
        
         view.addSubview(nameLabel)
+        layout(imgView: backgrounImageView)
+        layout(imgView: imageView)
         
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 136),
+            nameLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -68),
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             nameLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7)
         ])
         
-        layout(imgView: backgrounImageView)
-        layout(imgView: imageView)
-       
         setImages()
         
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
