@@ -35,7 +35,10 @@
 		C865774C24E063DE0004A272 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865774A24E063DE0004A272 /* StarView.swift */; };
 		C865774D24E063DE0004A272 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865774B24E063DE0004A272 /* Animations.swift */; };
 		C865774F24E064050004A272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C865774E24E064050004A272 /* Assets.xcassets */; };
+		C87E1D3E24E3492E0061E697 /* VKLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87E1D3D24E3492E0061E697 /* VKLoginController.swift */; };
 		C89B6B1224E08D84002CB028 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89B6B1124E08D84002CB028 /* Session.swift */; };
+		C8BB9D1E24E3548500B05FED /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8BB9D1D24E3548500B05FED /* WebKit.framework */; };
+		C8BB9D2224E35C9000B05FED /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BB9D2124E35C9000B05FED /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,7 +72,10 @@
 		C865774A24E063DE0004A272 /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		C865774B24E063DE0004A272 /* Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		C865774E24E064050004A272 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C87E1D3D24E3492E0061E697 /* VKLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKLoginController.swift; sourceTree = "<group>"; };
 		C89B6B1124E08D84002CB028 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		C8BB9D1D24E3548500B05FED /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		C8BB9D2124E35C9000B05FED /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8BB9D1E24E3548500B05FED /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +95,7 @@
 			children = (
 				C865770324E0630B0004A272 /* vkAlissia-2 */,
 				C865770224E0630B0004A272 /* Products */,
+				C8BB9D1C24E3548500B05FED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,6 +138,7 @@
 		C865771D24E063A00004A272 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				C87E1D3D24E3492E0061E697 /* VKLoginController.swift */,
 				C865774A24E063DE0004A272 /* StarView.swift */,
 				C865771E24E063A00004A272 /* GradientView.swift */,
 				C865771F24E063A00004A272 /* LoginFormController.swift */,
@@ -211,9 +220,18 @@
 		C87E1D3C24E30BF80061E697 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C8BB9D2124E35C9000B05FED /* NetworkManager.swift */,
 				C89B6B1124E08D84002CB028 /* Session.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		C8BB9D1C24E3548500B05FED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C8BB9D1D24E3548500B05FED /* WebKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -312,7 +330,9 @@
 				C89B6B1224E08D84002CB028 /* Session.swift in Sources */,
 				C865773124E063B30004A272 /* FriendLayout.swift in Sources */,
 				C865774D24E063DE0004A272 /* Animations.swift in Sources */,
+				C8BB9D2224E35C9000B05FED /* NetworkManager.swift in Sources */,
 				C865773324E063B30004A272 /* ParticularFriendViewController.swift in Sources */,
+				C87E1D3E24E3492E0061E697 /* VKLoginController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

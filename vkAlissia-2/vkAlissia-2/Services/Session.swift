@@ -9,7 +9,7 @@
 import Foundation
 
 class Session {
-    private let userIdKey = "com.apple.vkalissia.user.id"
+    private let userIdKey = "com.apple.vkAlissia.user.id"
     
     var token: String?
     var userId: Int {
