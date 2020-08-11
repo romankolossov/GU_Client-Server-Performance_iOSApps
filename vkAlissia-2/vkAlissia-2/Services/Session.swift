@@ -8,24 +8,20 @@
 
 import Foundation
 
-import Foundation
-
 class Session {
-    private let someKey = "com.apple.my-app.money.amount"
+    private let userIdKey = "com.apple.vkalissia.user.id"
     
     var token: String?
-    var userId: Int?
-    var monetAmount: Double {
+    var userId: Int {
         set {
-            UserDefaults.standard.set(newValue, forKey: someKey)
+            UserDefaults.standard.set(newValue, forKey: userIdKey)
         }
         get {
-            UserDefaults.standard.double(forKey: someKey)
+            UserDefaults.standard.integer(forKey: userIdKey)
         }
     }
     
     static let shared = Session()
     private init() {
-        
     }
 }
