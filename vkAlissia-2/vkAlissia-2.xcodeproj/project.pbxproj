@@ -35,6 +35,7 @@
 		C865774C24E063DE0004A272 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865774A24E063DE0004A272 /* StarView.swift */; };
 		C865774D24E063DE0004A272 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865774B24E063DE0004A272 /* Animations.swift */; };
 		C865774F24E064050004A272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C865774E24E064050004A272 /* Assets.xcassets */; };
+		C89B6B1224E08D84002CB028 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89B6B1124E08D84002CB028 /* Session.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		C865774A24E063DE0004A272 /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		C865774B24E063DE0004A272 /* Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		C865774E24E064050004A272 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C89B6B1124E08D84002CB028 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,32 +103,34 @@
 			isa = PBXGroup;
 			children = (
 				C865770A24E0630C0004A272 /* Main.storyboard */,
-				C865771824E063940004A272 /* Model */,
+				C865771824E063940004A272 /* Models */,
 				C865771D24E063A00004A272 /* Login */,
 				C865772224E063AA0004A272 /* Friends */,
 				C865772924E063B30004A272 /* ParticularFriend */,
 				C865773424E063BD0004A272 /* MyGroups */,
 				C865773B24E063C40004A272 /* AllGroups */,
 				C865774224E063CD0004A272 /* News */,
-				C865774924E063DE0004A272 /* Additions */,
+				C87E1D3C24E30BF80061E697 /* Services */,
+				C865774924E063DE0004A272 /* Utils */,
 				C865775224E06AF20004A272 /* SupportingFiles */,
 				C865771224E0630D0004A272 /* Info.plist */,
 			);
 			path = "vkAlissia-2";
 			sourceTree = "<group>";
 		};
-		C865771824E063940004A272 /* Model */ = {
+		C865771824E063940004A272 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				C865771924E063940004A272 /* Friend.swift */,
 				C865771A24E063940004A272 /* Group.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		C865771D24E063A00004A272 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				C865774A24E063DE0004A272 /* StarView.swift */,
 				C865771E24E063A00004A272 /* GradientView.swift */,
 				C865771F24E063A00004A272 /* LoginFormController.swift */,
 			);
@@ -136,9 +140,9 @@
 		C865772224E063AA0004A272 /* Friends */ = {
 			isa = PBXGroup;
 			children = (
-				C865772324E063AA0004A272 /* FriendsViewController.swift */,
 				C865772424E063AA0004A272 /* FriendCell.xib */,
 				C865772524E063AA0004A272 /* FriendCell.swift */,
+				C865772324E063AA0004A272 /* FriendsViewController.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -169,8 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				C865773C24E063C40004A272 /* GroupCell.xib */,
-				C865773D24E063C40004A272 /* AllGroupsViewController.swift */,
 				C865773E24E063C40004A272 /* GroupCell.swift */,
+				C865773D24E063C40004A272 /* AllGroupsViewController.swift */,
 			);
 			path = AllGroups;
 			sourceTree = "<group>";
@@ -178,20 +182,19 @@
 		C865774224E063CD0004A272 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				C865774524E063CD0004A272 /* NewsCell.xib */,
 				C865774324E063CD0004A272 /* NewsCell.swift */,
 				C865774424E063CD0004A272 /* NewsViewController.swift */,
-				C865774524E063CD0004A272 /* NewsCell.xib */,
 			);
 			path = News;
 			sourceTree = "<group>";
 		};
-		C865774924E063DE0004A272 /* Additions */ = {
+		C865774924E063DE0004A272 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				C865774A24E063DE0004A272 /* StarView.swift */,
 				C865774B24E063DE0004A272 /* Animations.swift */,
 			);
-			path = Additions;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		C865775224E06AF20004A272 /* SupportingFiles */ = {
@@ -203,6 +206,14 @@
 				C865770F24E0630D0004A272 /* LaunchScreen.storyboard */,
 			);
 			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		C87E1D3C24E30BF80061E697 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C89B6B1124E08D84002CB028 /* Session.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,6 +309,7 @@
 				C865771B24E063940004A272 /* Friend.swift in Sources */,
 				C865773A24E063BD0004A272 /* MyGroupsViewController.swift in Sources */,
 				C865773024E063B30004A272 /* FriendPhotoViewController.swift in Sources */,
+				C89B6B1224E08D84002CB028 /* Session.swift in Sources */,
 				C865773124E063B30004A272 /* FriendLayout.swift in Sources */,
 				C865774D24E063DE0004A272 /* Animations.swift in Sources */,
 				C865773324E063B30004A272 /* ParticularFriendViewController.swift in Sources */,
