@@ -17,8 +17,6 @@ class VKLoginController: UIViewController {
         }
     }
     
-    let networkManager = NetworkManager()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,7 +35,6 @@ class VKLoginController: UIViewController {
         
         let request = URLRequest(url: components.url!)
         webView.load(request)
-        
     }
 }
 
@@ -69,13 +66,8 @@ extension VKLoginController: WKNavigationDelegate {
         
         Session.shared.token = token
         
-        //performSegue(withIdentifier: "Run the App", sender: nil)
-        
-        // Пример запроса групп (должен быть на соответствующем экране)
-        //NetworkService.shared.loadGroups(token: token)
-        
-        networkManager.loadGroups(token: Session.shared.token!)
-        
+        performSegue(withIdentifier: "RunTheApp", sender: nil)
+    
         decisionHandler(.cancel)
     }
 }

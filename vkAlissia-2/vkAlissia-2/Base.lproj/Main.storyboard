@@ -171,11 +171,28 @@
                     </view>
                     <connections>
                         <outlet property="webView" destination="dZo-fG-l7Z" id="qoq-fC-Jc4"/>
+                        <segue destination="HHm-1M-rTI" kind="show" identifier="RunTheApp" id="SoQ-bh-GMb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QXd-H9-7a0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-72" y="25"/>
+        </scene>
+        <!--App View Controller-->
+        <scene sceneID="0SP-gX-hFo">
+            <objects>
+                <viewController id="HHm-1M-rTI" customClass="AppViewController" customModule="vkAlissia_2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mCf-Ks-znz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="8os-1z-1Qr"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Bmo-lN-xrR"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gVz-Q8-SwY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="717" y="25"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="gTd-x4-kBr">
