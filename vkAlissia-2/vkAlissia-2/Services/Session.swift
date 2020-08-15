@@ -9,9 +9,9 @@
 import Foundation
 
 class Session {
-    private let userIdKey = "com.apple.vkalissia.user.id"
+    private let userIdKey = "com.apple.vkAlissia.user.id"
     
-    var token: String?
+    var token: String = ""
     var userId: Int {
         set {
             UserDefaults.standard.set(newValue, forKey: userIdKey)
