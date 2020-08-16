@@ -27,7 +27,6 @@ class AppViewController: UIViewController {
         //networkManager.getData(for: "groups", with: "search")
     }
     
-    
     @IBAction func printJsonButton(_ sender: Any) {
         print(jsonArray)
     }

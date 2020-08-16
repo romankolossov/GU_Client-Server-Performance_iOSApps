@@ -27,8 +27,8 @@ class VKLoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         removeCookies()
-        
         var components = URLComponents()
+        
         components.scheme = "https"
         components.host = "oauth.vk.com"
         components.path = "/authorize"

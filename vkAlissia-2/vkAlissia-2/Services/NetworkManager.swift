@@ -26,6 +26,7 @@ class NetworkManager {
     func getData(for method: String, with endPoint: String) {
         guard (method == "groups" || method == "friends" || method == "photos") && (endPoint == "get" || endPoint == "search") else { return }
         var urlConstructor = URLComponents()
+        
         urlConstructor.scheme = "https"
         urlConstructor.host = "api.vk.com"
         urlConstructor.path = "/method/\(method).\(endPoint)"
@@ -45,14 +46,24 @@ class NetworkManager {
         
         let dataTask = session.dataTask(with: request) { (data, response, error) in
             if let data = data {
+                
+                do {
+                    let groups = try JSONDecoder().decode([MyGroupCodable].self, from: data)
+                    print(groups.first ?? "")
+                } catch {
+                    print(error)
+                }
+                
                 if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) {
                     //print(json)
                     self.delegate?.saveJson(json)
                 }
+                
             } else if let error = error {
                 print(error.localizedDescription)
             }
         }
+        
         dataTask.resume()
     }
 }
