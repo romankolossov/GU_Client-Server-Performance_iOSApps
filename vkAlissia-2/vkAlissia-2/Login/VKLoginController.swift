@@ -17,8 +17,16 @@ class VKLoginController: UIViewController {
         }
     }
     
+    func removeCookies() {
+        let cookieJar = HTTPCookieStorage.shared
+        for cookie in cookieJar.cookies! {
+            cookieJar.deleteCookie(cookie)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        removeCookies()
         
         var components = URLComponents()
         components.scheme = "https"
