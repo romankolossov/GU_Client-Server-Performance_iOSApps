@@ -171,7 +171,7 @@
                     </view>
                     <connections>
                         <outlet property="webView" destination="dZo-fG-l7Z" id="qoq-fC-Jc4"/>
-                        <segue destination="HHm-1M-rTI" kind="show" identifier="RunTheApp" id="SoQ-bh-GMb"/>
+                        <segue destination="HHm-1M-rTI" kind="show" identifier="RunTheApp" id="gnm-g5-8gd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QXd-H9-7a0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

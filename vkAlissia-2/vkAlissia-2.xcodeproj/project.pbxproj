@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C81BCB9024E4825300095ECA /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81BCB8F24E4825300095ECA /* AppViewController.swift */; };
 		C865770524E0630B0004A272 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865770424E0630B0004A272 /* AppDelegate.swift */; };
 		C865770724E0630C0004A272 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865770624E0630C0004A272 /* SceneDelegate.swift */; };
 		C865770C24E0630C0004A272 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C865770A24E0630C0004A272 /* Main.storyboard */; };
@@ -38,12 +37,12 @@
 		C865774F24E064050004A272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C865774E24E064050004A272 /* Assets.xcassets */; };
 		C87E1D3E24E3492E0061E697 /* VKLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87E1D3D24E3492E0061E697 /* VKLoginController.swift */; };
 		C89B6B1224E08D84002CB028 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89B6B1124E08D84002CB028 /* Session.swift */; };
+		C89D765F24E91ECA00FDC697 /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D765E24E91ECA00FDC697 /* AppViewController.swift */; };
 		C8BB9D1E24E3548500B05FED /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8BB9D1D24E3548500B05FED /* WebKit.framework */; };
 		C8BB9D2224E35C9000B05FED /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BB9D2124E35C9000B05FED /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C81BCB8F24E4825300095ECA /* AppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
 		C865770124E0630B0004A272 /* vkAlissia-2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "vkAlissia-2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C865770424E0630B0004A272 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C865770624E0630C0004A272 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +75,7 @@
 		C865774E24E064050004A272 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C87E1D3D24E3492E0061E697 /* VKLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKLoginController.swift; sourceTree = "<group>"; };
 		C89B6B1124E08D84002CB028 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		C89D765E24E91ECA00FDC697 /* AppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
 		C8BB9D1D24E3548500B05FED /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C8BB9D2124E35C9000B05FED /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,7 +112,7 @@
 		C865770324E0630B0004A272 /* vkAlissia-2 */ = {
 			isa = PBXGroup;
 			children = (
-				C81BCB8F24E4825300095ECA /* AppViewController.swift */,
+				C89D765E24E91ECA00FDC697 /* AppViewController.swift */,
 				C865770A24E0630C0004A272 /* Main.storyboard */,
 				C865771824E063940004A272 /* Models */,
 				C865771D24E063A00004A272 /* Login */,
@@ -322,7 +322,7 @@
 				C865774024E063C40004A272 /* AllGroupsViewController.swift in Sources */,
 				C865772024E063A00004A272 /* GradientView.swift in Sources */,
 				C865774124E063C40004A272 /* GroupCell.swift in Sources */,
-				C81BCB9024E4825300095ECA /* AppViewController.swift in Sources */,
+				C89D765F24E91ECA00FDC697 /* AppViewController.swift in Sources */,
 				C865770724E0630C0004A272 /* SceneDelegate.swift in Sources */,
 				C865774C24E063DE0004A272 /* StarView.swift in Sources */,
 				C865774624E063CD0004A272 /* NewsCell.swift in Sources */,
