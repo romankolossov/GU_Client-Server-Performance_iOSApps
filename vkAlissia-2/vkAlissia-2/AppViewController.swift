@@ -24,28 +24,28 @@ class AppViewController: UIViewController {
     
     @IBAction func printJsonButton(_ sender: Any) {
         
-//        networkManager.loadGroups() {result in
-//            switch result {
-//            case let .success(groups):
-//                for group in groups {
-//                    print(group.name)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
-//
-//        networkManager.loadFriends() {result in
-//            switch result {
-//            case let .success(friends):
-//                for friend in friends {
-//                    print(friend.firstName)
-//                    print(friend.city)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
+        networkManager.loadGroups() {result in
+            switch result {
+            case let .success(groups):
+                for group in groups {
+                    print(group.name)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+
+        networkManager.loadFriends() {result in
+            switch result {
+            case let .success(friends):
+                for friend in friends {
+                    print(friend.firstName)
+                    print(friend.city)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
         
         networkManager.loadPhotos {result in
             switch result {

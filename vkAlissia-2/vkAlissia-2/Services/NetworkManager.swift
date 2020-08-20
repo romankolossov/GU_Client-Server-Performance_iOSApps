@@ -10,6 +10,13 @@ import Foundation
 
 class NetworkManager {
     
+    enum Method: String {
+        case groupsGet = "groups.get"
+        case friendsGet = "friends.get"
+        case photosGet = "photos.get"
+        case groupsSearch = "groups.searc"
+    }
+    
     private lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
         //configuration.allowsCellularAccess = false
@@ -20,25 +27,21 @@ class NetworkManager {
     let vkAPIVersion: String = "5.122"
     
     // MARK: - networkRequest
-    func networkRequest(for method: String, with endPoint: String, completion: ((Result<[Any], Error>) -> Void)? = nil) {
-        guard (method == "groups" || method == "friends" || method == "photos") && (endPoint == "get" || endPoint == "search") else {
-            print("error: argument(s) of the method networkRequest \(method) and(or) \(endPoint) is out of range")
-            return }
-        
+    func networkRequest(for method: Method, completion: ((Result<[Any], Error>) -> Void)? = nil) {
         var urlConstructor = URLComponents()
         urlConstructor.scheme = "https"
         urlConstructor.host = "api.vk.com"
-        urlConstructor.path = "/method/\(method).\(endPoint)"
+        urlConstructor.path = "/method/\(method.rawValue)"
         
         switch method {
-        case "groups":
+        case .groupsGet:
             urlConstructor.queryItems = [
                 URLQueryItem(name: "access_token", value: Session.shared.token),
                 URLQueryItem(name: "user_id", value: String(Session.shared.userId)),
                 URLQueryItem(name: "extended", value: "1"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
-        case "friends":
+        case .friendsGet:
             urlConstructor.queryItems = [
                 URLQueryItem(name: "access_token", value: Session.shared.token),
                 URLQueryItem(name: "user_id", value: String(Session.shared.userId)),
@@ -48,7 +51,7 @@ class NetworkManager {
                 URLQueryItem(name: "name_case", value: "nom"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
-        case "photos":
+        case .photosGet:
             urlConstructor.queryItems = [
                 URLQueryItem(name: "access_token", value: Session.shared.token),
                 URLQueryItem(name: "owner_id", value: "-1"),
@@ -60,7 +63,7 @@ class NetworkManager {
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
         default:
-            print("error: method \(method) is out of range")
+            print("error: \(method.rawValue) is out of range")
             return
         }
         
@@ -72,22 +75,22 @@ class NetworkManager {
         
         let dataTask = session.dataTask(with: request) { (data, response, error) in
             if let data = data {
-                switch (method, endPoint) {
-                case ("friends", "get"):
+                switch method {
+                case .friendsGet:
                     do {
                         let friends = try JSONDecoder().decode(FriendQuery.self, from: data).response.items
                         completion?(.success(friends))
                     } catch {
                         completion?(.failure(error))
                     }
-                case ("groups", "get"):
+                case .groupsGet:
                     do {
                         let groups = try JSONDecoder().decode(GroupQuery.self, from: data).response.items
                         completion?(.success(groups))
                     } catch {
                         completion?(.failure(error))
                     }
-                case ("photos", "get"):
+                case .photosGet:
                     do {
                         let photos = try JSONDecoder().decode(PhotoQuery.self, from: data).response.items
                         completion?(.success(photos))
@@ -95,7 +98,7 @@ class NetworkManager {
                         completion?(.failure(error))
                     }
                 default:
-                    print("error: method \(method) and(or) \(endPoint) is out of range")
+                    print("error: \(method.rawValue) is out of range")
                     return
                 }
             } else if let error = error {
@@ -108,7 +111,7 @@ class NetworkManager {
     
     // MARK: - loadFriends
     func loadFriends(completion: ((Result<[FriendItem], Error>) -> Void)? = nil) {
-        networkRequest(for: "friends", with: "get") {result in
+        networkRequest(for: .friendsGet) {result in
             switch result {
             case let .success(friends):
                 completion?(.success(friends as! [FriendItem]))
@@ -120,7 +123,7 @@ class NetworkManager {
     
     // MARK: - loadGroups
     func loadGroups(completion: ((Result<[GroupItem], Error>) -> Void)? = nil) {
-        networkRequest(for: "groups", with: "get") {result in
+        networkRequest(for: .groupsGet) {result in
             switch result {
             case let .success(groups):
                 completion?(.success(groups as! [GroupItem]))
@@ -132,7 +135,7 @@ class NetworkManager {
     
     // MARK: - loadPhotos
     func loadPhotos(completion: ((Result<[PhotoItem], Error>) -> Void)? = nil) {
-        networkRequest(for: "photos", with: "get") {result in
+        networkRequest(for: .photosGet) {result in
             switch result {
             case let .success(photos):
                 completion?(.success(photos as! [PhotoItem]))
