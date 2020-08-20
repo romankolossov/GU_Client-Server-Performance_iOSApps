@@ -11,30 +11,52 @@ import UIKit
 class AppViewController: UIViewController {
     
     let networkManager = NetworkManager()
-    var jsonArray: [Any] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        networkManager.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        networkManager.getData(for: "groups", with: "get")
-        //networkManager.getData(for: "friends", with: "get")
-        //networkManager.getData(for: "photos", with: "get")
-        //networkManager.getData(for: "groups", with: "search")
+       
     }
     
     @IBAction func printJsonButton(_ sender: Any) {
-        print(jsonArray)
-    }
-}
+        
+//        networkManager.loadGroups() {result in
+//            switch result {
+//            case let .success(groups):
+//                for group in groups {
+//                    print(group.name)
+//                }
+//            case let .failure(error):
+//                print(error)
+//            }
+//        }
+//
+//        networkManager.loadFriends() {result in
+//            switch result {
+//            case let .success(friends):
+//                for friend in friends {
+//                    print(friend.firstName)
+//                    print(friend.city)
+//                }
+//            case let .failure(error):
+//                print(error)
+//            }
+//        }
+        
+        networkManager.loadPhotos {result in
+            switch result {
+            case let .success(photos):
+                for photo in photos {
+                    print(photo.userID)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
 
-// MARK: NetworkManagerDelegate
-extension AppViewController: NetworkManagerDelegate {
-    func saveJson(_ json: Any) {
-        jsonArray.append(json)
     }
 }
