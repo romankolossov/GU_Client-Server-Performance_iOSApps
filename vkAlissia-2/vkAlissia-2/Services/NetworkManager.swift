@@ -37,14 +37,14 @@ class NetworkManager {
         case .groupsGet:
             urlConstructor.queryItems = [
                 URLQueryItem(name: "access_token", value: Session.shared.token),
-                URLQueryItem(name: "user_id", value: String(Session.shared.userId)),
+                URLQueryItem(name: "user_id", value: "\(Session.shared.userId)"),
                 URLQueryItem(name: "extended", value: "1"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
         case .friendsGet:
             urlConstructor.queryItems = [
                 URLQueryItem(name: "access_token", value: Session.shared.token),
-                URLQueryItem(name: "user_id", value: String(Session.shared.userId)),
+                URLQueryItem(name: "user_id", value: "\(Session.shared.userId)"),
                 URLQueryItem(name: "order", value: "random"),
                 URLQueryItem(name: "offset", value: "5"),
                 URLQueryItem(name: "fields", value: "city,country,domain"),
