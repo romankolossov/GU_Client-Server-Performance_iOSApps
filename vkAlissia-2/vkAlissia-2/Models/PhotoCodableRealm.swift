@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 // MARK: - PhotoQuery
 struct PhotoQuery: Codable {
@@ -21,7 +22,8 @@ struct PhotoResponse: Codable {
 
 // MARK: - PhotoItem
 struct PhotoItem: Codable {
-    let id, albumID, ownerID, userID: Int
+    let id, albumID, ownerID: Int
+    let userID: Int?
     let sizes: [Size]
     let text: String
     let date: Int

@@ -54,8 +54,8 @@ class NetworkManager {
         case .photosGet:
             urlConstructor.queryItems = [
                 URLQueryItem(name: "access_token", value: Session.shared.token),
-                URLQueryItem(name: "owner_id", value: "-1"),
-                //URLQueryItem(name: "owner_id", value: String(Session.shared.userId)),
+                //URLQueryItem(name: "owner_id", value: "-1"),
+                URLQueryItem(name: "owner_id", value: String(Session.shared.userId)),
                 URLQueryItem(name: "album_id", value: "profile"),
                 URLQueryItem(name: "rev", value: "0"),
                 URLQueryItem(name: "offset", value: "0"),

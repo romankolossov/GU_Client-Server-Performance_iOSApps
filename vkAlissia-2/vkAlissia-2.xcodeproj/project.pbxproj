@@ -44,7 +44,6 @@
 		C89D766924EE4EC500FDC697 /* FriendCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */; };
 		C8BB9D1E24E3548500B05FED /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8BB9D1D24E3548500B05FED /* WebKit.framework */; };
 		C8BB9D2224E35C9000B05FED /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BB9D2124E35C9000B05FED /* NetworkManager.swift */; };
-		C8E4BE6024F05C1A00C7DDC4 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E4BE5F24F05C1A00C7DDC4 /* Realm.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,7 +91,6 @@
 		C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCodableRealm.swift; sourceTree = "<group>"; };
 		C8BB9D1D24E3548500B05FED /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C8BB9D2124E35C9000B05FED /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		C8E4BE5F24F05C1A00C7DDC4 /* Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,7 +161,6 @@
 				C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */,
 				C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */,
 				C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */,
-				C8E4BE5F24F05C1A00C7DDC4 /* Realm.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -406,7 +403,6 @@
 				C865770724E0630C0004A272 /* SceneDelegate.swift in Sources */,
 				C865774C24E063DE0004A272 /* StarView.swift in Sources */,
 				C865774624E063CD0004A272 /* NewsCell.swift in Sources */,
-				C8E4BE6024F05C1A00C7DDC4 /* Realm.swift in Sources */,
 				C865773924E063BD0004A272 /* MyGroupCell.swift in Sources */,
 				C865771C24E063940004A272 /* Group.swift in Sources */,
 				C865771B24E063940004A272 /* Friend.swift in Sources */,

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 // MARK: - GroupQuery
 struct GroupQuery: Codable {

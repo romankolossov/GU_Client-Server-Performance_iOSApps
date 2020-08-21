@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 // MARK: - FriendQuery
 struct FriendQuery: Codable {

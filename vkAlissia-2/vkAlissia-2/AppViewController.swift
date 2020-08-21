@@ -51,7 +51,7 @@ class AppViewController: UIViewController {
             switch result {
             case let .success(photos):
                 for photo in photos {
-                    print(photo.userID)
+                    print(photo.ownerID)
                 }
             case let .failure(error):
                 print(error)
