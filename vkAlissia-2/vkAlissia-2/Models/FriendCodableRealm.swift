@@ -21,11 +21,13 @@ struct FriendResponse: Codable {
 }
 
 // MARK: - FriendItem
-struct FriendItem: Codable {
-    let id: Int
-    let firstName, lastName, domain: String
+class FriendItem: Codable {
+    @objc dynamic var id: Int = 0
+    @objc dynamic var firstName: String = ""
+    @objc dynamic var lastName: String = ""
+    @objc dynamic var domain: String = ""
     let city: City
-    let online: Int
+    @objc dynamic var online: Int = 0
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -34,14 +36,14 @@ struct FriendItem: Codable {
         case domain, city, online
     }
     
-    init(from decoder: Decoder) throws {
+    required convenience init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let id = try container.decode(Int.self, forKey: .id)
-        let firstName = try container.decode(String.self, forKey: .firstName)
-        let lastName = try container.decode(String.self, forKey: .lastName)
-        let domain = try container.decode(String.self, forKey: .domain)
-        let city = try container.decode(City.self, forKey: .city)
-        let online = try container.decode(Int.self, forKey: .online)
+        let id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        let firstName = try container.decodeIfPresent(String.self, forKey: .firstName) ?? ""
+        let lastName = try container.decodeIfPresent(String.self, forKey: .lastName) ?? ""
+        let domain = try container.decodeIfPresent(String.self, forKey: .domain) ?? ""
+        let city = try container.decodeIfPresent(City.self, forKey: .city) ?? City(id: 0, title: "")
+        let online = try container.decodeIfPresent(Int.self, forKey: .online) ?? 0
         
         self.init(id: id, firstName: firstName, lastName: lastName, domain: domain, city: city, online: online)
     }
