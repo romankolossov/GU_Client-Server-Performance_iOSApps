@@ -21,12 +21,12 @@ struct FriendResponse: Codable {
 }
 
 // MARK: - FriendItem
-class FriendItem: Codable {
+class FriendItem: Object, Codable {
     @objc dynamic var id: Int = 0
     @objc dynamic var firstName: String = ""
     @objc dynamic var lastName: String = ""
     @objc dynamic var domain: String = ""
-    let city: City
+    @objc dynamic var city: City?
     @objc dynamic var online: Int = 0
 
     enum CodingKeys: String, CodingKey {
@@ -48,7 +48,8 @@ class FriendItem: Codable {
         self.init(id: id, firstName: firstName, lastName: lastName, domain: domain, city: city, online: online)
     }
     
-    init(id: Int, firstName: String, lastName: String, domain: String, city: City, online: Int) {
+    convenience init(id: Int, firstName: String, lastName: String, domain: String, city: City, online: Int) {
+        self.init()
         self.id = id
         self.firstName = firstName
         self.lastName = lastName
@@ -56,10 +57,30 @@ class FriendItem: Codable {
         self.city = city
         self.online = online
     }
+    
+    required init() {
+    }
 }
 
 // MARK: - City
-struct City: Codable {
-    let id: Int
-    let title: String
+class City: Object, Codable {
+    @objc dynamic var id: Int = 0
+    @objc dynamic var title: String = ""
+    
+    required convenience init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        let title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
+        
+        self.init(id: id, title: title)
+    }
+    
+    convenience init(id: Int, title: String) {
+        self.init()
+        self.id = id
+        self.title = title
+    }
+    
+    required init() {
+    }
 }

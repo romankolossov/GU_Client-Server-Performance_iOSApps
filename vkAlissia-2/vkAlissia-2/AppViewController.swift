@@ -40,7 +40,7 @@ class AppViewController: UIViewController {
             case let .success(friends):
                 for friend in friends {
                     print(friend.firstName)
-                    print(friend.city)
+                    print(friend.city!)
                 }
             case let .failure(error):
                 print(error)
