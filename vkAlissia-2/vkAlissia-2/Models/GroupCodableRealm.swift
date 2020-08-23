@@ -21,7 +21,7 @@ struct GroupResponse: Codable {
 }
 
 // MARK: - GroupItem
-class GroupItem: Codable {
+class GroupItem: Object, Codable {
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
     @objc dynamic var screenName: String = ""
@@ -64,7 +64,8 @@ class GroupItem: Codable {
         self.init(id: id, name: name, screenName: screenName, isClosed: isClosed, type: type, isAdmin: isAdmin, isMember: isMember, isAdvertiser: isAdvertiser, photo50: photo50, photo100: photo100, photo200: photo200)
     }
     
-    init(id: Int, name: String, screenName: String, isClosed: Int, type: String, isAdmin: Int, isMember: Int, isAdvertiser: Int, photo50: String, photo100: String, photo200: String) {
+    convenience init(id: Int, name: String, screenName: String, isClosed: Int, type: String, isAdmin: Int, isMember: Int, isAdvertiser: Int, photo50: String, photo100: String, photo200: String) {
+        self.init()
         self.id = id
         self.name = name
         self.screenName = screenName
@@ -76,5 +77,9 @@ class GroupItem: Codable {
         self.photo50 = photo50
         self.photo100 = photo100
         self.photo200 = photo200
+    }
+    
+    required init() {
+        super.init()
     }
 }

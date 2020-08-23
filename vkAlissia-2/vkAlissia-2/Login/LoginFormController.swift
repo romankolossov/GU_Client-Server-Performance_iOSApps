@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 class LoginFormController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
@@ -25,6 +26,36 @@ class LoginFormController: UIViewController {
     @IBOutlet weak var starView: StarView!
     
     var interactiveAnimator: UIViewPropertyAnimator!
+    
+    @IBOutlet var webView: WKWebView! {
+        didSet {
+            webView.navigationDelegate = self
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        removeCookies()
+        var components = URLComponents()
+        
+        components.scheme = "https"
+        components.host = "oauth.vk.com"
+        components.path = "/authorize"
+        components.queryItems = [
+            URLQueryItem(name: "client_id", value: "7564683"),
+            URLQueryItem(name: "scope", value: "262150"),
+            URLQueryItem(name: "display", value: "mobile"),
+            URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
+            URLQueryItem(name: "response_type", value: "token"),
+            URLQueryItem(name: "v", value: "5.122")
+        ]
+        
+        let request = URLRequest(url: components.url!)
+        webView.load(request)
+        
+        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
+        view.addGestureRecognizer(recognizer)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -77,13 +108,7 @@ class LoginFormController: UIViewController {
         starView.animate()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
-        view.addGestureRecognizer(recognizer)
-    }
-    
+    // MARK: - @objc funcs
     @objc func onPan (_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began:
@@ -131,6 +156,7 @@ class LoginFormController: UIViewController {
         scrollView.endEditing(true)
     }
     
+    // MARK: - regular funcs
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -138,6 +164,13 @@ class LoginFormController: UIViewController {
             UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name:
             UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func removeCookies() {
+        let cookieJar = HTTPCookieStorage.shared
+        for cookie in cookieJar.cookies! {
+            cookieJar.deleteCookie(cookie)
+        }
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -173,6 +206,7 @@ class LoginFormController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    // MARK: - animations
     func animateTitleAppearing() {
         let offset = abs (loginLabel.frame.midY - passwordLabel.frame.midY)
         
@@ -288,5 +322,43 @@ class LoginFormController: UIViewController {
         heartLabelA.layer.add(animation, forKey: nil)
         heartLabelB.layer.add(animation, forKey: nil)
         heartLabelC.layer.add(animation, forKey: nil)
+    }
+}
+
+// MARK: - WKNavigationDelegate
+extension LoginFormController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        guard let url = navigationResponse.response.url,
+                url.path == "/blank.html",
+                let fragment = url.fragment else { decisionHandler(.allow); return }
+            
+            let params = fragment
+                .components(separatedBy: "&")
+                .map { $0.components(separatedBy: "=") }
+                .reduce([String: String]()) { result, param in
+                    var dict = result
+                    let key = param[0]
+                    let value = param[1]
+                    dict[key] = value
+                    return dict
+            }
+            
+            #if DEBUG
+            print(params)
+            #endif
+            
+            guard let token = params["access_token"],
+                let userIdString = params["user_id"],
+                let userID = Int(userIdString) else {
+                    decisionHandler(.allow)
+                    return
+            }
+            
+            Session.shared.token = token
+            Session.shared.userId = userID
+            
+            //performSegue(withIdentifier: "RunTheApp", sender: nil)
+        
+            decisionHandler(.cancel)
     }
 }

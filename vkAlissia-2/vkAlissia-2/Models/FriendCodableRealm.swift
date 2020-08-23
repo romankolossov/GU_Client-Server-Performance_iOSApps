@@ -59,6 +59,7 @@ class FriendItem: Object, Codable {
     }
     
     required init() {
+        super.init()
     }
 }
 
@@ -82,5 +83,6 @@ class City: Object, Codable {
     }
     
     required init() {
+        super.init()
     }
 }
