@@ -9,15 +9,14 @@
 import Foundation
 import RealmSwift
 
-class FriendData {
+struct FriendData {
     let friendName: String
-    var friendAvatar: UIImage?
+    var friendAvatarString: String
     var favorireImages: [UIImage] = []
     
     init(friendItem: FriendItem) {
         self.friendName = friendItem.firstName
-        //self.friendAvatar = friendAvatar
-        //self.favorireImages = favoriteImages
+        self.friendAvatarString = friendItem.photo50
     }
 }
 
@@ -38,6 +37,7 @@ class FriendItem: Object, Codable {
     @objc dynamic var firstName: String = ""
     @objc dynamic var lastName: String = ""
     @objc dynamic var domain: String = ""
+    @objc dynamic var photo50: String = ""
     @objc dynamic var city: City?
     @objc dynamic var online: Int = 0
 
@@ -45,6 +45,7 @@ class FriendItem: Object, Codable {
         case id
         case firstName = "first_name"
         case lastName = "last_name"
+        case photo50 = "photo_50"
         case domain, city, online
     }
     
@@ -54,18 +55,20 @@ class FriendItem: Object, Codable {
         let firstName = try container.decodeIfPresent(String.self, forKey: .firstName) ?? ""
         let lastName = try container.decodeIfPresent(String.self, forKey: .lastName) ?? ""
         let domain = try container.decodeIfPresent(String.self, forKey: .domain) ?? ""
+        let photo50 = try container.decodeIfPresent(String.self, forKey: .photo50) ?? ""
         let city = try container.decodeIfPresent(City.self, forKey: .city) ?? City(id: 0, title: "")
         let online = try container.decodeIfPresent(Int.self, forKey: .online) ?? 0
         
-        self.init(id: id, firstName: firstName, lastName: lastName, domain: domain, city: city, online: online)
+        self.init(id: id, firstName: firstName, lastName: lastName, domain: domain, photo50: photo50, city: city, online: online)
     }
     
-    convenience init(id: Int, firstName: String, lastName: String, domain: String, city: City, online: Int) {
+    convenience init(id: Int, firstName: String, lastName: String, domain: String, photo50: String, city: City, online: Int) {
         self.init()
         self.id = id
         self.firstName = firstName
         self.lastName = lastName
         self.domain = domain
+        self.photo50 = photo50
         self.city = city
         self.online = online
     }

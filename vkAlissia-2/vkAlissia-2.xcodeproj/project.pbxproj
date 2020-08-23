@@ -12,7 +12,6 @@
 		C865770724E0630C0004A272 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865770624E0630C0004A272 /* SceneDelegate.swift */; };
 		C865770C24E0630C0004A272 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C865770A24E0630C0004A272 /* Main.storyboard */; };
 		C865771124E0630D0004A272 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C865770F24E0630D0004A272 /* LaunchScreen.storyboard */; };
-		C865771B24E063940004A272 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865771924E063940004A272 /* Friend.swift */; };
 		C865771C24E063940004A272 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865771A24E063940004A272 /* Group.swift */; };
 		C865772024E063A00004A272 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865771E24E063A00004A272 /* GradientView.swift */; };
 		C865772124E063A00004A272 /* LoginFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865771F24E063A00004A272 /* LoginFormController.swift */; };
@@ -59,7 +58,6 @@
 		C865770B24E0630C0004A272 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C865771024E0630D0004A272 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C865771224E0630D0004A272 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C865771924E063940004A272 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		C865771A24E063940004A272 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		C865771E24E063A00004A272 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		C865771F24E063A00004A272 /* LoginFormController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginFormController.swift; sourceTree = "<group>"; };
@@ -156,7 +154,6 @@
 		C865771824E063940004A272 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C865771924E063940004A272 /* Friend.swift */,
 				C865771A24E063940004A272 /* Group.swift */,
 				C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */,
 				C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */,
@@ -405,7 +402,6 @@
 				C865774624E063CD0004A272 /* NewsCell.swift in Sources */,
 				C865773924E063BD0004A272 /* MyGroupCell.swift in Sources */,
 				C865771C24E063940004A272 /* Group.swift in Sources */,
-				C865771B24E063940004A272 /* Friend.swift in Sources */,
 				C89D766524EE2F0300FDC697 /* PhotoCodableRealm.swift in Sources */,
 				C865773A24E063BD0004A272 /* MyGroupsViewController.swift in Sources */,
 				C865773024E063B30004A272 /* FriendPhotoViewController.swift in Sources */,

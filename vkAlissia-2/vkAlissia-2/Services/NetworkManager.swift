@@ -47,7 +47,7 @@ class NetworkManager {
                 URLQueryItem(name: "user_id", value: "\(Session.shared.userId)"),
                 URLQueryItem(name: "order", value: "random"),
                 URLQueryItem(name: "offset", value: "5"),
-                URLQueryItem(name: "fields", value: "city,country,domain"),
+                URLQueryItem(name: "fields", value: "city,country,domain,photo_50"),
                 URLQueryItem(name: "name_case", value: "nom"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]

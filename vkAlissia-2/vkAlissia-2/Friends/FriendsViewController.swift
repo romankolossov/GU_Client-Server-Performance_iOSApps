@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 var favoriteImages: [UIImage] = [
     UIImage(named: "Alissia0")!,
@@ -55,17 +56,29 @@ class FriendsViewController: UIViewController {
         tableView.delegate = self
         
         networkManager.loadFriends() {result in
+            var friends: Array<FriendData> = []
             switch result {
-            case let .success(friendsDataLoaded):
-                for friend in friendsDataLoaded {
-                    self.friends.append(FriendData(friendItem: friend))
-                    //print(friend.firstName)
-                    //print(friend.city!)
+            case let .success(friendItems):
+                for item in friendItems {
+                    let friend = FriendData(friendItem: item)
+                    friends.append(friend)
+                    #if DEBUG
+                    print(friend.friendName)
+                    print(friend.friendAvatarString)
+                    #endif
                 }
             case let .failure(error):
                 print(error)
             }
+            self.friends = friends
+            #if DEBUG
+            print(self.friends)
+            #endif
         }
+        
+        #if DEBUG
+        print(self.friends)
+        #endif
         
         for friend in friends {
             let firstLetter = friend.friendName.first!
@@ -118,7 +131,8 @@ extension FriendsViewController: UITableViewDataSource {
         guard  let friend = sections[sectionTitles[indexPath.section]]? [indexPath.row] else { fatalError() }
         
         cell.nameLabel.text = friend.friendName
-        cell.friendAvatarView.image = friend.friendAvatar
+        cell.friendAvatarView.sd_setImage(with: URL(string: friend.friendAvatarString), completed: nil)
+        //cell.friendAvatarView.image = friend.friendAvatar
         cell.favoriteImages = friend.favorireImages
         
         return cell
