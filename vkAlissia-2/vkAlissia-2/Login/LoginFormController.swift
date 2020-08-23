@@ -344,7 +344,7 @@ extension LoginFormController: WKNavigationDelegate {
             }
             
             #if DEBUG
-            print(params)
+            print(params, "\n")
             #endif
             
             guard let token = params["access_token"],

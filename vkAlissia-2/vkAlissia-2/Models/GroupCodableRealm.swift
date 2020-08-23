@@ -9,6 +9,16 @@
 import Foundation
 import RealmSwift
 
+struct GroupData {
+    let groupName: String
+    var groupAvatarString: String
+    
+    init(groupItem: GroupItem) {
+        self.groupName = groupItem.name
+        self.groupAvatarString = groupItem.photo50
+    }
+}
+
 // MARK: - GroupQuery
 struct GroupQuery: Codable {
     let response: GroupResponse

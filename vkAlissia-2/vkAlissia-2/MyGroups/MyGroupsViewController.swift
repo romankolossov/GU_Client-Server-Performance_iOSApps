@@ -7,18 +7,44 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MyGroupsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var myGroups: [GroupData] = [
-        GroupData(groupName: "Test Group", groupAvatar: UIImage(named: "Acura")!)
-    ]
+    var myGroups: [GroupData] = []
+    let networkManager = NetworkManager()
+    
+//    var myGroups: [GroupData] = [
+//        GroupData(groupName: "Test Group", groupAvatar: UIImage(named: "Acura")!)
+//    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        
+        networkManager.loadGroups() {result in
+            var groups: [GroupData] = []
+            switch result {
+            case let .success(groupItems):
+                for item in groupItems {
+                    let group = GroupData(groupItem: item)
+                    groups.append(group)
+                    #if DEBUG
+                    print(group.groupName)
+                    print(group.groupAvatarString, "\n")
+                    #endif
+                }
+            case let .failure(error):
+                print(error)
+            }
+            self.myGroups = groups
+        }
+        
+        #if DEBUG
+        print(self.myGroups, "\n")
+        #endif
         
         tableView.register(UINib(nibName: "MyGroupCell", bundle: Bundle.main), forCellReuseIdentifier: "MyGroupCell")
     }
@@ -44,7 +70,8 @@ extension MyGroupsViewController: UITableViewDataSource {
         let group = myGroups[indexPath.row]
         
         cell.myGroupNameLabel.text = group.groupName
-        cell.myGroupAvatarView.image = group.groupAvatar
+        cell.myGroupAvatarView.sd_setImage(with: URL(string: group.groupAvatarString), completed: nil)
+        //cell.myGroupAvatarView.image = group.groupAvatar
         
         return cell
     }

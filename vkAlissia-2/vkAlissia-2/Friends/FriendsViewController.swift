@@ -64,20 +64,17 @@ class FriendsViewController: UIViewController {
                     friends.append(friend)
                     #if DEBUG
                     print(friend.friendName)
-                    print(friend.friendAvatarString)
+                    print(friend.friendAvatarString, "\n")
                     #endif
                 }
             case let .failure(error):
                 print(error)
             }
             self.friends = friends
-            #if DEBUG
-            print(self.friends)
-            #endif
         }
         
         #if DEBUG
-        print(self.friends)
+        print(self.friends, "\n")
         #endif
         
         for friend in friends {
