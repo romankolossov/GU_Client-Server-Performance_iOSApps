@@ -158,9 +158,9 @@
 			children = (
 				C865771924E063940004A272 /* Friend.swift */,
 				C865771A24E063940004A272 /* Group.swift */,
-				C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */,
-				C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */,
 				C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */,
+				C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */,
+				C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

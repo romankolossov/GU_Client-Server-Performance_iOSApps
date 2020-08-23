@@ -27,29 +27,45 @@ var favoriteImages: [UIImage] = [
 class FriendsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var friends: Array<FriendData> = [
-        FriendData(friendName: "Алиска", friendAvatar: UIImage(named: "Alissia0")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Барсика", friendAvatar: UIImage(named: "Alissia1")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Василиса", friendAvatar: UIImage(named: "Alissia2")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Стеша", friendAvatar: UIImage(named: "Alissia3")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Пушок", friendAvatar: UIImage(named: "Alissia4")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Фекла", friendAvatar: UIImage(named: "Alissia5")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Маруська", friendAvatar: UIImage(named: "Alissia6")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Мурка", friendAvatar: UIImage(named: "Alissia7")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Счастливчик", friendAvatar: UIImage(named: "Alissia8")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Забияка", friendAvatar: UIImage(named: "Alissia9")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Мурлыка", friendAvatar: UIImage(named: "Alissia10")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Принцесса", friendAvatar: UIImage(named: "Alissia11")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Софочка", friendAvatar: UIImage(named: "Alissia12")!, favoriteImages: favoriteImages.shuffled())
-    ]
+    var friends: Array<FriendData> = []
+    
+//    var friends: Array<FriendData> = [
+//        FriendData(friendName: "Алиска", friendAvatar: UIImage(named: "Alissia0")!, favoriteImages: favoriteImages.shuffled()),
+//        FriendData(friendName: "Барсика", friendAvatar: UIImage(named: "Alissia1")!, favoriteImages: favoriteImages.shuffled()),
+//        FriendData(friendName: "Василиса", friendAvatar: UIImage(named: "Alissia2")!, favoriteImages: favoriteImages.shuffled()),
+//        FriendData(friendName: "Стеша", friendAvatar: UIImage(named: "Alissia3")!, favoriteImages: favoriteImages.shuffled()),
+//        FriendData(friendName: "Пушок", friendAvatar: UIImage(named: "Alissia4")!, favoriteImages: favoriteImages.shuffled()),
+//        FriendData(friendName: "Фекла", friendAvatar: UIImage(named: "Alissia5")!, favoriteImages: favoriteImages.shuffled()),
+//        FriendData(friendName: "Маруська", friendAvatar: UIImage(named: "Alissia6")!, favoriteImages: favoriteImages.shuffled()),
+//        FriendData(friendName: "Мурка", friendAvatar: UIImage(named: "Alissia7")!, favoriteImages: favoriteImages.shuffled()),
+//        FriendData(friendName: "Счастливчик", friendAvatar: UIImage(named: "Alissia8")!, favoriteImages: favoriteImages.shuffled()),
+//        FriendData(friendName: "Забияка", friendAvatar: UIImage(named: "Alissia9")!, favoriteImages: favoriteImages.shuffled()),
+//        FriendData(friendName: "Мурлыка", friendAvatar: UIImage(named: "Alissia10")!, favoriteImages: favoriteImages.shuffled()),
+//        FriendData(friendName: "Принцесса", friendAvatar: UIImage(named: "Alissia11")!, favoriteImages: favoriteImages.shuffled()),
+//        FriendData(friendName: "Софочка", friendAvatar: UIImage(named: "Alissia12")!, favoriteImages: favoriteImages.shuffled())
+//    ]
     
     var sections: [Character: [FriendData]] = [:]
     var sectionTitles = [Character]()
+    let networkManager = NetworkManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        
+        networkManager.loadFriends() {result in
+            switch result {
+            case let .success(friendsDataLoaded):
+                for friend in friendsDataLoaded {
+                    self.friends.append(FriendData(friendItem: friend))
+                    //print(friend.firstName)
+                    //print(friend.city!)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
         
         for friend in friends {
             let firstLetter = friend.friendName.first!

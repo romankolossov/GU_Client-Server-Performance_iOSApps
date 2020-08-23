@@ -9,6 +9,18 @@
 import Foundation
 import RealmSwift
 
+class FriendData {
+    let friendName: String
+    var friendAvatar: UIImage?
+    var favorireImages: [UIImage] = []
+    
+    init(friendItem: FriendItem) {
+        self.friendName = friendItem.firstName
+        //self.friendAvatar = friendAvatar
+        //self.favorireImages = favoriteImages
+    }
+}
+
 // MARK: - FriendQuery
 struct FriendQuery: Codable {
     let response: FriendResponse
