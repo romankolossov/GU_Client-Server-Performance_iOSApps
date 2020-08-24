@@ -10,6 +10,13 @@ import Foundation
 
 class NetworkManager {
     
+    enum Method: String {
+        case groupsGet = "groups.get"
+        case friendsGet = "friends.get"
+        case photosGet = "photos.get"
+        case groupsSearch = "groups.searc"
+    }
+    
     private lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
         //configuration.allowsCellularAccess = false
@@ -17,17 +24,48 @@ class NetworkManager {
         return session
     }()
     
-    func getData(for method: String) {
-        guard method == "groups" || method == "friends" || method == "photos" else { return }
+    let vkAPIVersion: String = "5.122"
+    
+    // MARK: - networkRequest
+    func networkRequest(for method: Method, completion: ((Result<[Any], Error>) -> Void)? = nil) {
         var urlConstructor = URLComponents()
-               urlConstructor.scheme = "https"
-               urlConstructor.host = "api.vk.com"
-               urlConstructor.path = "/method/\(method).get"
-               urlConstructor.queryItems = [
+        urlConstructor.scheme = "https"
+        urlConstructor.host = "api.vk.com"
+        urlConstructor.path = "/method/\(method.rawValue)"
+        
+        switch method {
+        case .groupsGet:
+            urlConstructor.queryItems = [
                 URLQueryItem(name: "access_token", value: Session.shared.token),
-                   URLQueryItem(name: "extended", value: "1"),
-                   URLQueryItem(name: "v", value: "5.122")
-               ]
+                URLQueryItem(name: "user_id", value: String(Session.shared.userId)),
+                URLQueryItem(name: "extended", value: "1"),
+                URLQueryItem(name: "v", value: vkAPIVersion)
+            ]
+        case .friendsGet:
+            urlConstructor.queryItems = [
+                URLQueryItem(name: "access_token", value: Session.shared.token),
+                URLQueryItem(name: "user_id", value: String(Session.shared.userId)),
+                URLQueryItem(name: "order", value: "random"),
+                URLQueryItem(name: "offset", value: "5"),
+                URLQueryItem(name: "fields", value: "city,country,domain"),
+                URLQueryItem(name: "name_case", value: "nom"),
+                URLQueryItem(name: "v", value: vkAPIVersion)
+            ]
+        case .photosGet:
+            urlConstructor.queryItems = [
+                URLQueryItem(name: "access_token", value: Session.shared.token),
+                URLQueryItem(name: "owner_id", value: "-1"),
+                //URLQueryItem(name: "owner_id", value: String(Session.shared.userId)),
+                URLQueryItem(name: "album_id", value: "profile"),
+                URLQueryItem(name: "rev", value: "0"),
+                URLQueryItem(name: "offset", value: "0"),
+                URLQueryItem(name: "count", value: "3"),
+                URLQueryItem(name: "v", value: vkAPIVersion)
+            ]
+        default:
+            print("error: \(method.rawValue) is out of range")
+            return
+        }
         
         guard let url = urlConstructor.url else { return }
         
@@ -37,13 +75,73 @@ class NetworkManager {
         
         let dataTask = session.dataTask(with: request) { (data, response, error) in
             if let data = data {
-                if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) {
-                    print(json)
+                switch method {
+                case .friendsGet:
+                    do {
+                        let friends = try JSONDecoder().decode(FriendQuery.self, from: data).response.items
+                        completion?(.success(friends))
+                    } catch {
+                        completion?(.failure(error))
+                    }
+                case .groupsGet:
+                    do {
+                        let groups = try JSONDecoder().decode(GroupQuery.self, from: data).response.items
+                        completion?(.success(groups))
+                    } catch {
+                        completion?(.failure(error))
+                    }
+                case .photosGet:
+                    do {
+                        let photos = try JSONDecoder().decode(PhotoQuery.self, from: data).response.items
+                        completion?(.success(photos))
+                    } catch {
+                        completion?(.failure(error))
+                    }
+                default:
+                    print("error: \(method.rawValue) is out of range")
+                    return
                 }
             } else if let error = error {
-                print(error.localizedDescription)
+                completion?(.failure(error))
             }
         }
+        
         dataTask.resume()
+    }
+    
+    // MARK: - loadFriends
+    func loadFriends(completion: ((Result<[FriendItem], Error>) -> Void)? = nil) {
+        networkRequest(for: .friendsGet) {result in
+            switch result {
+            case let .success(friends):
+                completion?(.success(friends as! [FriendItem]))
+            case let .failure(error):
+                completion?(.failure(error))
+            }
+        }
+    }
+    
+    // MARK: - loadGroups
+    func loadGroups(completion: ((Result<[GroupItem], Error>) -> Void)? = nil) {
+        networkRequest(for: .groupsGet) {result in
+            switch result {
+            case let .success(groups):
+                completion?(.success(groups as! [GroupItem]))
+            case let .failure(error):
+                completion?(.failure(error))
+            }
+        }
+    }
+    
+    // MARK: - loadPhotos
+    func loadPhotos(completion: ((Result<[PhotoItem], Error>) -> Void)? = nil) {
+        networkRequest(for: .photosGet) {result in
+            switch result {
+            case let .success(photos):
+                completion?(.success(photos as! [PhotoItem]))
+            case let .failure(error):
+                completion?(.failure(error))
+            }
+        }
     }
 }

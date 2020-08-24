@@ -17,10 +17,18 @@ class VKLoginController: UIViewController {
         }
     }
     
+    func removeCookies() {
+        let cookieJar = HTTPCookieStorage.shared
+        for cookie in cookieJar.cookies! {
+            cookieJar.deleteCookie(cookie)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        removeCookies()
         var components = URLComponents()
+        
         components.scheme = "https"
         components.host = "oauth.vk.com"
         components.path = "/authorize"
@@ -38,6 +46,7 @@ class VKLoginController: UIViewController {
     }
 }
 
+// MARK: - WKNavigationDelegate
 extension VKLoginController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         guard let url = navigationResponse.response.url,
@@ -59,12 +68,13 @@ extension VKLoginController: WKNavigationDelegate {
         
         guard let token = params["access_token"],
             let userIdString = params["user_id"],
-            let _ = Int(userIdString) else {
+            let userID = Int(userIdString) else {
                 decisionHandler(.allow)
                 return
         }
         
         Session.shared.token = token
+        Session.shared.userId = userID
         
         performSegue(withIdentifier: "RunTheApp", sender: nil)
     
