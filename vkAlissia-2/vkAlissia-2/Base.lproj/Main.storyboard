@@ -73,10 +73,10 @@
                                         </constraints>
                                     </view>
                                     <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nli-7h-D6y">
-                                        <rect key="frame" x="0.0" y="730" width="414" height="88"/>
+                                        <rect key="frame" x="0.0" y="18" width="414" height="800"/>
                                         <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="88" id="1CD-dy-xDw"/>
+                                            <constraint firstAttribute="height" constant="800" id="1CD-dy-xDw"/>
                                         </constraints>
                                         <wkWebViewConfiguration key="configuration">
                                             <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>

@@ -55,41 +55,6 @@ class FriendsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        networkManager.loadFriends() {result in
-            var friends: Array<FriendData> = []
-            switch result {
-            case let .success(friendItems):
-                for item in friendItems {
-                    let friend = FriendData(friendItem: item)
-                    friends.append(friend)
-                    #if DEBUG
-                    print(friend.friendName)
-                    print(friend.friendAvatarString, "\n")
-                    #endif
-                }
-            case let .failure(error):
-                print(error)
-            }
-            self.friends = friends
-        }
-        
-        #if DEBUG
-        print(self.friends, "\n")
-        #endif
-        
-        for friend in friends {
-            let firstLetter = friend.friendName.first!
-            
-            if sections[firstLetter] != nil {
-                sections[firstLetter]?.append(friend)
-            } else {
-                sections[firstLetter] = [friend]
-            }
-        }
-        
-        sectionTitles = Array(sections.keys)
-        sectionTitles.sort()
-        
         tableView.register(UINib(nibName: "FriendCell", bundle: Bundle.main), forCellReuseIdentifier: "FriendCell")
     }
     
@@ -103,6 +68,44 @@ class FriendsViewController: UIViewController {
 //        }
 //    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super .viewWillAppear(animated)
+        
+        networkManager.loadFriends() { [weak self] result in
+                   var friends: Array<FriendData> = []
+                   switch result {
+                   case let .success(friendItems):
+                       for item in friendItems {
+                           let friend = FriendData(friendItem: item)
+                           friends.append(friend)
+                           #if DEBUG
+                           print(friend.friendName)
+                           print(friend.friendAvatarString, "\n")
+                           #endif
+                       }
+                   case let .failure(error):
+                       print(error)
+                   }
+                   self?.friends = friends
+               }
+               
+               #if DEBUG
+               print(self.friends, "\n")
+               #endif
+        
+        for friend in friends {
+            let firstLetter = friend.friendName.first!
+            
+            if sections[firstLetter] != nil {
+                sections[firstLetter]?.append(friend)
+            } else {
+                sections[firstLetter] = [friend]
+            }
+        }
+        
+        sectionTitles = Array(sections.keys)
+        sectionTitles.sort()
+    }
 }
 
 // MARK: - UITableViewDataSource

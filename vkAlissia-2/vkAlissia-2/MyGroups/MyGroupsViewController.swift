@@ -24,7 +24,13 @@ class MyGroupsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        networkManager.loadGroups() {result in
+        tableView.register(UINib(nibName: "MyGroupCell", bundle: Bundle.main), forCellReuseIdentifier: "MyGroupCell")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super .viewWillAppear(animated)
+        
+        networkManager.loadGroups() { [weak self] result in
             var groups: [GroupData] = []
             switch result {
             case let .success(groupItems):
@@ -39,14 +45,12 @@ class MyGroupsViewController: UIViewController {
             case let .failure(error):
                 print(error)
             }
-            self.myGroups = groups
+            self?.myGroups = groups
         }
         
         #if DEBUG
         print(self.myGroups, "\n")
         #endif
-        
-        tableView.register(UINib(nibName: "MyGroupCell", bundle: Bundle.main), forCellReuseIdentifier: "MyGroupCell")
     }
     
     @IBAction func addGroupBarButtonItem(_ sender: UIBarButtonItem) {

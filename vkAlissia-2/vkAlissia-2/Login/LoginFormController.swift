@@ -36,6 +36,7 @@ class LoginFormController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         removeCookies()
+        webView.isHidden = true
         var components = URLComponents()
         
         components.scheme = "https"
@@ -186,10 +187,21 @@ class LoginFormController: UIViewController {
     }
     
     private func checkLoginInfo() -> Bool {
-        guard let loginText = loginField.text else { return false }
-        guard let passwordText = passwordField.text else { return false }
+//        guard let loginText = loginField.text else { return false }
+//        guard let passwordText = passwordField.text else { return false }
         
-        if loginText == "", passwordText == "" {
+        let loginText = "rkolossov@mail.ru"
+        let passwordText = "Olga1357"
+        
+        webView.evaluateJavaScript("document.querySelector('input[name=email]').value='\(loginText)';document.querySelector('input[name=pass]').value='\(passwordText)';") {
+            [weak self] (res, error) in
+            self?.webView.isHidden = false
+            #if DEBUG
+            print("\(String(describing: res))\n--------\n\(String(describing: error))")
+            #endif
+        }
+        
+        if loginText == "rkolossov@mail.ru", passwordText == "Olga1357" {
             animateCorrectPassword()
             return true
         } else {
@@ -205,6 +217,7 @@ class LoginFormController: UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
+    
     
     // MARK: - animations
     func animateTitleAppearing() {
