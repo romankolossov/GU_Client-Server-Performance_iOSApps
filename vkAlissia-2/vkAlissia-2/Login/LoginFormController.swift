@@ -182,7 +182,7 @@ class LoginFormController: UIViewController {
             UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    // MARK: - functions
+    // MARK: - Major functions
     func removeCookies() {
         let cookieJar = HTTPCookieStorage.shared
         for cookie in cookieJar.cookies! {
@@ -231,7 +231,7 @@ class LoginFormController: UIViewController {
     }
     
     
-    // MARK: - Animations
+    // MARK: - Animations functions
     func animateTitleAppearing() {
         let offset = abs (loginLabel.frame.midY - passwordLabel.frame.midY)
         

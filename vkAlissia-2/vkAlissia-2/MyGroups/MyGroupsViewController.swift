@@ -12,6 +12,7 @@ import SDWebImage
 class MyGroupsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
+    let networkManager = NetworkManager()
     var myGroups = [GroupData]() {
         didSet {
             tableView.reloadData()
@@ -20,8 +21,8 @@ class MyGroupsViewController: UIViewController {
             #endif
         }
     }
-    let networkManager = NetworkManager()
     
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -31,6 +32,7 @@ class MyGroupsViewController: UIViewController {
         tableView.register(UINib(nibName: String(describing: MyGroupCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MyGroupCell.self))
     }
     
+    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         

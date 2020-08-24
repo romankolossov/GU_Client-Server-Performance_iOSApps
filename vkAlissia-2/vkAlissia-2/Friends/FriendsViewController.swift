@@ -33,22 +33,23 @@ class FriendsViewController: UIViewController {
         tableView.register(UINib(nibName: String(describing: FriendCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: FriendCell.self))
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        super.prepare(for: segue, sender: sender)
-//        if let destination = segue.destination as? ParticularFriendViewController {
-//            guard let cell = sender as? FriendCell else { return }
-//
-//            destination.friendName = cell.nameLabel.text
-//            destination.favoriteImages = cell.favoriteImages
-//        }
-//    }
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        super.prepare(for: segue, sender: sender)
+    //        if let destination = segue.destination as? ParticularFriendViewController {
+    //            guard let cell = sender as? FriendCell else { return }
+    //
+    //            destination.friendName = cell.nameLabel.text
+    //            destination.favoriteImages = cell.favoriteImages
+    //        }
+    //    }
     
+    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        sections = [:]
         
         networkManager.loadFriends() { [weak self] result in
             var myFriends = [FriendData]()
+            
             switch result {
             case let .success(friendItems):
                 for item in friendItems {
@@ -63,18 +64,23 @@ class FriendsViewController: UIViewController {
             }
         }
         
-        for friend in friends {
-            let firstLetter = friend.friendName.first!
-
-            if sections[firstLetter] != nil {
-                sections[firstLetter]?.append(friend)
-            } else {
-                sections[firstLetter] = [friend]
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            self.sections = [:]
+            
+            for friend in self.friends {
+                let firstLetter = friend.friendName.first!
+                
+                if self.sections[firstLetter] != nil {
+                    self.sections[firstLetter]?.append(friend)
+                } else {
+                    self.sections[firstLetter] = [friend]
+                }
             }
-        }
-        
-        sectionTitles = Array(sections.keys)
-        sectionTitles.sort()
+            
+            self.sectionTitles = Array(self.sections.keys)
+            self.sectionTitles.sort()
+            self.tableView.reloadData()
+        })
     }
 }
 
