@@ -227,7 +227,7 @@ class LoginFormController: UIViewController {
         let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(action)
         
-        present(alert, animated: true) { [weak self] () in self?.performSegue(withIdentifier: "loginSegue", sender: self)}
+        present(alert, animated: true) { [weak self] in self?.performSegue(withIdentifier: "loginSegue", sender: self)}
     }
     
     

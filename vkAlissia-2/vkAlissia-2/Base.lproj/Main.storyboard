@@ -426,7 +426,7 @@
         <!--Particular Friend View Controller-->
         <scene sceneID="0Yk-OQ-4ne">
             <objects>
-                <viewController storyboardIdentifier="ParticularFriend" id="OiO-Q9-Vtf" customClass="ParticularFriendViewController" customModule="vkAlissia_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ParticularFriendViewController" id="OiO-Q9-Vtf" customClass="ParticularFriendViewController" customModule="vkAlissia_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pBl-jY-NCN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
