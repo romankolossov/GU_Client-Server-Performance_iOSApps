@@ -10,33 +10,38 @@ import UIKit
 import WebKit
 
 class LoginFormController: UIViewController {
-    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var loginField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    
     @IBOutlet weak var authButton: UIButton!
     
-    private let heartLabelA = UILabel()
-    private let heartLabelB = UILabel()
-    private let heartLabelC = UILabel()
-    
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var starView: StarView!
-    
-    var interactiveAnimator: UIViewPropertyAnimator!
-    
     @IBOutlet var webView: WKWebView! {
         didSet {
             webView.navigationDelegate = self
         }
     }
     
+    private let heartLabelA = UILabel()
+    private let heartLabelB = UILabel()
+    private let heartLabelC = UILabel()
+    
+    var interactiveAnimator: UIViewPropertyAnimator!
+    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         removeCookies()
         webView.isHidden = true
+        
+        // MARK: - Targets
+        authButton.addTarget(self, action: #selector(performSegueAction), for: .touchUpInside)
+        
         var components = URLComponents()
         
         components.scheme = "https"
@@ -58,6 +63,7 @@ class LoginFormController: UIViewController {
         view.addGestureRecognizer(recognizer)
     }
     
+    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -109,7 +115,16 @@ class LoginFormController: UIViewController {
         starView.animate()
     }
     
-    // MARK: - @objc funcs
+    // MARK: - @objc functions
+    @objc private func performSegueAction()  {
+        if checkLoginInfo() {
+            //showLoginSuccess()
+            performSegue(withIdentifier: "loginSegue", sender: self)
+        } else {
+            showLoginError()
+        }
+    }
+    
     @objc func onPan (_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began:
@@ -157,7 +172,7 @@ class LoginFormController: UIViewController {
         scrollView.endEditing(true)
     }
     
-    // MARK: - regular funcs
+    // MARK: - viewWillDisappear
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -167,6 +182,7 @@ class LoginFormController: UIViewController {
             UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    // MARK: - functions
     func removeCookies() {
         let cookieJar = HTTPCookieStorage.shared
         for cookie in cookieJar.cookies! {
@@ -174,22 +190,9 @@ class LoginFormController: UIViewController {
         }
     }
     
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "loginSegue" {
-            if checkLoginInfo() {
-                showLoginSuccess()
-                return true
-            } else {
-                showLoginError()
-                return false
-            }
-        }
-        return true
-    }
-    
     private func checkLoginInfo() -> Bool {
-//        guard let loginText = loginField.text else { return false }
-//        guard let passwordText = passwordField.text else { return false }
+        //        guard let loginText = loginField.text else { return false }
+        //        guard let passwordText = passwordField.text else { return false }
         
         let loginText = "rkolossov@mail.ru"
         let passwordText = "Olga1357"
@@ -220,15 +223,15 @@ class LoginFormController: UIViewController {
     }
     
     private func showLoginSuccess() {
-           let  alert = UIAlertController(title: "Успешный вход", message: "Подтвердите в ход в форме VK", preferredStyle: .alert)
-           let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-           alert.addAction(action)
-           
-        present(alert, animated: true) { [weak self] () in self?.performSegue(withIdentifier: "loginSegue", sender: self?.authButton)}
-       }
+        let  alert = UIAlertController(title: "Успешный вход", message: "Подтвердите в ход в форме VK", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(action)
+        
+        present(alert, animated: true) { [weak self] () in self?.performSegue(withIdentifier: "loginSegue", sender: self)}
+    }
     
     
-    // MARK: - animations
+    // MARK: - Animations
     func animateTitleAppearing() {
         let offset = abs (loginLabel.frame.midY - passwordLabel.frame.midY)
         
@@ -351,36 +354,36 @@ class LoginFormController: UIViewController {
 extension LoginFormController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         guard let url = navigationResponse.response.url,
-                url.path == "/blank.html",
-                let fragment = url.fragment else { decisionHandler(.allow); return }
-            
-            let params = fragment
-                .components(separatedBy: "&")
-                .map { $0.components(separatedBy: "=") }
-                .reduce([String: String]()) { result, param in
-                    var dict = result
-                    let key = param[0]
-                    let value = param[1]
-                    dict[key] = value
-                    return dict
-            }
-            
-            #if DEBUG
-            print(params, "\n")
-            #endif
-            
-            guard let token = params["access_token"],
-                let userIdString = params["user_id"],
-                let userID = Int(userIdString) else {
-                    decisionHandler(.allow)
-                    return
-            }
-            
-            Session.shared.token = token
-            Session.shared.userId = userID
-            
-            //performSegue(withIdentifier: "RunTheApp", sender: nil)
+            url.path == "/blank.html",
+            let fragment = url.fragment else { decisionHandler(.allow); return }
         
-            decisionHandler(.cancel)
+        let params = fragment
+            .components(separatedBy: "&")
+            .map { $0.components(separatedBy: "=") }
+            .reduce([String: String]()) { result, param in
+                var dict = result
+                let key = param[0]
+                let value = param[1]
+                dict[key] = value
+                return dict
+        }
+        
+        #if DEBUG
+        print(params, "\n")
+        #endif
+        
+        guard let token = params["access_token"],
+            let userIdString = params["user_id"],
+            let userID = Int(userIdString) else {
+                decisionHandler(.allow)
+                return
+        }
+        
+        Session.shared.token = token
+        Session.shared.userId = userID
+        
+        //performSegue(withIdentifier: "RunTheApp", sender: nil)
+        
+        decisionHandler(.cancel)
     }
 }

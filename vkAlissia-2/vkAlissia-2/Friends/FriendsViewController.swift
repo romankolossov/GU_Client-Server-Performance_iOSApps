@@ -28,7 +28,7 @@ var favoriteImages: [UIImage] = [
 class FriendsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var friends: Array<FriendData> = []
+    var friends = [FriendData]()
     
 //    var friends: Array<FriendData> = [
 //        FriendData(friendName: "Алиска", friendAvatar: UIImage(named: "Alissia0")!, favoriteImages: favoriteImages.shuffled()),
@@ -72,26 +72,22 @@ class FriendsViewController: UIViewController {
         super .viewWillAppear(animated)
         
         networkManager.loadFriends() { [weak self] result in
-                   var friends: Array<FriendData> = []
-                   switch result {
-                   case let .success(friendItems):
-                       for item in friendItems {
-                           let friend = FriendData(friendItem: item)
-                           friends.append(friend)
-                           #if DEBUG
-                           print(friend.friendName)
-                           print(friend.friendAvatarString, "\n")
-                           #endif
-                       }
-                   case let .failure(error):
-                       print(error)
-                   }
-                   self?.friends = friends
-               }
-               
-               #if DEBUG
-               print(self.friends, "\n")
-               #endif
+            var friends = [FriendData]()
+            switch result {
+            case let .success(friendItems):
+                for item in friendItems {
+                    let friend = FriendData(friendItem: item)
+                    friends.append(friend)
+                    #if DEBUG
+                    print(friend.friendName)
+                    print(friend.friendAvatarString, "\n")
+                    #endif
+                }
+            case let .failure(error):
+                print(error)
+            }
+            self?.friends = friends
+        }
         
         for friend in friends {
             let firstLetter = friend.friendName.first!
@@ -105,8 +101,13 @@ class FriendsViewController: UIViewController {
         
         sectionTitles = Array(sections.keys)
         sectionTitles.sort()
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
+
 
 // MARK: - UITableViewDataSource
 extension FriendsViewController: UITableViewDataSource {

@@ -19,6 +19,14 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ktv-55-zf6">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
+                                    <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nli-7h-D6y">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <wkWebViewConfiguration key="configuration">
+                                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                            <wkPreferences key="preferences"/>
+                                        </wkWebViewConfiguration>
+                                    </wkWebView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Логин" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="617-TV-Oxk">
                                         <rect key="frame" x="176" y="324.5" width="62" height="26.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
@@ -48,9 +56,6 @@
                                         <rect key="frame" x="176" y="589.5" width="62" height="39"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <state key="normal" title="Войти"/>
-                                        <connections>
-                                            <segue destination="82A-PI-rCP" kind="presentation" identifier="loginSegue" modalPresentationStyle="fullScreen" id="U39-Ok-MOE"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VK Alissia-2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eg-B3-Nnj">
                                         <rect key="frame" x="133" y="232.5" width="148" height="34"/>
@@ -72,17 +77,6 @@
                                             <constraint firstAttribute="width" secondItem="HuR-wH-i8W" secondAttribute="height" multiplier="1:1" id="hbO-hU-a9p"/>
                                         </constraints>
                                     </view>
-                                    <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nli-7h-D6y">
-                                        <rect key="frame" x="0.0" y="18" width="414" height="800"/>
-                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="800" id="1CD-dy-xDw"/>
-                                        </constraints>
-                                        <wkWebViewConfiguration key="configuration">
-                                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                            <wkPreferences key="preferences"/>
-                                        </wkWebViewConfiguration>
-                                    </wkWebView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="gvR-BX-gXg" firstAttribute="top" secondItem="6BC-Pk-rpH" secondAttribute="bottom" constant="36" id="1S9-gd-7dl"/>
@@ -100,6 +94,7 @@
                                     <constraint firstItem="9eg-B3-Nnj" firstAttribute="centerX" secondItem="Ktv-55-zf6" secondAttribute="centerX" id="Vtv-gH-lPl"/>
                                     <constraint firstItem="ik6-H0-4fG" firstAttribute="top" secondItem="Ktv-55-zf6" secondAttribute="top" constant="58" id="XQd-ly-c9q"/>
                                     <constraint firstItem="HuR-wH-i8W" firstAttribute="centerX" secondItem="E2K-5N-bHG" secondAttribute="centerX" id="ahx-gV-34S"/>
+                                    <constraint firstItem="Nli-7h-D6y" firstAttribute="top" secondItem="Ks8-LG-oZV" secondAttribute="top" id="ekt-MP-GdI"/>
                                     <constraint firstItem="E2K-5N-bHG" firstAttribute="top" secondItem="i6W-Bm-K7s" secondAttribute="bottom" constant="36" id="erH-GI-eO0"/>
                                     <constraint firstItem="i6W-Bm-K7s" firstAttribute="centerX" secondItem="gvR-BX-gXg" secondAttribute="centerX" id="erX-yu-2oE"/>
                                     <constraint firstItem="Nli-7h-D6y" firstAttribute="leading" secondItem="ZAC-ng-5ME" secondAttribute="leading" id="gLq-Nk-Ra7"/>
@@ -152,6 +147,7 @@
                         <outlet property="starView" destination="HuR-wH-i8W" id="Ukl-ru-nLS"/>
                         <outlet property="titleLabel" destination="9eg-B3-Nnj" id="4AG-Uj-Yal"/>
                         <outlet property="webView" destination="Nli-7h-D6y" id="YrW-Lr-Lgh"/>
+                        <segue destination="82A-PI-rCP" kind="presentation" identifier="loginSegue" modalPresentationStyle="fullScreen" id="aYV-Sv-jsO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

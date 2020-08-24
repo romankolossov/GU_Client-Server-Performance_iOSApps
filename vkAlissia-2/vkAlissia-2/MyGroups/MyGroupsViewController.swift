@@ -48,9 +48,9 @@ class MyGroupsViewController: UIViewController {
             self?.myGroups = groups
         }
         
-        #if DEBUG
-        print(self.myGroups, "\n")
-        #endif
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     @IBAction func addGroupBarButtonItem(_ sender: UIBarButtonItem) {
