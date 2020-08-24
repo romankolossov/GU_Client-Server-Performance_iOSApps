@@ -177,6 +177,7 @@ class LoginFormController: UIViewController {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "loginSegue" {
             if checkLoginInfo() {
+                showLoginSuccess()
                 return true
             } else {
                 showLoginError()
@@ -217,6 +218,14 @@ class LoginFormController: UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
+    
+    private func showLoginSuccess() {
+           let  alert = UIAlertController(title: "Успешный вход", message: "Подтвердите в ход в форме VK", preferredStyle: .alert)
+           let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+           alert.addAction(action)
+           
+        present(alert, animated: true) { [weak self] () in self?.performSegue(withIdentifier: "loginSegue", sender: self)}
+       }
     
     
     // MARK: - animations
