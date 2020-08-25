@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-struct FriendData {
+class FriendData {
     let friendName: String
     var friendAvatarString: String
     var favorireImages: [UIImage] = []

@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-struct GroupData {
+class GroupData {
     let groupName: String
     var groupAvatarString: String
     
