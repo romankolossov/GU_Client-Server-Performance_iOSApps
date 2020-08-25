@@ -22,7 +22,7 @@ class MyGroupsViewController: UIViewController {
         }
     }
     
-    // MARK: - viewDidLoad
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -32,7 +32,6 @@ class MyGroupsViewController: UIViewController {
         tableView.register(UINib(nibName: String(describing: MyGroupCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MyGroupCell.self))
     }
     
-    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         

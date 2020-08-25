@@ -38,6 +38,7 @@ class AllGroupsViewController: UIViewController {
     
     weak var delegate: AllGroupsViewControllerDelegate?
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self

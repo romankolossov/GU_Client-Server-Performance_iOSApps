@@ -10,6 +10,15 @@ import UIKit
 import WebKit
 
 class LoginFormController: UIViewController {
+    
+    // MARK: Some constants & variables
+    private let heartLabelA = UILabel()
+    private let heartLabelB = UILabel()
+    private let heartLabelC = UILabel()
+    
+    var interactiveAnimator: UIViewPropertyAnimator!
+    
+    // MARK: UI
     @IBOutlet weak var loginField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
@@ -27,13 +36,7 @@ class LoginFormController: UIViewController {
         }
     }
     
-    private let heartLabelA = UILabel()
-    private let heartLabelB = UILabel()
-    private let heartLabelC = UILabel()
-    
-    var interactiveAnimator: UIViewPropertyAnimator!
-    
-    // MARK: - viewDidLoad
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         removeCookies()
@@ -63,7 +66,6 @@ class LoginFormController: UIViewController {
         view.addGestureRecognizer(recognizer)
     }
     
-    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -113,6 +115,15 @@ class LoginFormController: UIViewController {
         animateFieldAppearing()
         animateAuthButton()
         starView.animate()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name:
+            UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name:
+            UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     // MARK: - @objc functions
@@ -172,16 +183,6 @@ class LoginFormController: UIViewController {
         scrollView.endEditing(true)
     }
     
-    // MARK: - viewWillDisappear
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        NotificationCenter.default.removeObserver(self, name:
-            UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name:
-            UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
     // MARK: - Major functions
     func removeCookies() {
         let cookieJar = HTTPCookieStorage.shared
@@ -224,7 +225,7 @@ class LoginFormController: UIViewController {
     
     private func showLoginSuccess() {
         let  alert = UIAlertController(title: "Успешный вход", message: "При необходимости подтвердите пожалуйста вход в форме VK", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel) { [weak self] (action) in self?.performSegue(withIdentifier: "loginSegue", sender: self)}
+        let action = UIAlertAction(title: "OK", style: .cancel) { [weak self] (_) in self?.performSegue(withIdentifier: "loginSegue", sender: self)}
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)

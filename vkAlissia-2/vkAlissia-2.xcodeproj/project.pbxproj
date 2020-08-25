@@ -36,7 +36,6 @@
 		C865774F24E064050004A272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C865774E24E064050004A272 /* Assets.xcassets */; };
 		C87E1D3E24E3492E0061E697 /* VKLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87E1D3D24E3492E0061E697 /* VKLoginController.swift */; };
 		C89B6B1224E08D84002CB028 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89B6B1124E08D84002CB028 /* Session.swift */; };
-		C89D765F24E91ECA00FDC697 /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D765E24E91ECA00FDC697 /* AppViewController.swift */; };
 		C89D766324EE1E4000FDC697 /* GroupCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */; };
 		C89D766524EE2F0300FDC697 /* PhotoCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */; };
 		C89D766924EE4EC500FDC697 /* FriendCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */; };
@@ -81,7 +80,6 @@
 		C865774E24E064050004A272 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C87E1D3D24E3492E0061E697 /* VKLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKLoginController.swift; sourceTree = "<group>"; };
 		C89B6B1124E08D84002CB028 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
-		C89D765E24E91ECA00FDC697 /* AppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
 		C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCodableRealm.swift; sourceTree = "<group>"; };
 		C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCodableRealm.swift; sourceTree = "<group>"; };
 		C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCodableRealm.swift; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 		C865770324E0630B0004A272 /* vkAlissia-2 */ = {
 			isa = PBXGroup;
 			children = (
-				C89D765E24E91ECA00FDC697 /* AppViewController.swift */,
 				C865770A24E0630C0004A272 /* Main.storyboard */,
 				C865771824E063940004A272 /* Models */,
 				C865771D24E063A00004A272 /* Login */,
@@ -393,7 +390,6 @@
 				C865774024E063C40004A272 /* AllGroupsViewController.swift in Sources */,
 				C865772024E063A00004A272 /* GradientView.swift in Sources */,
 				C865774124E063C40004A272 /* GroupCell.swift in Sources */,
-				C89D765F24E91ECA00FDC697 /* AppViewController.swift in Sources */,
 				C865770724E0630C0004A272 /* SceneDelegate.swift in Sources */,
 				C865774C24E063DE0004A272 /* StarView.swift in Sources */,
 				C865774624E063CD0004A272 /* NewsCell.swift in Sources */,

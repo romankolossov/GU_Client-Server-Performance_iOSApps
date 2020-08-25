@@ -25,6 +25,7 @@ class FriendsViewController: UIViewController {
     var sectionTitles = [Character]()
     let networkManager = NetworkManager()
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -43,7 +44,6 @@ class FriendsViewController: UIViewController {
     //        }
     //    }
     
-    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         
