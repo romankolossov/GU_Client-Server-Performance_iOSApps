@@ -119,7 +119,7 @@ class LoginFormController: UIViewController {
     @objc private func performSegueAction()  {
         if checkLoginInfo() {
             showLoginSuccess()
-            performSegue(withIdentifier: "loginSegue", sender: self)
+            //performSegue(withIdentifier: "loginSegue", sender: self)
         } else {
             showLoginError()
         }

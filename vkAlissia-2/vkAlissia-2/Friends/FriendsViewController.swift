@@ -48,16 +48,16 @@ class FriendsViewController: UIViewController {
         super .viewWillAppear(animated)
         
         networkManager.loadFriends() { [weak self] result in
-            var myFriends = [FriendData]()
+            var friends = [FriendData]()
             
             switch result {
             case let .success(friendItems):
                 for item in friendItems {
                     let friend = FriendData(friendItem: item)
-                    myFriends.append(friend)
+                    friends.append(friend)
                 }
                 DispatchQueue.main.async {
-                    self?.friends = myFriends
+                    self?.friends = friends
                 }
             case let .failure(error):
                 print(error)
