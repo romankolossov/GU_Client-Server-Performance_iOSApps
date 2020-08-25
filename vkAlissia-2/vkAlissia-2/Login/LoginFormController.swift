@@ -118,7 +118,7 @@ class LoginFormController: UIViewController {
     // MARK: - @objc functions
     @objc private func performSegueAction()  {
         if checkLoginInfo() {
-            //showLoginSuccess()
+            showLoginSuccess()
             performSegue(withIdentifier: "loginSegue", sender: self)
         } else {
             showLoginError()
@@ -223,11 +223,11 @@ class LoginFormController: UIViewController {
     }
     
     private func showLoginSuccess() {
-        let  alert = UIAlertController(title: "Успешный вход", message: "Подтвердите в ход в форме VK", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        let  alert = UIAlertController(title: "Успешный вход", message: "При необходимости подтвердите пожалуйста вход в форме VK", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel) { [weak self] (action) in self?.performSegue(withIdentifier: "loginSegue", sender: self)}
         alert.addAction(action)
         
-        present(alert, animated: true) { [weak self] in self?.performSegue(withIdentifier: "loginSegue", sender: self)}
+        present(alert, animated: true, completion: nil)
     }
     
     
