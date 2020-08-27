@@ -138,7 +138,7 @@
 				C865773424E063BD0004A272 /* MyGroups */,
 				C865773B24E063C40004A272 /* AllGroups */,
 				C865774224E063CD0004A272 /* News */,
-				C87E1D3C24E30BF80061E697 /* Services */,
+				C87E1D3C24E30BF80061E697 /* Managers */,
 				C865774924E063DE0004A272 /* Utils */,
 				C865775224E06AF20004A272 /* SupportingFiles */,
 				C865771224E0630D0004A272 /* Info.plist */,
@@ -238,13 +238,13 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
-		C87E1D3C24E30BF80061E697 /* Services */ = {
+		C87E1D3C24E30BF80061E697 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				C8BB9D2124E35C9000B05FED /* NetworkManager.swift */,
 				C89B6B1124E08D84002CB028 /* Session.swift */,
 			);
-			path = Services;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		C8BB9D1C24E3548500B05FED /* Frameworks */ = {
