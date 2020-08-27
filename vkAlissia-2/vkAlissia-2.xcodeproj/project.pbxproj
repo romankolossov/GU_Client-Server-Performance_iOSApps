@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		74B7D426A14FFFC691EF9765 /* Pods_vkAlissia_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900F0F736EE84BFEBAB2F225 /* Pods_vkAlissia_2.framework */; };
+		C862A88624F7F55400A879DA /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C862A88524F7F55400A879DA /* RealmManager.swift */; };
 		C865770524E0630B0004A272 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865770424E0630B0004A272 /* AppDelegate.swift */; };
 		C865770724E0630C0004A272 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865770624E0630C0004A272 /* SceneDelegate.swift */; };
 		C865770C24E0630C0004A272 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C865770A24E0630C0004A272 /* Main.storyboard */; };
@@ -34,7 +35,6 @@
 		C865774C24E063DE0004A272 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865774A24E063DE0004A272 /* StarView.swift */; };
 		C865774D24E063DE0004A272 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865774B24E063DE0004A272 /* Animations.swift */; };
 		C865774F24E064050004A272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C865774E24E064050004A272 /* Assets.xcassets */; };
-		C87E1D3E24E3492E0061E697 /* VKLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87E1D3D24E3492E0061E697 /* VKLoginController.swift */; };
 		C89B6B1224E08D84002CB028 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89B6B1124E08D84002CB028 /* Session.swift */; };
 		C89D766324EE1E4000FDC697 /* GroupCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */; };
 		C89D766524EE2F0300FDC697 /* PhotoCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */; };
@@ -50,6 +50,7 @@
 		C818479C24F052BD001E7D59 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81847A024F052CD001E7D59 /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81847A324F053F3001E7D59 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C862A88524F7F55400A879DA /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		C865770124E0630B0004A272 /* vkAlissia-2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "vkAlissia-2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C865770424E0630B0004A272 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C865770624E0630C0004A272 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,7 +79,6 @@
 		C865774A24E063DE0004A272 /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		C865774B24E063DE0004A272 /* Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		C865774E24E064050004A272 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C87E1D3D24E3492E0061E697 /* VKLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKLoginController.swift; sourceTree = "<group>"; };
 		C89B6B1124E08D84002CB028 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCodableRealm.swift; sourceTree = "<group>"; };
 		C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCodableRealm.swift; sourceTree = "<group>"; };
@@ -109,13 +109,48 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		C862A88024F7F1F300A879DA /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C865774224E063CD0004A272 /* News */,
+				C865773B24E063C40004A272 /* AllGroups */,
+				C865773424E063BD0004A272 /* MyGroups */,
+				C865772924E063B30004A272 /* ParticularFriend */,
+				C865772224E063AA0004A272 /* Friends */,
+				C865771D24E063A00004A272 /* Login */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		C862A88124F7F25100A879DA /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				C862A88224F7F25C00A879DA /* Main */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		C862A88224F7F25C00A879DA /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C865774424E063CD0004A272 /* NewsViewController.swift */,
+				C865773D24E063C40004A272 /* AllGroupsViewController.swift */,
+				C865773724E063BD0004A272 /* MyGroupsViewController.swift */,
+				C865772E24E063B30004A272 /* ParticularFriendViewController.swift */,
+				C865772324E063AA0004A272 /* FriendsViewController.swift */,
+				C865771F24E063A00004A272 /* LoginFormController.swift */,
+				C865770A24E0630C0004A272 /* Main.storyboard */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		C86576F824E0630B0004A272 = {
 			isa = PBXGroup;
 			children = (
 				C865770324E0630B0004A272 /* vkAlissia-2 */,
 				C865770224E0630B0004A272 /* Products */,
-				C8BB9D1C24E3548500B05FED /* Frameworks */,
 				6CCC2632B6C923402E88D1D1 /* Pods */,
+				C8BB9D1C24E3548500B05FED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,15 +165,10 @@
 		C865770324E0630B0004A272 /* vkAlissia-2 */ = {
 			isa = PBXGroup;
 			children = (
-				C865770A24E0630C0004A272 /* Main.storyboard */,
-				C865771824E063940004A272 /* Models */,
-				C865771D24E063A00004A272 /* Login */,
-				C865772224E063AA0004A272 /* Friends */,
-				C865772924E063B30004A272 /* ParticularFriend */,
-				C865773424E063BD0004A272 /* MyGroups */,
-				C865773B24E063C40004A272 /* AllGroups */,
-				C865774224E063CD0004A272 /* News */,
 				C87E1D3C24E30BF80061E697 /* Managers */,
+				C862A88024F7F1F300A879DA /* Components */,
+				C865771824E063940004A272 /* Models */,
+				C862A88124F7F25100A879DA /* Screens */,
 				C865774924E063DE0004A272 /* Utils */,
 				C865775224E06AF20004A272 /* SupportingFiles */,
 				C865771224E0630D0004A272 /* Info.plist */,
@@ -159,10 +189,8 @@
 		C865771D24E063A00004A272 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				C87E1D3D24E3492E0061E697 /* VKLoginController.swift */,
 				C865774A24E063DE0004A272 /* StarView.swift */,
 				C865771E24E063A00004A272 /* GradientView.swift */,
-				C865771F24E063A00004A272 /* LoginFormController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -172,7 +200,6 @@
 			children = (
 				C865772424E063AA0004A272 /* FriendCell.xib */,
 				C865772524E063AA0004A272 /* FriendCell.swift */,
-				C865772324E063AA0004A272 /* FriendsViewController.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -184,7 +211,6 @@
 				C865772B24E063B30004A272 /* FriendPhotoViewController.swift */,
 				C865772C24E063B30004A272 /* FriendLayout.swift */,
 				C865772D24E063B30004A272 /* ParticularFriendCell.swift */,
-				C865772E24E063B30004A272 /* ParticularFriendViewController.swift */,
 			);
 			path = ParticularFriend;
 			sourceTree = "<group>";
@@ -194,7 +220,6 @@
 			children = (
 				C865773524E063BD0004A272 /* MyGroupCell.xib */,
 				C865773624E063BD0004A272 /* MyGroupCell.swift */,
-				C865773724E063BD0004A272 /* MyGroupsViewController.swift */,
 			);
 			path = MyGroups;
 			sourceTree = "<group>";
@@ -204,7 +229,6 @@
 			children = (
 				C865773C24E063C40004A272 /* GroupCell.xib */,
 				C865773E24E063C40004A272 /* GroupCell.swift */,
-				C865773D24E063C40004A272 /* AllGroupsViewController.swift */,
 			);
 			path = AllGroups;
 			sourceTree = "<group>";
@@ -214,7 +238,6 @@
 			children = (
 				C865774524E063CD0004A272 /* NewsCell.xib */,
 				C865774324E063CD0004A272 /* NewsCell.swift */,
-				C865774424E063CD0004A272 /* NewsViewController.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -241,8 +264,9 @@
 		C87E1D3C24E30BF80061E697 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				C8BB9D2124E35C9000B05FED /* NetworkManager.swift */,
 				C89B6B1124E08D84002CB028 /* Session.swift */,
+				C8BB9D2124E35C9000B05FED /* NetworkManager.swift */,
+				C862A88524F7F55400A879DA /* RealmManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -400,9 +424,9 @@
 				C89B6B1224E08D84002CB028 /* Session.swift in Sources */,
 				C865773124E063B30004A272 /* FriendLayout.swift in Sources */,
 				C865774D24E063DE0004A272 /* Animations.swift in Sources */,
+				C862A88624F7F55400A879DA /* RealmManager.swift in Sources */,
 				C8BB9D2224E35C9000B05FED /* NetworkManager.swift in Sources */,
 				C865773324E063B30004A272 /* ParticularFriendViewController.swift in Sources */,
-				C87E1D3E24E3492E0061E697 /* VKLoginController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
