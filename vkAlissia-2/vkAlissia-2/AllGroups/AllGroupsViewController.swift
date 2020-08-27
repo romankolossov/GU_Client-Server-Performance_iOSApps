@@ -15,28 +15,30 @@ protocol AllGroupsViewControllerDelegate: class {
 class AllGroupsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var groups: [GroupData] = [
-        GroupData(groupName: "Acura", groupAvatar: UIImage(named: "Acura")!),
-        GroupData(groupName: "Alfa_Romeo", groupAvatar: UIImage(named: "Alfa_Romeo")!),
-        GroupData(groupName: "Aston_Martin", groupAvatar: UIImage(named: "Aston_Martin")!),
-        GroupData(groupName: "Audi", groupAvatar: UIImage(named: "Audi")!),
-        GroupData(groupName: "Bentley", groupAvatar: UIImage(named: "Bentley")!),
-        GroupData(groupName: "BMW", groupAvatar: UIImage(named: "BMW")!),
-        GroupData(groupName: "Citroen", groupAvatar: UIImage(named: "Citroen")!),
-        GroupData(groupName: "Ferrari", groupAvatar: UIImage(named: "Ferrari")!),
-        GroupData(groupName: "Jaguar", groupAvatar: UIImage(named: "Jaguar")!),
-        GroupData(groupName: "Land_Rover", groupAvatar: UIImage(named: "Land_Rover")!),
-        GroupData(groupName: "Mercedes-Benz", groupAvatar: UIImage(named: "Mercedes-Benz")!),
-        GroupData(groupName: "Porsche", groupAvatar: UIImage(named: "Porsche")!),
-        GroupData(groupName: "Rolls-Roys", groupAvatar: UIImage(named: "Rolls-Roys")!),
-        GroupData(groupName: "Volvo", groupAvatar: UIImage(named: "Volvo")!)
-    ]
+    var groups: [GroupData] = []
+//    var groups: [GroupData] = [
+//        GroupData(groupName: "Acura", groupAvatar: UIImage(named: "Acura")!),
+//        GroupData(groupName: "Alfa_Romeo", groupAvatar: UIImage(named: "Alfa_Romeo")!),
+//        GroupData(groupName: "Aston_Martin", groupAvatar: UIImage(named: "Aston_Martin")!),
+//        GroupData(groupName: "Audi", groupAvatar: UIImage(named: "Audi")!),
+//        GroupData(groupName: "Bentley", groupAvatar: UIImage(named: "Bentley")!),
+//        GroupData(groupName: "BMW", groupAvatar: UIImage(named: "BMW")!),
+//        GroupData(groupName: "Citroen", groupAvatar: UIImage(named: "Citroen")!),
+//        GroupData(groupName: "Ferrari", groupAvatar: UIImage(named: "Ferrari")!),
+//        GroupData(groupName: "Jaguar", groupAvatar: UIImage(named: "Jaguar")!),
+//        GroupData(groupName: "Land_Rover", groupAvatar: UIImage(named: "Land_Rover")!),
+//        GroupData(groupName: "Mercedes-Benz", groupAvatar: UIImage(named: "Mercedes-Benz")!),
+//        GroupData(groupName: "Porsche", groupAvatar: UIImage(named: "Porsche")!),
+//        GroupData(groupName: "Rolls-Roys", groupAvatar: UIImage(named: "Rolls-Roys")!),
+//        GroupData(groupName: "Volvo", groupAvatar: UIImage(named: "Volvo")!)
+//    ]
     
     var sections: [Character: [GroupData]] = [:]
     var sectionTitles = [Character]()
     
     weak var delegate: AllGroupsViewControllerDelegate?
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -82,7 +84,7 @@ extension AllGroupsViewController: UITableViewDataSource {
         guard  let group = sections[sectionTitles[indexPath.section]]? [indexPath.row] else { fatalError() }
         
         cell.groupNameLabel.text = group.groupName
-        cell.groupAvatarView.image = group.groupAvatar
+        //cell.groupAvatarView.image = group.groupAvatar
         
         return cell
     }

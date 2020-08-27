@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0Hn-pz-ATL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -48,9 +48,6 @@
                                         <rect key="frame" x="176" y="589.5" width="62" height="39"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <state key="normal" title="Войти"/>
-                                        <connections>
-                                            <segue destination="82A-PI-rCP" kind="presentation" identifier="loginSegue" modalPresentationStyle="fullScreen" id="U39-Ok-MOE"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VK Alissia-2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eg-B3-Nnj">
                                         <rect key="frame" x="133" y="232.5" width="148" height="34"/>
@@ -58,6 +55,14 @@
                                         <color key="textColor" red="0.0" green="0.68723688471502586" blue="0.049628692324058379" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nli-7h-D6y">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <wkWebViewConfiguration key="configuration">
+                                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                            <wkPreferences key="preferences"/>
+                                        </wkWebViewConfiguration>
+                                    </wkWebView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Alissia_face" translatesAutoresizingMaskIntoConstraints="NO" id="ik6-H0-4fG">
                                         <rect key="frame" x="138.5" y="58" width="137" height="136.5"/>
                                         <constraints>
@@ -75,6 +80,8 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="gvR-BX-gXg" firstAttribute="top" secondItem="6BC-Pk-rpH" secondAttribute="bottom" constant="36" id="1S9-gd-7dl"/>
+                                    <constraint firstItem="ZAC-ng-5ME" firstAttribute="trailing" secondItem="Nli-7h-D6y" secondAttribute="trailing" id="3lO-NA-QWR"/>
+                                    <constraint firstItem="ZAC-ng-5ME" firstAttribute="bottom" secondItem="Nli-7h-D6y" secondAttribute="bottom" id="3qs-7a-fau"/>
                                     <constraint firstItem="i6W-Bm-K7s" firstAttribute="width" secondItem="6BC-Pk-rpH" secondAttribute="width" id="5i8-cd-2Kv"/>
                                     <constraint firstItem="ik6-H0-4fG" firstAttribute="centerX" secondItem="9eg-B3-Nnj" secondAttribute="centerX" id="5lI-Em-j0w"/>
                                     <constraint firstItem="ik6-H0-4fG" firstAttribute="width" secondItem="Ktv-55-zf6" secondAttribute="width" multiplier="0.33" id="9Vi-X1-jlM"/>
@@ -87,8 +94,10 @@
                                     <constraint firstItem="9eg-B3-Nnj" firstAttribute="centerX" secondItem="Ktv-55-zf6" secondAttribute="centerX" id="Vtv-gH-lPl"/>
                                     <constraint firstItem="ik6-H0-4fG" firstAttribute="top" secondItem="Ktv-55-zf6" secondAttribute="top" constant="58" id="XQd-ly-c9q"/>
                                     <constraint firstItem="HuR-wH-i8W" firstAttribute="centerX" secondItem="E2K-5N-bHG" secondAttribute="centerX" id="ahx-gV-34S"/>
+                                    <constraint firstItem="Nli-7h-D6y" firstAttribute="top" secondItem="Ks8-LG-oZV" secondAttribute="top" id="ekt-MP-GdI"/>
                                     <constraint firstItem="E2K-5N-bHG" firstAttribute="top" secondItem="i6W-Bm-K7s" secondAttribute="bottom" constant="36" id="erH-GI-eO0"/>
                                     <constraint firstItem="i6W-Bm-K7s" firstAttribute="centerX" secondItem="gvR-BX-gXg" secondAttribute="centerX" id="erX-yu-2oE"/>
+                                    <constraint firstItem="Nli-7h-D6y" firstAttribute="leading" secondItem="ZAC-ng-5ME" secondAttribute="leading" id="gLq-Nk-Ra7"/>
                                     <constraint firstItem="gvR-BX-gXg" firstAttribute="centerX" secondItem="6BC-Pk-rpH" secondAttribute="centerX" id="h7S-Ft-moD"/>
                                     <constraint firstItem="i6W-Bm-K7s" firstAttribute="top" secondItem="gvR-BX-gXg" secondAttribute="bottom" constant="36" id="lh5-7X-jqe"/>
                                     <constraint firstItem="617-TV-Oxk" firstAttribute="centerX" secondItem="9eg-B3-Nnj" secondAttribute="centerX" id="nFD-Vq-t1K"/>
@@ -137,72 +146,13 @@
                         <outlet property="scrollView" destination="Ktv-55-zf6" id="rVy-32-w1H"/>
                         <outlet property="starView" destination="HuR-wH-i8W" id="Ukl-ru-nLS"/>
                         <outlet property="titleLabel" destination="9eg-B3-Nnj" id="4AG-Uj-Yal"/>
+                        <outlet property="webView" destination="Nli-7h-D6y" id="YrW-Lr-Lgh"/>
+                        <segue destination="82A-PI-rCP" kind="presentation" identifier="loginSegue" modalPresentationStyle="fullScreen" id="aYV-Sv-jsO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-72.463768115942031" y="-703.125"/>
-        </scene>
-        <!--Login Controller-->
-        <scene sceneID="WYQ-Ls-Xw0">
-            <objects>
-                <viewController id="0Hn-pz-ATL" customClass="VKLoginController" customModule="vkAlissia_2" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="q2f-Wv-vEQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dZo-fG-l7Z">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="0tF-8C-UMW" firstAttribute="bottom" secondItem="dZo-fG-l7Z" secondAttribute="bottom" id="Kmz-pf-j0j"/>
-                            <constraint firstItem="0tF-8C-UMW" firstAttribute="trailing" secondItem="dZo-fG-l7Z" secondAttribute="trailing" id="MQN-XQ-1jY"/>
-                            <constraint firstItem="dZo-fG-l7Z" firstAttribute="leading" secondItem="0tF-8C-UMW" secondAttribute="leading" id="RCA-2e-0MU"/>
-                            <constraint firstItem="dZo-fG-l7Z" firstAttribute="top" secondItem="0tF-8C-UMW" secondAttribute="top" id="bq2-qN-NVU"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="0tF-8C-UMW"/>
-                    </view>
-                    <connections>
-                        <outlet property="webView" destination="dZo-fG-l7Z" id="qoq-fC-Jc4"/>
-                        <segue destination="HHm-1M-rTI" kind="show" identifier="RunTheApp" id="gnm-g5-8gd"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QXd-H9-7a0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-72" y="25"/>
-        </scene>
-        <!--App View Controller-->
-        <scene sceneID="0SP-gX-hFo">
-            <objects>
-                <viewController id="HHm-1M-rTI" customClass="AppViewController" customModule="vkAlissia_2" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="mCf-Ks-znz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Re9-Up-lAv">
-                                <rect key="frame" x="166" y="217" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Load Values"/>
-                                <connections>
-                                    <action selector="printJsonButton:" destination="HHm-1M-rTI" eventType="touchUpInside" id="GTk-RI-TJY"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="8os-1z-1Qr"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Bmo-lN-xrR"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gVz-Q8-SwY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="717" y="25"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="gTd-x4-kBr">
@@ -412,7 +362,7 @@
         <!--Particular Friend View Controller-->
         <scene sceneID="0Yk-OQ-4ne">
             <objects>
-                <viewController storyboardIdentifier="ParticularFriend" id="OiO-Q9-Vtf" customClass="ParticularFriendViewController" customModule="vkAlissia_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ParticularFriendViewController" id="OiO-Q9-Vtf" customClass="ParticularFriendViewController" customModule="vkAlissia_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pBl-jY-NCN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

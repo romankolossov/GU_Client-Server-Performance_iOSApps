@@ -14,6 +14,7 @@ class ParticularFriendViewController: UIViewController {
     var friendName: String?
     var favoriteImages: [UIImage] = []
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         collectiovView.dataSource = self

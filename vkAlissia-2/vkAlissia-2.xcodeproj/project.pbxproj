@@ -3,16 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		74B7D426A14FFFC691EF9765 /* Pods_vkAlissia_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900F0F736EE84BFEBAB2F225 /* Pods_vkAlissia_2.framework */; };
 		C865770524E0630B0004A272 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865770424E0630B0004A272 /* AppDelegate.swift */; };
 		C865770724E0630C0004A272 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865770624E0630C0004A272 /* SceneDelegate.swift */; };
 		C865770C24E0630C0004A272 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C865770A24E0630C0004A272 /* Main.storyboard */; };
 		C865771124E0630D0004A272 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C865770F24E0630D0004A272 /* LaunchScreen.storyboard */; };
-		C865771B24E063940004A272 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865771924E063940004A272 /* Friend.swift */; };
-		C865771C24E063940004A272 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865771A24E063940004A272 /* Group.swift */; };
 		C865772024E063A00004A272 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865771E24E063A00004A272 /* GradientView.swift */; };
 		C865772124E063A00004A272 /* LoginFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865771F24E063A00004A272 /* LoginFormController.swift */; };
 		C865772624E063AA0004A272 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865772324E063AA0004A272 /* FriendsViewController.swift */; };
@@ -37,23 +36,26 @@
 		C865774F24E064050004A272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C865774E24E064050004A272 /* Assets.xcassets */; };
 		C87E1D3E24E3492E0061E697 /* VKLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87E1D3D24E3492E0061E697 /* VKLoginController.swift */; };
 		C89B6B1224E08D84002CB028 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89B6B1124E08D84002CB028 /* Session.swift */; };
-		C89D765F24E91ECA00FDC697 /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D765E24E91ECA00FDC697 /* AppViewController.swift */; };
-		C89D766324EE1E4000FDC697 /* GroupCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766224EE1E4000FDC697 /* GroupCodable.swift */; };
-		C89D766524EE2F0300FDC697 /* PhotoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766424EE2F0300FDC697 /* PhotoCodable.swift */; };
-		C89D766924EE4EC500FDC697 /* FriendCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766824EE4EC500FDC697 /* FriendCodable.swift */; };
+		C89D766324EE1E4000FDC697 /* GroupCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */; };
+		C89D766524EE2F0300FDC697 /* PhotoCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */; };
+		C89D766924EE4EC500FDC697 /* FriendCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */; };
 		C8BB9D1E24E3548500B05FED /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8BB9D1D24E3548500B05FED /* WebKit.framework */; };
 		C8BB9D2224E35C9000B05FED /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BB9D2124E35C9000B05FED /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3876717EE162790F687ED2FC /* Pods-vkAlissia-2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkAlissia-2.debug.xcconfig"; path = "Target Support Files/Pods-vkAlissia-2/Pods-vkAlissia-2.debug.xcconfig"; sourceTree = "<group>"; };
+		6D0CC41CB03DA9815EA4F5ED /* Pods-vkAlissia-2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkAlissia-2.release.xcconfig"; path = "Target Support Files/Pods-vkAlissia-2/Pods-vkAlissia-2.release.xcconfig"; sourceTree = "<group>"; };
+		900F0F736EE84BFEBAB2F225 /* Pods_vkAlissia_2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vkAlissia_2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C818479C24F052BD001E7D59 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C81847A024F052CD001E7D59 /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C81847A324F053F3001E7D59 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C865770124E0630B0004A272 /* vkAlissia-2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "vkAlissia-2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C865770424E0630B0004A272 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C865770624E0630C0004A272 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C865770B24E0630C0004A272 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C865771024E0630D0004A272 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C865771224E0630D0004A272 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C865771924E063940004A272 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
-		C865771A24E063940004A272 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		C865771E24E063A00004A272 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		C865771F24E063A00004A272 /* LoginFormController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginFormController.swift; sourceTree = "<group>"; };
 		C865772324E063AA0004A272 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
@@ -78,10 +80,9 @@
 		C865774E24E064050004A272 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C87E1D3D24E3492E0061E697 /* VKLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VKLoginController.swift; sourceTree = "<group>"; };
 		C89B6B1124E08D84002CB028 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
-		C89D765E24E91ECA00FDC697 /* AppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
-		C89D766224EE1E4000FDC697 /* GroupCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCodable.swift; sourceTree = "<group>"; };
-		C89D766424EE2F0300FDC697 /* PhotoCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCodable.swift; sourceTree = "<group>"; };
-		C89D766824EE4EC500FDC697 /* FriendCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCodable.swift; sourceTree = "<group>"; };
+		C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCodableRealm.swift; sourceTree = "<group>"; };
+		C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCodableRealm.swift; sourceTree = "<group>"; };
+		C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCodableRealm.swift; sourceTree = "<group>"; };
 		C8BB9D1D24E3548500B05FED /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C8BB9D2124E35C9000B05FED /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,18 +93,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				C8BB9D1E24E3548500B05FED /* WebKit.framework in Frameworks */,
+				74B7D426A14FFFC691EF9765 /* Pods_vkAlissia_2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6CCC2632B6C923402E88D1D1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3876717EE162790F687ED2FC /* Pods-vkAlissia-2.debug.xcconfig */,
+				6D0CC41CB03DA9815EA4F5ED /* Pods-vkAlissia-2.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		C86576F824E0630B0004A272 = {
 			isa = PBXGroup;
 			children = (
 				C865770324E0630B0004A272 /* vkAlissia-2 */,
 				C865770224E0630B0004A272 /* Products */,
 				C8BB9D1C24E3548500B05FED /* Frameworks */,
+				6CCC2632B6C923402E88D1D1 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,7 +130,6 @@
 		C865770324E0630B0004A272 /* vkAlissia-2 */ = {
 			isa = PBXGroup;
 			children = (
-				C89D765E24E91ECA00FDC697 /* AppViewController.swift */,
 				C865770A24E0630C0004A272 /* Main.storyboard */,
 				C865771824E063940004A272 /* Models */,
 				C865771D24E063A00004A272 /* Login */,
@@ -138,11 +149,9 @@
 		C865771824E063940004A272 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C865771924E063940004A272 /* Friend.swift */,
-				C865771A24E063940004A272 /* Group.swift */,
-				C89D766824EE4EC500FDC697 /* FriendCodable.swift */,
-				C89D766224EE1E4000FDC697 /* GroupCodable.swift */,
-				C89D766424EE2F0300FDC697 /* PhotoCodable.swift */,
+				C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */,
+				C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */,
+				C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -241,7 +250,11 @@
 		C8BB9D1C24E3548500B05FED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C81847A324F053F3001E7D59 /* Realm.framework */,
+				C81847A024F052CD001E7D59 /* SDWebImage.framework */,
+				C818479C24F052BD001E7D59 /* RealmSwift.framework */,
 				C8BB9D1D24E3548500B05FED /* WebKit.framework */,
+				900F0F736EE84BFEBAB2F225 /* Pods_vkAlissia_2.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -253,9 +266,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C865771524E0630D0004A272 /* Build configuration list for PBXNativeTarget "vkAlissia-2" */;
 			buildPhases = (
+				C5C281072638A5FDDF39D7C7 /* [CP] Check Pods Manifest.lock */,
 				C86576FD24E0630B0004A272 /* Sources */,
 				C86576FE24E0630B0004A272 /* Frameworks */,
 				C86576FF24E0630B0004A272 /* Resources */,
+				39CA2CFBBC44EFCD901A31C0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -316,6 +331,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		39CA2CFBBC44EFCD901A31C0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-vkAlissia-2/Pods-vkAlissia-2-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-vkAlissia-2/Pods-vkAlissia-2-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-vkAlissia-2/Pods-vkAlissia-2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5C281072638A5FDDF39D7C7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-vkAlissia-2-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C86576FD24E0630B0004A272 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -325,22 +382,19 @@
 				C865772F24E063B30004A272 /* LikeControl.swift in Sources */,
 				C865774724E063CD0004A272 /* NewsViewController.swift in Sources */,
 				C865773224E063B30004A272 /* ParticularFriendCell.swift in Sources */,
-				C89D766924EE4EC500FDC697 /* FriendCodable.swift in Sources */,
+				C89D766924EE4EC500FDC697 /* FriendCodableRealm.swift in Sources */,
 				C865770524E0630B0004A272 /* AppDelegate.swift in Sources */,
 				C865772124E063A00004A272 /* LoginFormController.swift in Sources */,
 				C865772824E063AA0004A272 /* FriendCell.swift in Sources */,
-				C89D766324EE1E4000FDC697 /* GroupCodable.swift in Sources */,
+				C89D766324EE1E4000FDC697 /* GroupCodableRealm.swift in Sources */,
 				C865774024E063C40004A272 /* AllGroupsViewController.swift in Sources */,
 				C865772024E063A00004A272 /* GradientView.swift in Sources */,
 				C865774124E063C40004A272 /* GroupCell.swift in Sources */,
-				C89D765F24E91ECA00FDC697 /* AppViewController.swift in Sources */,
 				C865770724E0630C0004A272 /* SceneDelegate.swift in Sources */,
 				C865774C24E063DE0004A272 /* StarView.swift in Sources */,
 				C865774624E063CD0004A272 /* NewsCell.swift in Sources */,
 				C865773924E063BD0004A272 /* MyGroupCell.swift in Sources */,
-				C865771C24E063940004A272 /* Group.swift in Sources */,
-				C865771B24E063940004A272 /* Friend.swift in Sources */,
-				C89D766524EE2F0300FDC697 /* PhotoCodable.swift in Sources */,
+				C89D766524EE2F0300FDC697 /* PhotoCodableRealm.swift in Sources */,
 				C865773A24E063BD0004A272 /* MyGroupsViewController.swift in Sources */,
 				C865773024E063B30004A272 /* FriendPhotoViewController.swift in Sources */,
 				C89B6B1224E08D84002CB028 /* Session.swift in Sources */,
@@ -490,6 +544,7 @@
 		};
 		C865771624E0630D0004A272 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3876717EE162790F687ED2FC /* Pods-vkAlissia-2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -508,6 +563,7 @@
 		};
 		C865771724E0630D0004A272 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D0CC41CB03DA9815EA4F5ED /* Pods-vkAlissia-2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

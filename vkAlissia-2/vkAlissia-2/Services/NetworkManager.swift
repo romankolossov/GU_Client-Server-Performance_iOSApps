@@ -14,7 +14,7 @@ class NetworkManager {
         case groupsGet = "groups.get"
         case friendsGet = "friends.get"
         case photosGet = "photos.get"
-        case groupsSearch = "groups.searc"
+        case groupsSearch = "groups.search"
     }
     
     private lazy var session: URLSession = {
@@ -37,25 +37,25 @@ class NetworkManager {
         case .groupsGet:
             urlConstructor.queryItems = [
                 URLQueryItem(name: "access_token", value: Session.shared.token),
-                URLQueryItem(name: "user_id", value: String(Session.shared.userId)),
+                URLQueryItem(name: "user_id", value: "\(Session.shared.userId)"),
                 URLQueryItem(name: "extended", value: "1"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
         case .friendsGet:
             urlConstructor.queryItems = [
                 URLQueryItem(name: "access_token", value: Session.shared.token),
-                URLQueryItem(name: "user_id", value: String(Session.shared.userId)),
+                URLQueryItem(name: "user_id", value: "\(Session.shared.userId)"),
                 URLQueryItem(name: "order", value: "random"),
                 URLQueryItem(name: "offset", value: "5"),
-                URLQueryItem(name: "fields", value: "city,country,domain"),
+                URLQueryItem(name: "fields", value: "city,country,domain,photo_50"),
                 URLQueryItem(name: "name_case", value: "nom"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
         case .photosGet:
             urlConstructor.queryItems = [
                 URLQueryItem(name: "access_token", value: Session.shared.token),
-                URLQueryItem(name: "owner_id", value: "-1"),
-                //URLQueryItem(name: "owner_id", value: String(Session.shared.userId)),
+                //URLQueryItem(name: "owner_id", value: "-1"),
+                URLQueryItem(name: "owner_id", value: String(Session.shared.userId)),
                 URLQueryItem(name: "album_id", value: "profile"),
                 URLQueryItem(name: "rev", value: "0"),
                 URLQueryItem(name: "offset", value: "0"),

@@ -7,77 +7,83 @@
 //
 
 import UIKit
-
-var favoriteImages: [UIImage] = [
-    UIImage(named: "Alissia0")!,
-    UIImage(named: "Alissia1")!,
-    UIImage(named: "Alissia2")!,
-    UIImage(named: "Alissia3")!,
-    UIImage(named: "Alissia4")!,
-    UIImage(named: "Alissia5")!,
-    UIImage(named: "Alissia6")!,
-    UIImage(named: "Alissia7")!,
-    UIImage(named: "Alissia8")!,
-    UIImage(named: "Alissia9")!,
-    UIImage(named: "Alissia10")!,
-    UIImage(named: "Alissia11")!,
-    UIImage(named: "Alissia12")!
-]
+import SDWebImage
 
 class FriendsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var friends: Array<FriendData> = [
-        FriendData(friendName: "Алиска", friendAvatar: UIImage(named: "Alissia0")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Барсика", friendAvatar: UIImage(named: "Alissia1")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Василиса", friendAvatar: UIImage(named: "Alissia2")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Стеша", friendAvatar: UIImage(named: "Alissia3")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Пушок", friendAvatar: UIImage(named: "Alissia4")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Фекла", friendAvatar: UIImage(named: "Alissia5")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Маруська", friendAvatar: UIImage(named: "Alissia6")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Мурка", friendAvatar: UIImage(named: "Alissia7")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Счастливчик", friendAvatar: UIImage(named: "Alissia8")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Забияка", friendAvatar: UIImage(named: "Alissia9")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Мурлыка", friendAvatar: UIImage(named: "Alissia10")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Принцесса", friendAvatar: UIImage(named: "Alissia11")!, favoriteImages: favoriteImages.shuffled()),
-        FriendData(friendName: "Софочка", friendAvatar: UIImage(named: "Alissia12")!, favoriteImages: favoriteImages.shuffled())
-    ]
+    var friends = [FriendData]() {
+        didSet {
+            self.tableView.reloadData()
+            #if DEBUG
+            print(friends, "\n")
+            #endif
+        }
+    }
     
     var sections: [Character: [FriendData]] = [:]
     var sectionTitles = [Character]()
+    let networkManager = NetworkManager()
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
         
-        for friend in friends {
-            let firstLetter = friend.friendName.first!
+        tableView.register(UINib(nibName: String(describing: FriendCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: FriendCell.self))
+    }
+    
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        super.prepare(for: segue, sender: sender)
+    //        if let destination = segue.destination as? ParticularFriendViewController {
+    //            guard let cell = sender as? FriendCell else { return }
+    //
+    //            destination.friendName = cell.nameLabel.text
+    //            destination.favoriteImages = cell.favoriteImages
+    //        }
+    //    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super .viewWillAppear(animated)
+        
+        networkManager.loadFriends() { [weak self] result in
+            var friends = [FriendData]()
             
-            if sections[firstLetter] != nil {
-                sections[firstLetter]?.append(friend)
-            } else {
-                sections[firstLetter] = [friend]
+            switch result {
+            case let .success(friendItems):
+                for item in friendItems {
+                    let friend = FriendData(friendItem: item)
+                    friends.append(friend)
+                }
+                DispatchQueue.main.async {
+                    self?.friends = friends
+                }
+            case let .failure(error):
+                print(error)
             }
         }
         
-        sectionTitles = Array(sections.keys)
-        sectionTitles.sort()
-        
-        tableView.register(UINib(nibName: "FriendCell", bundle: Bundle.main), forCellReuseIdentifier: "FriendCell")
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            self.sections = [:]
+            
+            for friend in self.friends {
+                let firstLetter = friend.friendName.first!
+                
+                if self.sections[firstLetter] != nil {
+                    self.sections[firstLetter]?.append(friend)
+                } else {
+                    self.sections[firstLetter] = [friend]
+                }
+            }
+            
+            self.sectionTitles = Array(self.sections.keys)
+            self.sectionTitles.sort()
+            self.tableView.reloadData()
+        })
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        super.prepare(for: segue, sender: sender)
-//        if let destination = segue.destination as? ParticularFriendViewController {
-//            guard let cell = sender as? FriendCell else { return }
-//
-//            destination.friendName = cell.nameLabel.text
-//            destination.favoriteImages = cell.favoriteImages
-//        }
-//    }
-    
 }
+
 
 // MARK: - UITableViewDataSource
 extension FriendsViewController: UITableViewDataSource {
@@ -98,12 +104,13 @@ extension FriendsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as? FriendCell else { fatalError() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FriendCell.self), for: indexPath) as? FriendCell else { fatalError() }
         guard  let friend = sections[sectionTitles[indexPath.section]]? [indexPath.row] else { fatalError() }
         
         cell.nameLabel.text = friend.friendName
-        cell.friendAvatarView.image = friend.friendAvatar
-        cell.favoriteImages = friend.favorireImages
+        cell.friendAvatarView.sd_setImage(with: URL(string: friend.friendAvatarString), completed: nil)
+        //cell.friendAvatarView.image = friend.friendAvatar
+        //cell.favoriteImages = friend.favorireImages
         
         return cell
     }
@@ -120,11 +127,11 @@ extension FriendsViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension FriendsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let vc = storyboard?.instantiateViewController(identifier: "ParticularFriend") as? ParticularFriendViewController else { return }
+        guard let vc = storyboard?.instantiateViewController(identifier: String(describing: ParticularFriendViewController.self)) as? ParticularFriendViewController else { return }
         guard let friend = sections[sectionTitles[indexPath.section]]? [indexPath.row] else { return }
         
         vc.friendName = friend.friendName
-        vc.favoriteImages = friend.favorireImages
+        //vc.favoriteImages = friend.favorireImages
         
         navigationController?.pushViewController(vc, animated: true)
     }

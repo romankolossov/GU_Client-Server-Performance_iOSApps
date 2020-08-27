@@ -10,7 +10,8 @@ import UIKit
 
 class NewsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self

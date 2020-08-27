@@ -7,24 +7,64 @@
 //
 
 import UIKit
+import WebKit
 
 class LoginFormController: UIViewController {
-    @IBOutlet weak var scrollView: UIScrollView!
+    
+    // MARK: Some constants & variables
+    private let heartLabelA = UILabel()
+    private let heartLabelB = UILabel()
+    private let heartLabelC = UILabel()
+    
+    var interactiveAnimator: UIViewPropertyAnimator!
+    
+    // MARK: UI
     @IBOutlet weak var loginField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    
     @IBOutlet weak var authButton: UIButton!
     
-    private let heartLabelA = UILabel()
-    private let heartLabelB = UILabel()
-    private let heartLabelC = UILabel()
-    
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var starView: StarView!
+    @IBOutlet var webView: WKWebView! {
+        didSet {
+            webView.navigationDelegate = self
+        }
+    }
     
-    var interactiveAnimator: UIViewPropertyAnimator!
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        removeCookies()
+        webView.isHidden = true
+        
+        // MARK: - Targets
+        authButton.addTarget(self, action: #selector(performSegueAction), for: .touchUpInside)
+        
+        var components = URLComponents()
+        
+        components.scheme = "https"
+        components.host = "oauth.vk.com"
+        components.path = "/authorize"
+        components.queryItems = [
+            URLQueryItem(name: "client_id", value: "7564683"),
+            URLQueryItem(name: "scope", value: "262150"),
+            URLQueryItem(name: "display", value: "mobile"),
+            URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
+            URLQueryItem(name: "response_type", value: "token"),
+            URLQueryItem(name: "v", value: "5.122")
+        ]
+        
+        let request = URLRequest(url: components.url!)
+        webView.load(request)
+        
+        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
+        view.addGestureRecognizer(recognizer)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -77,11 +117,23 @@ class LoginFormController: UIViewController {
         starView.animate()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
-        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
-        view.addGestureRecognizer(recognizer)
+        NotificationCenter.default.removeObserver(self, name:
+            UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name:
+            UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    // MARK: - @objc methods
+    @objc private func performSegueAction()  {
+        if checkLoginInfo() {
+            showLoginSuccess()
+            //performSegue(withIdentifier: "loginSegue", sender: self)
+        } else {
+            showLoginError()
+        }
     }
     
     @objc func onPan (_ recognizer: UIPanGestureRecognizer) {
@@ -131,32 +183,30 @@ class LoginFormController: UIViewController {
         scrollView.endEditing(true)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        NotificationCenter.default.removeObserver(self, name:
-            UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name:
-            UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "loginSegue" {
-            if checkLoginInfo() {
-                return true
-            } else {
-                showLoginError()
-                return false
-            }
+    // MARK: - Major methods
+    func removeCookies() {
+        let cookieJar = HTTPCookieStorage.shared
+        for cookie in cookieJar.cookies! {
+            cookieJar.deleteCookie(cookie)
         }
-        return true
     }
     
     private func checkLoginInfo() -> Bool {
-        guard let loginText = loginField.text else { return false }
-        guard let passwordText = passwordField.text else { return false }
+        //        guard let loginText = loginField.text else { return false }
+        //        guard let passwordText = passwordField.text else { return false }
         
-        if loginText == "", passwordText == "" {
+        let loginText = "rkolossov@mail.ru"
+        let passwordText = "Olga1357"
+        
+        webView.evaluateJavaScript("document.querySelector('input[name=email]').value='\(loginText)';document.querySelector('input[name=pass]').value='\(passwordText)';") {
+            [weak self] (res, error) in
+            self?.webView.isHidden = false
+            #if DEBUG
+            print("\(String(describing: res))\n--------\n\(String(describing: error))")
+            #endif
+        }
+        
+        if loginText == "rkolossov@mail.ru", passwordText == "Olga1357" {
             animateCorrectPassword()
             return true
         } else {
@@ -173,6 +223,16 @@ class LoginFormController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    private func showLoginSuccess() {
+        let  alert = UIAlertController(title: "Успешный вход", message: "При необходимости подтвердите пожалуйста вход в форме VK", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel) { [weak self] (_) in self?.performSegue(withIdentifier: "loginSegue", sender: self)}
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: - Animation methods
     func animateTitleAppearing() {
         let offset = abs (loginLabel.frame.midY - passwordLabel.frame.midY)
         
@@ -288,5 +348,43 @@ class LoginFormController: UIViewController {
         heartLabelA.layer.add(animation, forKey: nil)
         heartLabelB.layer.add(animation, forKey: nil)
         heartLabelC.layer.add(animation, forKey: nil)
+    }
+}
+
+// MARK: - WKNavigationDelegate
+extension LoginFormController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        guard let url = navigationResponse.response.url,
+            url.path == "/blank.html",
+            let fragment = url.fragment else { decisionHandler(.allow); return }
+        
+        let params = fragment
+            .components(separatedBy: "&")
+            .map { $0.components(separatedBy: "=") }
+            .reduce([String: String]()) { result, param in
+                var dict = result
+                let key = param[0]
+                let value = param[1]
+                dict[key] = value
+                return dict
+        }
+        
+        #if DEBUG
+        print(params, "\n")
+        #endif
+        
+        guard let token = params["access_token"],
+            let userIdString = params["user_id"],
+            let userID = Int(userIdString) else {
+                decisionHandler(.allow)
+                return
+        }
+        
+        Session.shared.token = token
+        Session.shared.userId = userID
+        
+        //performSegue(withIdentifier: "RunTheApp", sender: nil)
+        
+        decisionHandler(.cancel)
     }
 }
