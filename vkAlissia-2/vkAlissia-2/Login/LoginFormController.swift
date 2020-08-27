@@ -126,7 +126,7 @@ class LoginFormController: UIViewController {
             UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    // MARK: - @objc functions
+    // MARK: - @objc methods
     @objc private func performSegueAction()  {
         if checkLoginInfo() {
             showLoginSuccess()
@@ -183,7 +183,7 @@ class LoginFormController: UIViewController {
         scrollView.endEditing(true)
     }
     
-    // MARK: - Major functions
+    // MARK: - Major methods
     func removeCookies() {
         let cookieJar = HTTPCookieStorage.shared
         for cookie in cookieJar.cookies! {
@@ -232,7 +232,7 @@ class LoginFormController: UIViewController {
     }
     
     
-    // MARK: - Animations functions
+    // MARK: - Animation methods
     func animateTitleAppearing() {
         let offset = abs (loginLabel.frame.midY - passwordLabel.frame.midY)
         

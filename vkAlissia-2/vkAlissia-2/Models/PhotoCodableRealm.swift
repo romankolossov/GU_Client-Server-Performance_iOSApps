@@ -26,7 +26,7 @@ class PhotoItem: Object, Codable {
     @objc dynamic var albumID: Int = 0
     @objc dynamic var ownerID: Int = 0
     @objc dynamic var userID: Int = 0
-    dynamic var sizes = List<Size>()
+    var sizes = List<Size>()
     @objc dynamic var text: String = ""
     @objc dynamic var date: Int = 0
 
@@ -44,22 +44,23 @@ class PhotoItem: Object, Codable {
         let albumID = try container.decodeIfPresent(Int.self, forKey: .albumID) ?? 0
         let ownerID = try container.decodeIfPresent(Int.self, forKey: .ownerID) ?? 0
         let userID = try container.decodeIfPresent(Int.self, forKey: .userID) ?? 0
-        let sizes = try container.decodeIfPresent(List<Size>.self, forKey: .sizes) ?? List<Size>()
+        let sizes = try container.decodeIfPresent([Size].self, forKey: .sizes) ?? [Size]()
         let text = try container.decodeIfPresent(String.self, forKey: .text) ?? ""
         let date = try container.decodeIfPresent(Int.self, forKey: .date) ?? 0
+        
         
         self.init(id: id, albumID: albumID, ownerID: ownerID, userID: userID, sizes: sizes, text: text, date: date)
     }
     
-    convenience init(id: Int, albumID: Int, ownerID: Int, userID: Int, sizes: List<Size>, text: String, date: Int) {
+    convenience init(id: Int, albumID: Int, ownerID: Int, userID: Int, sizes: [Size], text: String, date: Int) {
         self.init()
         self.id = id
         self.albumID = albumID
         self.ownerID = ownerID
         self.userID = userID
-        self.sizes = sizes
         self.text = text
         self.date = date
+        sizes.forEach {self.sizes.append($0)}
     }
     
     required init() {

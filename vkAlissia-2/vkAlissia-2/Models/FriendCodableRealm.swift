@@ -38,7 +38,7 @@ class FriendItem: Object, Codable {
     @objc dynamic var lastName: String = ""
     @objc dynamic var domain: String = ""
     @objc dynamic var photo50: String = ""
-    @objc dynamic var city: City?
+    @objc dynamic var city: City? = nil
     @objc dynamic var online: Int = 0
 
     enum CodingKeys: String, CodingKey {
@@ -56,7 +56,7 @@ class FriendItem: Object, Codable {
         let lastName = try container.decodeIfPresent(String.self, forKey: .lastName) ?? ""
         let domain = try container.decodeIfPresent(String.self, forKey: .domain) ?? ""
         let photo50 = try container.decodeIfPresent(String.self, forKey: .photo50) ?? ""
-        let city = try container.decodeIfPresent(City.self, forKey: .city) ?? City(id: 0, title: "")
+        let city = try container.decode(City.self, forKey: .city)
         let online = try container.decodeIfPresent(Int.self, forKey: .online) ?? 0
         
         self.init(id: id, firstName: firstName, lastName: lastName, domain: domain, photo50: photo50, city: city, online: online)

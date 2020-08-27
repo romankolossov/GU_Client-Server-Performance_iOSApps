@@ -14,7 +14,7 @@ class NetworkManager {
         case groupsGet = "groups.get"
         case friendsGet = "friends.get"
         case photosGet = "photos.get"
-        case groupsSearch = "groups.searc"
+        case groupsSearch = "groups.search"
     }
     
     private lazy var session: URLSession = {
