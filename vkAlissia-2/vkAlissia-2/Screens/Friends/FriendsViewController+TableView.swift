@@ -1,5 +1,5 @@
 //
-//  FriendsViewController+Extensions.swift
+//  FriendsViewController+TableView.swift
 //  vkAlissia-2
 //
 //  Created by Роман Колосов on 28.08.2020.
@@ -61,9 +61,5 @@ extension FriendsViewController: UITableViewDelegate {
     }
 }
 
-extension FriendsViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        tableView.reloadData()
-    }
-}
+
 

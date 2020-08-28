@@ -11,6 +11,7 @@ import RealmSwift
 
 class FriendData: Object {
     @objc dynamic var id: Int = 0
+    //var id = RealmOptional<Int>()
     @objc dynamic var friendName: String = ""
     @objc dynamic var friendAvatarString: String = ""
     //var favorireImages: [UIImage] = []
@@ -18,6 +19,9 @@ class FriendData: Object {
     override class func primaryKey() -> String? {
            return "id"
        }
+    override static func indexedProperties() -> [String] {
+        return ["friendName"]
+    }
     
     init(friendItem: FriendItem) {
         self.id = friendItem.id
@@ -58,6 +62,10 @@ class FriendItem: Object, Codable {
         case photo50 = "photo_50"
         case domain, city, online
     }
+    
+//    override class func ignoredProperties() -> [String] {
+//        return ["id", "firstName", "lastName", "domain", "photo50", "city", "online"]
+//    }
     
     required convenience init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
