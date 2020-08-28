@@ -8,6 +8,8 @@
 
 import RealmSwift
 
+import RealmSwift
+
 class RealmManager {
     
     static let shared = RealmManager()
@@ -21,14 +23,6 @@ class RealmManager {
     }
     
     private let realm: Realm
-    
-//    private lazy var realm: Realm? = {
-//        #if DEBUG
-//        print(Realm.Configuration.defaultConfiguration.fileURL ?? "Realm error")
-//        #endif
-//
-//        return try? Realm()
-//    }()
     
     // MARK: - Major methods
     
@@ -60,4 +54,3 @@ class RealmManager {
         }
     }
 }
-

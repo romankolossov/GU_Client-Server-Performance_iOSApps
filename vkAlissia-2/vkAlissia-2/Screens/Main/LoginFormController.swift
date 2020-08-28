@@ -11,6 +11,8 @@ import WebKit
 
 class LoginFormController: UIViewController {
     
+    static let segueIdentifier = "loginSegue"
+    
     // MARK: Some constants & variables
     private let heartLabelA = UILabel()
     private let heartLabelB = UILabel()
@@ -130,7 +132,7 @@ class LoginFormController: UIViewController {
     @objc private func performSegueAction()  {
         if checkLoginInfo() {
             showLoginSuccess()
-            //performSegue(withIdentifier: "loginSegue", sender: self)
+            //performSegue(withIdentifier: String(describing: LoginFormController.segueIdentifier), sender: self)
         } else {
             showLoginError()
         }
@@ -225,7 +227,9 @@ class LoginFormController: UIViewController {
     
     private func showLoginSuccess() {
         let  alert = UIAlertController(title: "Успешный вход", message: "При необходимости подтвердите пожалуйста вход в форме VK", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel) { [weak self] (_) in self?.performSegue(withIdentifier: "loginSegue", sender: self)}
+        let action = UIAlertAction(title: "OK", style: .cancel) {
+            [weak self] (_) in self?.performSegue(withIdentifier: String(describing: LoginFormController.segueIdentifier), sender: self)
+        }
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
@@ -382,8 +386,6 @@ extension LoginFormController: WKNavigationDelegate {
         
         Session.shared.token = token
         Session.shared.userId = userID
-        
-        //performSegue(withIdentifier: "RunTheApp", sender: nil)
         
         decisionHandler(.cancel)
     }

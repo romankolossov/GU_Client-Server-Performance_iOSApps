@@ -16,9 +16,6 @@ class MyGroupsViewController: UIViewController {
     var myGroups = [GroupData]() {
         didSet {
             tableView.reloadData()
-            #if DEBUG
-            print(myGroups, "\n")
-            #endif
         }
     }
     

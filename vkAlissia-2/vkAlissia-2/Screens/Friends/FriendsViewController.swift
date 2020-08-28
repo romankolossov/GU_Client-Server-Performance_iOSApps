@@ -15,9 +15,6 @@ class FriendsViewController: UIViewController {
     var friends = [FriendData]() {
         didSet {
             self.tableView.reloadData()
-            #if DEBUG
-            print(friends, "\n")
-            #endif
         }
     }
     
