@@ -250,15 +250,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2H5-Cf-w8p">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="x6j-vk-D9Q">
+                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="x6j-vk-D9Q" firstAttribute="top" secondItem="Yja-az-uic" secondAttribute="top" id="4dE-ii-XtR"/>
                             <constraint firstItem="Yja-az-uic" firstAttribute="bottom" secondItem="2H5-Cf-w8p" secondAttribute="bottom" id="GVb-zl-2d7"/>
-                            <constraint firstItem="2H5-Cf-w8p" firstAttribute="top" secondItem="Yja-az-uic" secondAttribute="top" id="kjy-AV-QGH"/>
+                            <constraint firstItem="2H5-Cf-w8p" firstAttribute="top" secondItem="x6j-vk-D9Q" secondAttribute="bottom" id="bac-xq-Gyx"/>
                             <constraint firstItem="Yja-az-uic" firstAttribute="trailing" secondItem="2H5-Cf-w8p" secondAttribute="trailing" id="sEm-XA-eaU"/>
+                            <constraint firstItem="x6j-vk-D9Q" firstAttribute="leading" secondItem="Yja-az-uic" secondAttribute="leading" id="tZo-4r-WuJ"/>
+                            <constraint firstItem="x6j-vk-D9Q" firstAttribute="trailing" secondItem="Yja-az-uic" secondAttribute="trailing" id="v2o-yo-NpX"/>
                             <constraint firstItem="2H5-Cf-w8p" firstAttribute="leading" secondItem="Yja-az-uic" secondAttribute="leading" id="wPi-jt-SQ0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Yja-az-uic"/>
@@ -271,6 +278,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="x6j-vk-D9Q" id="CPW-p3-zOk"/>
                         <outlet property="tableView" destination="2H5-Cf-w8p" id="vjN-Uw-Jjz"/>
                     </connections>
                 </viewController>
@@ -287,21 +295,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Aou-oP-BvW">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="100" width="414" height="762"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="a4y-ef-Y0h">
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="a4y-ef-Y0h" firstAttribute="leading" secondItem="tKA-wY-edm" secondAttribute="leading" id="6FW-q5-qNx"/>
                             <constraint firstItem="tKA-wY-edm" firstAttribute="trailing" secondItem="Aou-oP-BvW" secondAttribute="trailing" id="Icd-km-5N1"/>
-                            <constraint firstItem="Aou-oP-BvW" firstAttribute="top" secondItem="tKA-wY-edm" secondAttribute="top" id="Nod-iN-a13"/>
+                            <constraint firstItem="a4y-ef-Y0h" firstAttribute="trailing" secondItem="tKA-wY-edm" secondAttribute="trailing" id="bTy-4X-KN9"/>
                             <constraint firstItem="tKA-wY-edm" firstAttribute="bottom" secondItem="Aou-oP-BvW" secondAttribute="bottom" id="fvq-3Y-G4Y"/>
                             <constraint firstItem="Aou-oP-BvW" firstAttribute="leading" secondItem="tKA-wY-edm" secondAttribute="leading" id="hbE-a4-AYh"/>
+                            <constraint firstItem="Aou-oP-BvW" firstAttribute="top" secondItem="a4y-ef-Y0h" secondAttribute="bottom" id="hjk-vZ-QmF"/>
+                            <constraint firstItem="a4y-ef-Y0h" firstAttribute="top" secondItem="tKA-wY-edm" secondAttribute="top" id="kcx-Hk-xVO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tKA-wY-edm"/>
                     </view>
                     <navigationItem key="navigationItem" title="All Groups" id="i1h-zB-Ybb"/>
                     <connections>
+                        <outlet property="searchBar" destination="a4y-ef-Y0h" id="Qom-t7-rfz"/>
                         <outlet property="tableView" destination="Aou-oP-BvW" id="9Yk-sl-pMb"/>
                     </connections>
                 </viewController>
@@ -337,14 +353,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CCU-BQ-dZG">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Zfd-ND-GBX">
+                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="CCU-BQ-dZG" firstAttribute="top" secondItem="Iyw-va-wfi" secondAttribute="top" id="bLq-0L-rm5"/>
+                            <constraint firstItem="Zfd-ND-GBX" firstAttribute="leading" secondItem="Iyw-va-wfi" secondAttribute="leading" id="Aai-BI-xlF"/>
+                            <constraint firstItem="Zfd-ND-GBX" firstAttribute="trailing" secondItem="Iyw-va-wfi" secondAttribute="trailing" id="RPu-yr-FaK"/>
+                            <constraint firstItem="CCU-BQ-dZG" firstAttribute="top" secondItem="Zfd-ND-GBX" secondAttribute="bottom" id="dAN-t9-iJ6"/>
                             <constraint firstItem="Iyw-va-wfi" firstAttribute="bottom" secondItem="CCU-BQ-dZG" secondAttribute="bottom" id="hC0-0Y-VhT"/>
+                            <constraint firstItem="Zfd-ND-GBX" firstAttribute="top" secondItem="Iyw-va-wfi" secondAttribute="top" id="wKc-xx-sz9"/>
                             <constraint firstItem="Iyw-va-wfi" firstAttribute="trailing" secondItem="CCU-BQ-dZG" secondAttribute="trailing" id="y5P-Pm-odT"/>
                             <constraint firstItem="CCU-BQ-dZG" firstAttribute="leading" secondItem="Iyw-va-wfi" secondAttribute="leading" id="yUj-jY-afB"/>
                         </constraints>
@@ -352,6 +375,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Friends" id="HWK-Yi-tW3"/>
                     <connections>
+                        <outlet property="searchBar" destination="Zfd-ND-GBX" id="yVh-Ry-Rls"/>
                         <outlet property="tableView" destination="CCU-BQ-dZG" id="rlK-XF-ln5"/>
                     </connections>
                 </viewController>

@@ -10,17 +10,7 @@ import UIKit
 import WebKit
 
 class LoginFormController: UIViewController {
-    
-    static let segueIdentifier = "loginSegue"
-    
-    // MARK: Some constants & variables
-    private let heartLabelA = UILabel()
-    private let heartLabelB = UILabel()
-    private let heartLabelC = UILabel()
-    
-    var interactiveAnimator: UIViewPropertyAnimator!
-    
-    // MARK: UI
+    // MARK: - UI
     @IBOutlet weak var loginField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
@@ -37,6 +27,15 @@ class LoginFormController: UIViewController {
             webView.navigationDelegate = self
         }
     }
+    
+    // MARK: - Constants & variables
+    static let segueIdentifier = "loginSegue"
+    
+    private let heartLabelA = UILabel()
+    private let heartLabelB = UILabel()
+    private let heartLabelC = UILabel()
+    
+    var interactiveAnimator: UIViewPropertyAnimator!
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

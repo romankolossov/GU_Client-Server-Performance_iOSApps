@@ -9,6 +9,7 @@
 import UIKit
 
 class NewsViewController: UIViewController {
+    // MARK: - UI
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Lifecycle

@@ -10,9 +10,13 @@ import UIKit
 import SDWebImage
 
 class MyGroupsViewController: UIViewController {
+    // MARK: - UI
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
+    // MARK: - Constants & variables
     let networkManager = NetworkManager()
+    
     var myGroups = [GroupData]() {
         didSet {
             tableView.reloadData()
@@ -49,6 +53,7 @@ class MyGroupsViewController: UIViewController {
         }
     }
     
+    // MARK: - Actions
     @IBAction func addGroupBarButtonItem(_ sender: UIBarButtonItem) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: String(describing: AllGroupsViewController.self)) as AllGroupsViewController

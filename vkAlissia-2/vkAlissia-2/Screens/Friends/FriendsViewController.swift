@@ -10,7 +10,12 @@ import UIKit
 import SDWebImage
 
 class FriendsViewController: UIViewController {
+    // MARK: - UI
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
+    
+    // MARK: - Constants & variables
+    let networkManager = NetworkManager()
     
     var friends = [FriendData]() {
         didSet {
@@ -20,7 +25,6 @@ class FriendsViewController: UIViewController {
     
     var sections: [Character: [FriendData]] = [:]
     var sectionTitles = [Character]()
-    let networkManager = NetworkManager()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

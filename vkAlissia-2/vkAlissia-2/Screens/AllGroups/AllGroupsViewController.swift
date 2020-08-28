@@ -13,8 +13,11 @@ protocol AllGroupsViewControllerDelegate: class {
 }
 
 class AllGroupsViewController: UIViewController {
+    // MARK: - UI
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
+    // MARK: - Constants & variables
     var groups: [GroupData] = []
     
     var sections: [Character: [GroupData]] = [:]
