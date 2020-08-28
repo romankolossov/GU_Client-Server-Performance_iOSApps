@@ -8,8 +8,6 @@
 
 import RealmSwift
 
-import RealmSwift
-
 class RealmManager {
     
     static let shared = RealmManager()
@@ -18,8 +16,10 @@ class RealmManager {
         guard let realm = try? Realm(configuration: configuration) else { return nil }
         self.realm = realm
         
+        #if DEBUG
         print("Realm database file path:")
         print(realm.configuration.fileURL ?? "")
+        #endif
     }
     
     private let realm: Realm
@@ -51,6 +51,12 @@ class RealmManager {
     func deleteAll() throws {
         try realm.write {
             realm.deleteAll()
+        }
+    }
+    
+    func update(closure: @escaping (() -> Void)) throws {
+        try realm.write {
+            closure()
         }
     }
 }

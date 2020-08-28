@@ -9,14 +9,24 @@
 import Foundation
 import RealmSwift
 
-class FriendData {
-    let friendName: String
-    var friendAvatarString: String
-    var favorireImages: [UIImage] = []
+class FriendData: Object {
+    @objc dynamic var id: Int = 0
+    @objc dynamic var friendName: String = ""
+    @objc dynamic var friendAvatarString: String = ""
+    //var favorireImages: [UIImage] = []
+    
+    override class func primaryKey() -> String? {
+           return "id"
+       }
     
     init(friendItem: FriendItem) {
+        self.id = friendItem.id
         self.friendName = friendItem.firstName
         self.friendAvatarString = friendItem.photo50
+    }
+    
+    required init() {
+        super.init()
     }
 }
 
