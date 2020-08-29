@@ -9,6 +9,7 @@
 import UIKit
 
 // MARK: - UITableViewDataSource
+
 extension FriendsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[sectionTitles[section]]?.count ?? 0
@@ -49,6 +50,7 @@ extension FriendsViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
+
 extension FriendsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let vc = storyboard?.instantiateViewController(identifier: String(describing: ParticularFriendViewController.self)) as? ParticularFriendViewController else { return }
@@ -61,5 +63,12 @@ extension FriendsViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - UISearchBarDelegate
+
+extension FriendsViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        publicTableView.reloadData()
+    }
+}
 
 

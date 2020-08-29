@@ -41,3 +41,20 @@ extension MyGroupsViewController: UITableViewDelegate {
     
 }
 
+// MARK: - AllGroupsViewControllerDelegate
+
+extension MyGroupsViewController: AllGroupsViewControllerDelegate {
+    func addFavoriteGroup(_ group: GroupData) {
+        //myGroups.append(group)
+        //tableView.reloadData()
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension MyGroupsViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        publicTableView.reloadData()
+    }
+}
+

@@ -19,7 +19,7 @@ class FriendsViewController: UIViewController {
             searchBar.delegate = self
         }
     }
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.dataSource = self
             tableView.delegate = self
@@ -34,6 +34,9 @@ class FriendsViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         return refreshControl
     }()
+    var publicTableView: UITableView {
+        tableView
+    }
     
     // MARK: - Some constants & variables
     
@@ -48,14 +51,16 @@ class FriendsViewController: UIViewController {
     private var searchText: String {
         searchBar.text ?? ""
     }
-    var sections: [Character: [FriendData]] = [:]
-    var sectionTitles = [Character]()
-    
     private let networkManager = NetworkManager()
     private let realmManager = RealmManager.shared
     var publicRealmManager: RealmManager? {
         realmManager
     }
+    var sections: [Character: [FriendData]] = [:]
+    var sectionTitles = [Character]()
+    
+    private var filteredFriendsNotificationToken: NotificationToken?
+    private var firstFriendNotificationToken: NotificationToken?
     
     // MARK: - Lifecycle
     
@@ -64,6 +69,59 @@ class FriendsViewController: UIViewController {
         
         if let friends = friends, friends.isEmpty {
             loadData()
+        }
+        
+        filteredFriendsNotificationToken = filteredFriends?.observe { [weak self] change in
+                    switch change {
+                    case .initial:
+                        #if DEBUG
+                        print("Initialized")
+                        #endif
+                        
+        //                self?.tableView.reloadData()
+                        
+                    case let .update(results, deletions: deletions, insertions: insertions, modifications: modifications):
+                        #if DEBUG
+                        print("""
+                            New count: \(results.count)
+                            Deletions: \(deletions)
+                            Insertions: \(insertions)
+                            Modifications: \(modifications)
+                        """)
+                        #endif
+                        
+                        self?.tableView.beginUpdates()
+                        
+                        self?.tableView.deleteRows(at: deletions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
+                        self?.tableView.insertRows(at: insertions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
+                        self?.tableView.reloadRows(at: modifications.map { IndexPath(item: $0, section: 0) }, with: .automatic)
+                        
+                        self?.tableView.endUpdates()
+                        
+                    case let .error(error):
+                        self?.showAlert(title: "Error", message: error.localizedDescription)
+                    }
+                }
+        
+        firstFriendNotificationToken = filteredFriends?.first?.observe { [weak self] change in
+            switch change {
+            case let .change(object, properties):
+                #if DEBUG
+                let whatChanged = properties.reduce("") { res, new in
+                    "\(res)\n\(new.name) -> \(new.newValue ?? "nil")"
+                }
+                let friend = object as? FriendData
+                print("Changed properties for user \(friend?.friendName ?? "unknowned")\n\(whatChanged)")
+                #endif
+                
+            case .deleted:
+                #if DEBUG
+                print("The first user was deleted")
+                #endif
+                
+            case let .error(error):
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            }
         }
         
         tableView.register(UINib(nibName: String(describing: FriendCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: FriendCell.self))
@@ -90,6 +148,10 @@ class FriendsViewController: UIViewController {
             self.sectionTitles.sort()
             self.tableView.reloadData()
         })
+    }
+    
+    deinit {
+        filteredFriendsNotificationToken?.invalidate()
     }
     
     // MARK: - Major methods
@@ -135,13 +197,7 @@ class FriendsViewController: UIViewController {
     }
 }
 
-// MARK: - UISearchBarDelegate
 
-extension FriendsViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        tableView.reloadData()
-    }
-}
 
 
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

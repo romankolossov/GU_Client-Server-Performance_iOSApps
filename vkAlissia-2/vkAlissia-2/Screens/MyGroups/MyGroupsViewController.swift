@@ -19,7 +19,7 @@ class MyGroupsViewController: UIViewController {
             searchBar.delegate = self
         }
     }
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.dataSource = self
             tableView.delegate = self
@@ -30,20 +30,23 @@ class MyGroupsViewController: UIViewController {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .systemBlue
         refreshControl.attributedTitle = NSAttributedString(string: "Reload data...",
-                                                     attributes: [.font: UIFont.systemFont(ofSize: 10)])
+                                                            attributes: [.font: UIFont.systemFont(ofSize: 10)])
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         return refreshControl
     }()
+    var publicTableView: UITableView {
+        tableView
+    }
     
     // MARK: - Some constants & variables
     
-    private var myGroups: Results<GroupData>? {
-        let myGroups: Results<GroupData>? = realmManager?.getObjects()
-        return myGroups?.sorted(byKeyPath: "id", ascending: true)
+    private var groups: Results<GroupData>? {
+        let groups: Results<GroupData>? = realmManager?.getObjects()
+        return groups?.sorted(byKeyPath: "id", ascending: true)
     }
     var filteredGroups: Results<GroupData>? {
-        guard !searchText.isEmpty else { return myGroups }
-        return myGroups?.filter("name CONTAINS[cd] %@", searchText)
+        guard !searchText.isEmpty else { return groups }
+        return groups?.filter("name CONTAINS[cd] %@", searchText)
     }
     private var searchText: String {
         searchBar.text ?? ""
@@ -55,15 +58,75 @@ class MyGroupsViewController: UIViewController {
         realmManager
     }
     
+    private var filteredGroupsNotificationToken: NotificationToken?
+    private var firstGroupNotificationToken: NotificationToken?
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let myGroups = myGroups, myGroups.isEmpty {
+        if let groups = groups, groups.isEmpty {
             loadData()
         }
         
+        filteredGroupsNotificationToken = filteredGroups?.observe { [weak self] change in
+            switch change {
+            case .initial:
+                #if DEBUG
+                print("Initialized")
+                #endif
+                
+                //                self?.tableView.reloadData()
+                
+            case let .update(results, deletions: deletions, insertions: insertions, modifications: modifications):
+                #if DEBUG
+                print("""
+                    New count: \(results.count)
+                    Deletions: \(deletions)
+                    Insertions: \(insertions)
+                    Modifications: \(modifications)
+                    """)
+                #endif
+                
+                self?.tableView.beginUpdates()
+                
+                self?.tableView.deleteRows(at: deletions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
+                self?.tableView.insertRows(at: insertions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
+                self?.tableView.reloadRows(at: modifications.map { IndexPath(item: $0, section: 0) }, with: .automatic)
+                
+                self?.tableView.endUpdates()
+                
+            case let .error(error):
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
+        
+        firstGroupNotificationToken = filteredGroups?.first?.observe { [weak self] change in
+            switch change {
+            case let .change(object, properties):
+                #if DEBUG
+                let whatChanged = properties.reduce("") { res, new in
+                    "\(res)\n\(new.name) -> \(new.newValue ?? "nil")"
+                }
+                let group = object as? GroupData
+                print("Changed properties for user \(group?.groupName ?? "unknowned")\n\(whatChanged)")
+                #endif
+                
+            case .deleted:
+                #if DEBUG
+                print("The first user was deleted")
+                #endif
+                
+            case let .error(error):
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
+        
         tableView.register(UINib(nibName: String(describing: MyGroupCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MyGroupCell.self))
+    }
+    
+    deinit {
+        filteredGroupsNotificationToken?.invalidate()
     }
     
     // MARK: - Major methods
@@ -115,23 +178,17 @@ class MyGroupsViewController: UIViewController {
             self?.refreshControl.endRefreshing()
         }
     }
-}
-
-// MARK: - AllGroupsViewControllerDelegate
-
-extension MyGroupsViewController: AllGroupsViewControllerDelegate {
-    func addFavoriteGroup(_ group: GroupData) {
-        //myGroups.append(group)
-        tableView.reloadData()
-    }
-}
-
-// MARK: - UISearchBarDelegate
-
-extension MyGroupsViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        tableView.reloadData()
-    }
-}
     
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == DetailViewController.storyboardIdentifier {
+//            if let destinationVC = segue.destination as? DetailViewController {
+//                destinationVC.user = sender as? User
+//            }
+//        }
+//    }
     
+}
+
+
+
+
