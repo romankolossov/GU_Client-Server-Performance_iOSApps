@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		74B7D426A14FFFC691EF9765 /* Pods_vkAlissia_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900F0F736EE84BFEBAB2F225 /* Pods_vkAlissia_2.framework */; };
+		C806ABF324FA525500AF5D27 /* MyGroupsViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C806ABF224FA525500AF5D27 /* MyGroupsViewController+TableView.swift */; };
 		C862A88624F7F55400A879DA /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C862A88524F7F55400A879DA /* RealmManager.swift */; };
 		C862A88D24F945BB00A879DA /* FriendsViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C862A88C24F945BB00A879DA /* FriendsViewController+TableView.swift */; };
 		C865770524E0630B0004A272 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865770424E0630B0004A272 /* AppDelegate.swift */; };
@@ -48,6 +49,7 @@
 		3876717EE162790F687ED2FC /* Pods-vkAlissia-2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkAlissia-2.debug.xcconfig"; path = "Target Support Files/Pods-vkAlissia-2/Pods-vkAlissia-2.debug.xcconfig"; sourceTree = "<group>"; };
 		6D0CC41CB03DA9815EA4F5ED /* Pods-vkAlissia-2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkAlissia-2.release.xcconfig"; path = "Target Support Files/Pods-vkAlissia-2/Pods-vkAlissia-2.release.xcconfig"; sourceTree = "<group>"; };
 		900F0F736EE84BFEBAB2F225 /* Pods_vkAlissia_2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vkAlissia_2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C806ABF224FA525500AF5D27 /* MyGroupsViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyGroupsViewController+TableView.swift"; sourceTree = "<group>"; };
 		C818479C24F052BD001E7D59 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81847A024F052CD001E7D59 /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81847A324F053F3001E7D59 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,6 +167,7 @@
 		C862A88924F8BB8B00A879DA /* MyGroups */ = {
 			isa = PBXGroup;
 			children = (
+				C806ABF224FA525500AF5D27 /* MyGroupsViewController+TableView.swift */,
 				C865773724E063BD0004A272 /* MyGroupsViewController.swift */,
 			);
 			path = MyGroups;
@@ -459,6 +462,7 @@
 				C865772024E063A00004A272 /* GradientView.swift in Sources */,
 				C865774124E063C40004A272 /* GroupCell.swift in Sources */,
 				C865770724E0630C0004A272 /* SceneDelegate.swift in Sources */,
+				C806ABF324FA525500AF5D27 /* MyGroupsViewController+TableView.swift in Sources */,
 				C865774C24E063DE0004A272 /* StarView.swift in Sources */,
 				C865774624E063CD0004A272 /* NewsCell.swift in Sources */,
 				C865773924E063BD0004A272 /* MyGroupCell.swift in Sources */,

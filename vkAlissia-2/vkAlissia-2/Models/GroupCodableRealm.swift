@@ -9,13 +9,27 @@
 import Foundation
 import RealmSwift
 
-class GroupData {
-    let groupName: String
-    var groupAvatarString: String
+class GroupData: Object {
+    //@objc dynamic var id: Int = 0
+    var id = RealmOptional<Int>()
+    @objc dynamic var groupName: String = ""
+    @objc dynamic var groupAvatarString: String = ""
+    
+    override class func primaryKey() -> String? {
+           return "id"
+       }
+    override static func indexedProperties() -> [String] {
+        return ["groupName"]
+    }
     
     init(groupItem: GroupItem) {
+        self.id = groupItem.id
         self.groupName = groupItem.name
         self.groupAvatarString = groupItem.photo50
+    }
+    
+    required init() {
+        super.init()
     }
 }
 
@@ -32,7 +46,8 @@ struct GroupResponse: Codable {
 
 // MARK: - GroupItem
 class GroupItem: Object, Codable {
-    @objc dynamic var id: Int = 0
+    //@objc dynamic var id: Int = 0
+    var id = RealmOptional<Int>()
     @objc dynamic var name: String = ""
     @objc dynamic var screenName: String = ""
     @objc dynamic var isClosed: Int = 0
@@ -59,7 +74,8 @@ class GroupItem: Object, Codable {
     
     required convenience init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        //let id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        let id = try container.decode(RealmOptional<Int>.self, forKey: .id)
         let name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         let screenName = try container.decodeIfPresent(String.self, forKey: .screenName) ?? ""
         let isClosed = try container.decodeIfPresent(Int.self, forKey: .isClosed) ?? 0
@@ -74,7 +90,7 @@ class GroupItem: Object, Codable {
         self.init(id: id, name: name, screenName: screenName, isClosed: isClosed, type: type, isAdmin: isAdmin, isMember: isMember, isAdvertiser: isAdvertiser, photo50: photo50, photo100: photo100, photo200: photo200)
     }
     
-    convenience init(id: Int, name: String, screenName: String, isClosed: Int, type: String, isAdmin: Int, isMember: Int, isAdvertiser: Int, photo50: String, photo100: String, photo200: String) {
+    convenience init(id: RealmOptional<Int>, name: String, screenName: String, isClosed: Int, type: String, isAdmin: Int, isMember: Int, isAdvertiser: Int, photo50: String, photo100: String, photo200: String) {
         self.init()
         self.id = id
         self.name = name

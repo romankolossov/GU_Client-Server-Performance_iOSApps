@@ -43,7 +43,7 @@ extension FriendsViewController: UITableViewDataSource {
             
             try? publicRealmManager?.delete(object: friend)
             
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            //tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 }

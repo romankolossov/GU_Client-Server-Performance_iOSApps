@@ -139,25 +139,7 @@ class FriendsViewController: UIViewController {
 
 extension FriendsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //tableView.reloadData()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-            self.sections = [:]
-            guard let filteredFriends = self.filteredFriends else { return }
-
-            for friend in filteredFriends {
-                let firstLetter = friend.friendName.first!
-
-                if self.sections[firstLetter] != nil {
-                    self.sections[firstLetter]?.append(friend)
-                } else {
-                    self.sections[firstLetter] = [friend]
-                }
-            }
-
-            self.sectionTitles = Array(self.sections.keys)
-            self.sectionTitles.sort()
-            self.tableView.reloadData()
-        })
+        tableView.reloadData()
     }
 }
 

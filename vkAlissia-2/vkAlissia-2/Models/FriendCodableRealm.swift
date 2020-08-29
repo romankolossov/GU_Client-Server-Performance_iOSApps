@@ -10,8 +10,8 @@ import Foundation
 import RealmSwift
 
 class FriendData: Object {
-    @objc dynamic var id: Int = 0
-    //var id = RealmOptional<Int>()
+    //@objc dynamic var id: Int = 0
+    var id = RealmOptional<Int>()
     @objc dynamic var friendName: String = ""
     @objc dynamic var friendAvatarString: String = ""
     //var favorireImages: [UIImage] = []
@@ -47,7 +47,8 @@ struct FriendResponse: Codable {
 
 // MARK: - FriendItem
 class FriendItem: Object, Codable {
-    @objc dynamic var id: Int = 0
+    //@objc dynamic var id: Int = 0
+    var id = RealmOptional<Int>()
     @objc dynamic var firstName: String = ""
     @objc dynamic var lastName: String = ""
     @objc dynamic var domain: String = ""
@@ -69,7 +70,8 @@ class FriendItem: Object, Codable {
     
     required convenience init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        //let id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        let id = try container.decode(RealmOptional<Int>.self, forKey: .id)
         let firstName = try container.decodeIfPresent(String.self, forKey: .firstName) ?? ""
         let lastName = try container.decodeIfPresent(String.self, forKey: .lastName) ?? ""
         let domain = try container.decodeIfPresent(String.self, forKey: .domain) ?? ""
@@ -80,7 +82,7 @@ class FriendItem: Object, Codable {
         self.init(id: id, firstName: firstName, lastName: lastName, domain: domain, photo50: photo50, city: city, online: online)
     }
     
-    convenience init(id: Int, firstName: String, lastName: String, domain: String, photo50: String, city: City, online: Int) {
+    convenience init(id: RealmOptional<Int>, firstName: String, lastName: String, domain: String, photo50: String, city: City, online: Int) {
         self.init()
         self.id = id
         self.firstName = firstName

@@ -10,7 +10,11 @@ import UIKit
 import WebKit
 
 class LoginFormController: UIViewController {
+    
     // MARK: - UI
+    
+    static let segueIdentifier = "loginSegue"
+    
     @IBOutlet weak var loginField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
@@ -27,17 +31,16 @@ class LoginFormController: UIViewController {
             webView.navigationDelegate = self
         }
     }
-    
-    // MARK: - Constants & variables
-    static let segueIdentifier = "loginSegue"
-    
     private let heartLabelA = UILabel()
     private let heartLabelB = UILabel()
     private let heartLabelC = UILabel()
     
+    // MARK: - Some constants & variables
+    
     var interactiveAnimator: UIViewPropertyAnimator!
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         removeCookies()
@@ -127,7 +130,59 @@ class LoginFormController: UIViewController {
             UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    // MARK: - @objc methods
+    // MARK: - Major methods
+    
+    func removeCookies() {
+        let cookieJar = HTTPCookieStorage.shared
+        for cookie in cookieJar.cookies! {
+            cookieJar.deleteCookie(cookie)
+        }
+    }
+    
+    private func checkLoginInfo() -> Bool {
+        //        guard let loginText = loginField.text else { return false }
+        //        guard let passwordText = passwordField.text else { return false }
+        
+        let loginText = "rkolossov@mail.ru"
+        let passwordText = "Olga1357"
+        
+        webView.evaluateJavaScript("document.querySelector('input[name=email]').value='\(loginText)';document.querySelector('input[name=pass]').value='\(passwordText)';") {
+            [weak self] (res, error) in
+            self?.webView.isHidden = false
+            #if DEBUG
+            print("\(String(describing: res))\n--------\n\(String(describing: error))")
+            #endif
+        }
+        
+        if loginText == "rkolossov@mail.ru", passwordText == "Olga1357" {
+            animateCorrectPassword()
+            return true
+        } else {
+            animateWrongPassword()
+            return false
+        }
+    }
+    
+    private func showLoginError() {
+        let  alert = UIAlertController(title: "Ошибка", message: "Неверный логин и/или пароль", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func showLoginSuccess() {
+        let  alert = UIAlertController(title: "Успешный вход", message: "При необходимости подтвердите пожалуйста вход в форме VK", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel) {
+            [weak self] (_) in self?.performSegue(withIdentifier: String(describing: LoginFormController.segueIdentifier), sender: self)
+        }
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: - Actions
+    
     @objc private func performSegueAction()  {
         if checkLoginInfo() {
             showLoginSuccess()
@@ -184,58 +239,8 @@ class LoginFormController: UIViewController {
         scrollView.endEditing(true)
     }
     
-    // MARK: - Major methods
-    func removeCookies() {
-        let cookieJar = HTTPCookieStorage.shared
-        for cookie in cookieJar.cookies! {
-            cookieJar.deleteCookie(cookie)
-        }
-    }
-    
-    private func checkLoginInfo() -> Bool {
-        //        guard let loginText = loginField.text else { return false }
-        //        guard let passwordText = passwordField.text else { return false }
-        
-        let loginText = "rkolossov@mail.ru"
-        let passwordText = "Olga1357"
-        
-        webView.evaluateJavaScript("document.querySelector('input[name=email]').value='\(loginText)';document.querySelector('input[name=pass]').value='\(passwordText)';") {
-            [weak self] (res, error) in
-            self?.webView.isHidden = false
-            #if DEBUG
-            print("\(String(describing: res))\n--------\n\(String(describing: error))")
-            #endif
-        }
-        
-        if loginText == "rkolossov@mail.ru", passwordText == "Olga1357" {
-            animateCorrectPassword()
-            return true
-        } else {
-            animateWrongPassword()
-            return false
-        }
-    }
-    
-    private func showLoginError() {
-        let  alert = UIAlertController(title: "Ошибка", message: "Неверный логин и/или пароль", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alert.addAction(action)
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func showLoginSuccess() {
-        let  alert = UIAlertController(title: "Успешный вход", message: "При необходимости подтвердите пожалуйста вход в форме VK", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel) {
-            [weak self] (_) in self?.performSegue(withIdentifier: String(describing: LoginFormController.segueIdentifier), sender: self)
-        }
-        alert.addAction(action)
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
-    
     // MARK: - Animation methods
+    
     func animateTitleAppearing() {
         let offset = abs (loginLabel.frame.midY - passwordLabel.frame.midY)
         
@@ -355,6 +360,7 @@ class LoginFormController: UIViewController {
 }
 
 // MARK: - WKNavigationDelegate
+
 extension LoginFormController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         guard let url = navigationResponse.response.url,
