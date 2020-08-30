@@ -12,8 +12,7 @@ import SDWebImage
 
 class MyGroupsViewController: UIViewController {
     
-    // MARK: - UI
-    
+    // UI
     @IBOutlet weak var searchBar: UISearchBar! {
         didSet {
             searchBar.delegate = self
@@ -29,8 +28,7 @@ class MyGroupsViewController: UIViewController {
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .systemBlue
-        refreshControl.attributedTitle = NSAttributedString(string: "Reload data...",
-                                                            attributes: [.font: UIFont.systemFont(ofSize: 10)])
+        refreshControl.attributedTitle = NSAttributedString(string: "Reload data...", attributes: [.font: UIFont.systemFont(ofSize: 10)])
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         return refreshControl
     }()
@@ -38,8 +36,7 @@ class MyGroupsViewController: UIViewController {
         tableView
     }
     
-    // MARK: - Some constants & variables
-    
+    // Some properties
     private var groups: Results<GroupData>? {
         let groups: Results<GroupData>? = realmManager?.getObjects()
         return groups?.sorted(byKeyPath: "id", ascending: true)
@@ -52,7 +49,7 @@ class MyGroupsViewController: UIViewController {
         searchBar.text ?? ""
     }
     
-    private let networkManager = NetworkManager()
+    private let networkManager = NetworkManager.shared
     private let realmManager = RealmManager.shared
     var publicRealmManager: RealmManager? {
         realmManager

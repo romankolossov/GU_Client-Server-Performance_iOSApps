@@ -11,10 +11,9 @@ import WebKit
 
 class LoginFormController: UIViewController {
     
-    // MARK: - UI
-    
     static let segueIdentifier = "loginSegue"
     
+    // UI
     @IBOutlet weak var loginField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
@@ -35,8 +34,7 @@ class LoginFormController: UIViewController {
     private let heartLabelB = UILabel()
     private let heartLabelC = UILabel()
     
-    // MARK: - Some constants & variables
-    
+    // Some properties
     var interactiveAnimator: UIViewPropertyAnimator!
     
     // MARK: - Lifecycle
