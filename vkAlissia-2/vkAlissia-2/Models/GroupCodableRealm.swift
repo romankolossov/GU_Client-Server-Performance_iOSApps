@@ -9,11 +9,13 @@
 import Foundation
 import RealmSwift
 
+// MARK: - Data for realm saving
+
 class GroupData: Object {
     //@objc dynamic var id: Int = 0
     var id = RealmOptional<Int>()
     @objc dynamic var groupName: String = ""
-    @objc dynamic var groupAvatarString: String = ""
+    @objc dynamic var groupAvatarUrl: String = ""
     
     override class func primaryKey() -> String? {
            return "id"
@@ -25,7 +27,7 @@ class GroupData: Object {
     init(groupItem: GroupItem) {
         self.id = groupItem.id
         self.groupName = groupItem.name
-        self.groupAvatarString = groupItem.photo50
+        self.groupAvatarUrl = groupItem.photo50
     }
     
     required init() {
@@ -33,18 +35,17 @@ class GroupData: Object {
     }
 }
 
-// MARK: - GroupQuery
+// MARK: - Codable
+
 struct GroupQuery: Codable {
     let response: GroupResponse
 }
 
-// MARK: - GroupResponse
 struct GroupResponse: Codable {
     let count: Int
     let items: [GroupItem]
 }
 
-// MARK: - GroupItem
 class GroupItem: Object, Codable {
     //@objc dynamic var id: Int = 0
     var id = RealmOptional<Int>()

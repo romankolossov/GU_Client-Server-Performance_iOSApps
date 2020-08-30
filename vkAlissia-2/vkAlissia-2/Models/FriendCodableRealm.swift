@@ -9,11 +9,13 @@
 import Foundation
 import RealmSwift
 
+// MARK: - Realm saving object data
+
 class FriendData: Object {
     //@objc dynamic var id: Int = 0
     var id = RealmOptional<Int>()
     @objc dynamic var friendName: String = ""
-    @objc dynamic var friendAvatarString: String = ""
+    @objc dynamic var friendAvatarURL: String = ""
     //var favorireImages: [UIImage] = []
     
     override class func primaryKey() -> String? {
@@ -26,7 +28,7 @@ class FriendData: Object {
     init(friendItem: FriendItem) {
         self.id = friendItem.id
         self.friendName = friendItem.firstName
-        self.friendAvatarString = friendItem.photo50
+        self.friendAvatarURL = friendItem.photo50
     }
     
     required init() {
@@ -34,18 +36,17 @@ class FriendData: Object {
     }
 }
 
-// MARK: - FriendQuery
+// MARK: - Codable
+
 struct FriendQuery: Codable {
     let response: FriendResponse
 }
 
-// MARK: - FriendResponse
 struct FriendResponse: Codable {
     let count: Int
     let items: [FriendItem]
 }
 
-// MARK: - FriendItem
 class FriendItem: Object, Codable {
     //@objc dynamic var id: Int = 0
     var id = RealmOptional<Int>()

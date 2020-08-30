@@ -19,8 +19,7 @@ extension MyGroupsViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MyGroupCell.self), for: indexPath) as? MyGroupCell else { fatalError() }
         guard  let group = filteredGroups?[indexPath.row] else { fatalError() }
         
-        cell.myGroupNameLabel.text = group.groupName
-        cell.myGroupAvatarView.sd_setImage(with: URL(string: group.groupAvatarString), completed: nil)
+        cell.groupModel = group
         
         return cell
     }
@@ -37,6 +36,7 @@ extension MyGroupsViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
+
 extension MyGroupsViewController: UITableViewDelegate {
     
 }

@@ -31,8 +31,7 @@ extension FriendsViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FriendCell.self), for: indexPath) as? FriendCell else { fatalError() }
         guard  let friend = sections[sectionTitles[indexPath.section]]? [indexPath.row] else { fatalError() }
         
-        cell.nameLabel.text = friend.friendName
-        cell.friendAvatarView.sd_setImage(with: URL(string: friend.friendAvatarString), completed: nil)
+        cell.friendModel = friend
         
         return cell
     }

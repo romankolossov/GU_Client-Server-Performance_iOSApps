@@ -8,7 +8,6 @@
 
 import UIKit
 import RealmSwift
-import SDWebImage
 
 class MyGroupsViewController: UIViewController {
     
@@ -28,7 +27,7 @@ class MyGroupsViewController: UIViewController {
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .systemBlue
-        refreshControl.attributedTitle = NSAttributedString(string: "Reload data...", attributes: [.font: UIFont.systemFont(ofSize: 10)])
+        refreshControl.attributedTitle = NSAttributedString(string: "Reloading data...", attributes: [.font: UIFont.systemFont(ofSize: 10)])
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         return refreshControl
     }()
@@ -43,7 +42,7 @@ class MyGroupsViewController: UIViewController {
     }
     var filteredGroups: Results<GroupData>? {
         guard !searchText.isEmpty else { return groups }
-        return groups?.filter("name CONTAINS[cd] %@", searchText)
+        return groups?.filter("groupName CONTAINS[cd] %@", searchText)
     }
     private var searchText: String {
         searchBar.text ?? ""
@@ -170,19 +169,19 @@ class MyGroupsViewController: UIViewController {
     }
     
     @objc private func refresh(_ sender: UIRefreshControl) {
-        try? realmManager?.deleteAll()
+        // try? realmManager?.deleteAll()
         loadData { [weak self] in
             self?.refreshControl.endRefreshing()
         }
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == DetailViewController.storyboardIdentifier {
-//            if let destinationVC = segue.destination as? DetailViewController {
-//                destinationVC.user = sender as? User
-//            }
-//        }
-//    }
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if segue.identifier == DetailViewController.storyboardIdentifier {
+    //            if let destinationVC = segue.destination as? DetailViewController {
+    //                destinationVC.user = sender as? User
+    //            }
+    //        }
+    //    }
     
 }
 

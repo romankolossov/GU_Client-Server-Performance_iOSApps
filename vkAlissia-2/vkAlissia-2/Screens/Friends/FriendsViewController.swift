@@ -8,7 +8,6 @@
 
 import UIKit
 import RealmSwift
-import SDWebImage
 
 class FriendsViewController: UIViewController {
     
@@ -28,7 +27,7 @@ class FriendsViewController: UIViewController {
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .systemBlue
-        refreshControl.attributedTitle = NSAttributedString(string: "Reload data...", attributes: [.font: UIFont.systemFont(ofSize: 10)])
+        refreshControl.attributedTitle = NSAttributedString(string: "Reloading data...", attributes: [.font: UIFont.systemFont(ofSize: 10)])
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         return refreshControl
     }()
@@ -43,7 +42,7 @@ class FriendsViewController: UIViewController {
     }
     var filteredFriends: Results<FriendData>? {
         guard !searchText.isEmpty else { return friends }
-        return friends?.filter("name CONTAINS[cd] %@", searchText)
+        return friends?.filter("friendName CONTAINS[cd] %@", searchText)
     }
     private var searchText: String {
         searchBar.text ?? ""
@@ -69,36 +68,36 @@ class FriendsViewController: UIViewController {
         }
         
         filteredFriendsNotificationToken = filteredFriends?.observe { [weak self] change in
-                    switch change {
-                    case .initial:
-                        #if DEBUG
-                        print("Initialized")
-                        #endif
-                        
-        //                self?.tableView.reloadData()
-                        
-                    case let .update(results, deletions: deletions, insertions: insertions, modifications: modifications):
-                        #if DEBUG
-                        print("""
-                            New count: \(results.count)
-                            Deletions: \(deletions)
-                            Insertions: \(insertions)
-                            Modifications: \(modifications)
-                        """)
-                        #endif
-                        
-                        self?.tableView.beginUpdates()
-                        
-                        self?.tableView.deleteRows(at: deletions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
-                        self?.tableView.insertRows(at: insertions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
-                        self?.tableView.reloadRows(at: modifications.map { IndexPath(item: $0, section: 0) }, with: .automatic)
-                        
-                        self?.tableView.endUpdates()
-                        
-                    case let .error(error):
-                        self?.showAlert(title: "Error", message: error.localizedDescription)
-                    }
-                }
+            switch change {
+            case .initial:
+                #if DEBUG
+                print("Initialized")
+                #endif
+                
+                //                self?.tableView.reloadData()
+                
+            case let .update(results, deletions: deletions, insertions: insertions, modifications: modifications):
+                #if DEBUG
+                print("""
+                    New count: \(results.count)
+                    Deletions: \(deletions)
+                    Insertions: \(insertions)
+                    Modifications: \(modifications)
+                    """)
+                #endif
+                
+                self?.tableView.beginUpdates()
+                
+                self?.tableView.deleteRows(at: deletions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
+                self?.tableView.insertRows(at: insertions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
+                self?.tableView.reloadRows(at: modifications.map { IndexPath(item: $0, section: 0) }, with: .automatic)
+                
+                self?.tableView.endUpdates()
+                
+            case let .error(error):
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
         
         firstFriendNotificationToken = filteredFriends?.first?.observe { [weak self] change in
             switch change {
@@ -126,21 +125,21 @@ class FriendsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-    
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             self.sections = [:]
             guard let filteredFriends = self.filteredFriends else { return }
-
+            
             for friend in filteredFriends {
                 let firstLetter = friend.friendName.first!
-
+                
                 if self.sections[firstLetter] != nil {
                     self.sections[firstLetter]?.append(friend)
                 } else {
                     self.sections[firstLetter] = [friend]
                 }
             }
-
+            
             self.sectionTitles = Array(self.sections.keys)
             self.sectionTitles.sort()
             self.tableView.reloadData()
@@ -187,7 +186,7 @@ class FriendsViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func refresh(_ sender: UIRefreshControl) {
-        try? realmManager?.deleteAll()
+        //try? realmManager?.deleteAll()
         loadData { [weak self] in
             self?.refreshControl.endRefreshing()
         }

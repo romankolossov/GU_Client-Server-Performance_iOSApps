@@ -12,7 +12,28 @@ class FriendCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var friendAvatarView: UIImageView!
     @IBOutlet weak var shadowView: UIView!
-    var favoriteImages: [UIImage] = []
+    //var favoriteImages: [UIImage] = []
+    
+    // View model
+    var friendModel: FriendData? {
+        didSet {
+            setup()
+        }
+    }
+    
+    // Build data
+    private func setup() {
+        guard let friendModel = friendModel else { return }
+        
+        //let id = friendModel.id.value ?? -1
+        let groupName = friendModel.friendName
+        let friendAvatarURL = friendModel.friendAvatarURL
+        
+        nameLabel.text = groupName
+        friendAvatarView.sd_setImage(with: URL(string: friendAvatarURL))
+    }
+    
+    // MARK: - Lifecycle
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -38,10 +59,14 @@ class FriendCell: UITableViewCell {
         friendAvatarView.addGestureRecognizer(gesture)
     }
     
+    // MARK: Actions
+    
     @objc func onAvatarTapped(_ gesture: UIGestureRecognizer) {
         animateAvatarView()
         //        sendActions(for: .valueChanged)
     }
+    
+    // MARK: Animations
     
     func animateAvatarView() {
         let animation = CASpringAnimation(keyPath: "transform.scale")
