@@ -65,6 +65,19 @@ class MyGroupsViewController: UIViewController {
             loadData()
         }
         
+        createNotifications()
+        
+        tableView.register(UINib(nibName: String(describing: MyGroupCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MyGroupCell.self))
+    }
+    
+    deinit {
+        filteredGroupsNotificationToken?.invalidate()
+        firstGroupNotificationToken?.invalidate()
+    }
+    
+    // MARK: - Major methods
+    
+    private func createNotifications() {
         filteredGroupsNotificationToken = filteredGroups?.observe { [weak self] change in
             switch change {
             case .initial:
@@ -117,15 +130,7 @@ class MyGroupsViewController: UIViewController {
                 self?.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
-        
-        tableView.register(UINib(nibName: String(describing: MyGroupCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MyGroupCell.self))
     }
-    
-    deinit {
-        filteredGroupsNotificationToken?.invalidate()
-    }
-    
-    // MARK: - Major methods
     
     private func loadData(completion: (() -> Void)? = nil) {
         networkManager.loadGroups() { [weak self] result in

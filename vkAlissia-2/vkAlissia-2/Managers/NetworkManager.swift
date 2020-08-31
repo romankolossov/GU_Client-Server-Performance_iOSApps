@@ -118,7 +118,8 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    // MARK: - loadFriends
+    // MARK: - Network load methods
+    
     func loadFriends(completion: ((Result<[FriendItem], NetworkError>) -> Void)? = nil) {
         networkRequest(for: .friendsGet) {result in
             switch result {
@@ -130,7 +131,6 @@ class NetworkManager {
         }
     }
     
-    // MARK: - loadGroups
     func loadGroups(completion: ((Result<[GroupItem], NetworkError>) -> Void)? = nil) {
         networkRequest(for: .groupsGet) {result in
             switch result {
@@ -142,7 +142,6 @@ class NetworkManager {
         }
     }
     
-    // MARK: - loadPhotos
     func loadPhotos(completion: ((Result<[PhotoItem], NetworkError>) -> Void)? = nil) {
         networkRequest(for: .photosGet) {result in
             switch result {

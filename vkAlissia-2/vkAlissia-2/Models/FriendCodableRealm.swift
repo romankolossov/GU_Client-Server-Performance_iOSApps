@@ -9,8 +9,7 @@
 import Foundation
 import RealmSwift
 
-// MARK: - Realm saving object data
-
+//Realm saving data
 class FriendData: Object {
     //@objc dynamic var id: Int = 0
     var id = RealmOptional<Int>()
@@ -99,7 +98,6 @@ class FriendItem: Object, Codable {
     }
 }
 
-// MARK: - City
 class City: Object, Codable {
     @objc dynamic var id: Int = 0
     @objc dynamic var title: String = ""

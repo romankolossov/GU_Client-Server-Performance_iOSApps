@@ -9,8 +9,7 @@
 import Foundation
 import RealmSwift
 
-// MARK: - Data for realm saving
-
+//Realm saving data
 class GroupData: Object {
     //@objc dynamic var id: Int = 0
     var id = RealmOptional<Int>()

@@ -67,6 +67,42 @@ class FriendsViewController: UIViewController {
             loadData()
         }
         
+        createNotifications()
+        
+        tableView.register(UINib(nibName: String(describing: FriendCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: FriendCell.self))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super .viewWillAppear(animated)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            self.sections = [:]
+            guard let filteredFriends = self.filteredFriends else { return }
+            
+            for friend in filteredFriends {
+                let firstLetter = friend.friendName.first!
+                
+                if self.sections[firstLetter] != nil {
+                    self.sections[firstLetter]?.append(friend)
+                } else {
+                    self.sections[firstLetter] = [friend]
+                }
+            }
+            
+            self.sectionTitles = Array(self.sections.keys)
+            self.sectionTitles.sort()
+            self.tableView.reloadData()
+        })
+    }
+    
+    deinit {
+        filteredFriendsNotificationToken?.invalidate()
+        firstFriendNotificationToken?.invalidate()
+    }
+    
+    // MARK: - Major methods
+    
+    private func createNotifications() {
         filteredFriendsNotificationToken = filteredFriends?.observe { [weak self] change in
             switch change {
             case .initial:
@@ -119,38 +155,7 @@ class FriendsViewController: UIViewController {
                 self?.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
-        
-        tableView.register(UINib(nibName: String(describing: FriendCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: FriendCell.self))
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super .viewWillAppear(animated)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-            self.sections = [:]
-            guard let filteredFriends = self.filteredFriends else { return }
-            
-            for friend in filteredFriends {
-                let firstLetter = friend.friendName.first!
-                
-                if self.sections[firstLetter] != nil {
-                    self.sections[firstLetter]?.append(friend)
-                } else {
-                    self.sections[firstLetter] = [friend]
-                }
-            }
-            
-            self.sectionTitles = Array(self.sections.keys)
-            self.sectionTitles.sort()
-            self.tableView.reloadData()
-        })
-    }
-    
-    deinit {
-        filteredFriendsNotificationToken?.invalidate()
-    }
-    
-    // MARK: - Major methods
     
     private func loadData(completion: (() -> Void)? = nil) {
         networkManager.loadFriends() { [weak self] result in
