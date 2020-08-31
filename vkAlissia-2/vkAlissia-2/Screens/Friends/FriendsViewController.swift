@@ -134,39 +134,14 @@ class FriendsViewController: UIViewController {
                 self?.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
-        
-        firstFriendNotificationToken = filteredFriends?.first?.observe { [weak self] change in
-            switch change {
-            case let .change(object, properties):
-                #if DEBUG
-                let whatChanged = properties.reduce("") { res, new in
-                    "\(res)\n\(new.name) -> \(new.newValue ?? "nil")"
-                }
-                let friend = object as? FriendData
-                print("Changed properties for user \(friend?.friendName ?? "unknowned")\n\(whatChanged)")
-                #endif
-                
-            case .deleted:
-                #if DEBUG
-                print("The first user was deleted")
-                #endif
-                
-            case let .error(error):
-                self?.showAlert(title: "Error", message: error.localizedDescription)
-            }
-        }
     }
     
     private func loadData(completion: (() -> Void)? = nil) {
         networkManager.loadFriends() { [weak self] result in
-            var friends = [FriendData]()
             
             switch result {
             case let .success(friendItems):
-                for item in friendItems {
-                    let friend = FriendData(friendItem: item)
-                    friends.append(friend)
-                }
+                let friends: [FriendData] = friendItems.map {FriendData(friendItem: $0)}
                 DispatchQueue.main.async {
                     try? self?.realmManager?.add(objects: friends)
                     //self?.tableView.reloadData()

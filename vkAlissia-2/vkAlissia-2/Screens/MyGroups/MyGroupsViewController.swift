@@ -135,14 +135,10 @@ class MyGroupsViewController: UIViewController {
     
     private func loadData(completion: (() -> Void)? = nil) {
         networkManager.loadGroups() { [weak self] result in
-            var groups = [GroupData]()
             
             switch result {
             case let .success(groupItems):
-                for item in groupItems {
-                    let friend = GroupData(groupItem: item)
-                    groups.append(friend)
-                }
+                let groups: [GroupData] = groupItems.map {GroupData(groupItem: $0)}
                 DispatchQueue.main.async {
                     try? self?.realmManager?.add(objects: groups)
                     //self?.tableView.reloadData()
