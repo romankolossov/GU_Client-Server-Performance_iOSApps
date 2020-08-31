@@ -38,7 +38,7 @@ class MyGroupsViewController: UIViewController {
     // Some properties
     private var groups: Results<GroupData>? {
         let groups: Results<GroupData>? = realmManager?.getObjects()
-        return groups?.sorted(byKeyPath: "id", ascending: true)
+        return groups?.sorted(byKeyPath: "groupName", ascending: true)
     }
     var filteredGroups: Results<GroupData>? {
         guard !searchText.isEmpty else { return groups }

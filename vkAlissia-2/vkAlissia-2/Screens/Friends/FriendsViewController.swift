@@ -38,7 +38,7 @@ class FriendsViewController: UIViewController {
     // Some properties
     private var friends: Results<FriendData>? {
         let friends: Results<FriendData>? = realmManager?.getObjects()
-        return friends?.sorted(byKeyPath: "id", ascending: true)
+        return friends?.sorted(byKeyPath: "friendName", ascending: true)
     }
     var filteredFriends: Results<FriendData>? {
         guard !searchText.isEmpty else { return friends }
@@ -56,14 +56,13 @@ class FriendsViewController: UIViewController {
     var sectionTitles = [Character]()
     
     private var filteredFriendsNotificationToken: NotificationToken?
-    private var firstFriendNotificationToken: NotificationToken?
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createNotifications()
+        createNotification()
         
         if let friends = friends, friends.isEmpty {
             loadData()
@@ -72,45 +71,21 @@ class FriendsViewController: UIViewController {
         tableView.register(UINib(nibName: String(describing: FriendCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: FriendCell.self))
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super .viewWillAppear(animated)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-            self.sections = [:]
-            guard let filteredFriends = self.filteredFriends else { return }
-            
-            for friend in filteredFriends {
-                let firstLetter = friend.friendName.first!
-                
-                if self.sections[firstLetter] != nil {
-                    self.sections[firstLetter]?.append(friend)
-                } else {
-                    self.sections[firstLetter] = [friend]
-                }
-            }
-            
-            self.sectionTitles = Array(self.sections.keys)
-            self.sectionTitles.sort()
-            self.tableView.reloadData()
-        })
-    }
-    
     deinit {
         filteredFriendsNotificationToken?.invalidate()
-        firstFriendNotificationToken?.invalidate()
     }
     
     // MARK: - Major methods
     
-    private func createNotifications() {
+    private func createNotification() {
         filteredFriendsNotificationToken = filteredFriends?.observe { [weak self] change in
             switch change {
             case .initial:
+                self?.tableSectionsFormation()
                 #if DEBUG
                 print("Initialized")
                 #endif
-                
-                //                self?.tableView.reloadData()
+                //self?.tableView.reloadData()
                 
             case let .update(results, deletions: deletions, insertions: insertions, modifications: modifications):
                 #if DEBUG
@@ -134,6 +109,29 @@ class FriendsViewController: UIViewController {
                 self?.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
+    }
+    
+    private func tableSectionsFormation() {
+        self.sections = [:]
+        guard let filteredFriends = self.filteredFriends else { return }
+        
+        for friend in filteredFriends {
+            let firstLetter = friend.friendName.first!
+            
+            if self.sections[firstLetter] != nil {
+                self.sections[firstLetter]?.append(friend)
+            } else {
+                self.sections[firstLetter] = [friend]
+            }
+        }
+        
+        self.sectionTitles = Array(self.sections.keys)
+        self.sectionTitles.sort()
+        self.tableView.reloadData()
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+//
+//        })
     }
     
     private func loadData(completion: (() -> Void)? = nil) {
