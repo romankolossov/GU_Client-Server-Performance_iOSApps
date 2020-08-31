@@ -63,11 +63,11 @@ class FriendsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        createNotifications()
+        
         if let friends = friends, friends.isEmpty {
             loadData()
         }
-        
-        createNotifications()
         
         tableView.register(UINib(nibName: String(describing: FriendCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: FriendCell.self))
     }
@@ -169,7 +169,7 @@ class FriendsViewController: UIViewController {
                 }
                 DispatchQueue.main.async {
                     try? self?.realmManager?.add(objects: friends)
-                    self?.tableView.reloadData()
+                    //self?.tableView.reloadData()
                     completion?()
                 }
             case let .failure(error):

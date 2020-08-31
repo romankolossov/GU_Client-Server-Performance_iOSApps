@@ -61,11 +61,12 @@ class MyGroupsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        createNotifications()
+        
         if let groups = groups, groups.isEmpty {
             loadData()
         }
-        
-        createNotifications()
         
         tableView.register(UINib(nibName: String(describing: MyGroupCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MyGroupCell.self))
     }
@@ -144,7 +145,7 @@ class MyGroupsViewController: UIViewController {
                 }
                 DispatchQueue.main.async {
                     try? self?.realmManager?.add(objects: groups)
-                    self?.tableView.reloadData()
+                    //self?.tableView.reloadData()
                     completion?()
                 }
             case let .failure(error):
