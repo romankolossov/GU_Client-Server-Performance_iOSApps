@@ -97,8 +97,35 @@ class FriendsViewController: UIViewController {
                     """)
                 #endif
                 
+                
+                
                 self?.tableView.beginUpdates()
                 
+                /* trying to find sections
+                guard let filteredFriends = self?.filteredFriends else { return }
+                guard let friends = self?.friends else { return }
+                
+                let deletedFriendsIds = deletions.map { Array(friends)[$0].id.value }
+                
+                var deletedFriends: [FriendData] = []
+                for friend in filteredFriends {
+                    for id in deletedFriendsIds {
+                        guard let id = id else { return }
+                        if friend.id.value == id {
+                            deletedFriends.append(friend)
+                        }
+                    }
+                }
+                
+                var deletedIndexPaths: [IndexPath] = []
+                
+                for deletedFriend in deletedFriends {
+                    for friend in filteredFriends {
+                        
+                    }
+                }
+ */
+                    
                 self?.tableView.deleteRows(at: deletions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
                 self?.tableView.insertRows(at: insertions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
                 self?.tableView.reloadRows(at: modifications.map { IndexPath(item: $0, section: 0) }, with: .automatic)

@@ -129,6 +129,7 @@
 		C862A88124F7F25100A879DA /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				C865770A24E0630C0004A272 /* Main.storyboard */,
 				C862A88724F8BB4800A879DA /* News */,
 				C862A88824F8BB7500A879DA /* AllGroups */,
 				C862A88924F8BB8B00A879DA /* MyGroups */,
@@ -142,7 +143,6 @@
 		C862A88224F7F25C00A879DA /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				C865770A24E0630C0004A272 /* Main.storyboard */,
 				C865771F24E063A00004A272 /* LoginFormController.swift */,
 			);
 			path = Main;
