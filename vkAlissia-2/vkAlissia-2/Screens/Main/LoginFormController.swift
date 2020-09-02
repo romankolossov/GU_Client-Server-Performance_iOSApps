@@ -170,7 +170,7 @@ class LoginFormController: UIViewController {
     }
     
     private func showLoginSuccess() {
-        let  alert = UIAlertController(title: "Успешный вход", message: "При отображении экрана входа VK, нажмите пожалуйста кнопку \"Log in\", расположенную на нём, и перезапустите приложение", preferredStyle: .actionSheet)
+        let  alert = UIAlertController(title: "Успешный вход", message: "Если показан экрана входа VK, нажмите пожалуйста кнопку \"Log in\" и перезапустите приложение", preferredStyle: .actionSheet)
         let continueAction = UIAlertAction(title: "Продолжить", style: .cancel) {
             [weak self] (_) in self?.performSegue(withIdentifier: LoginFormController.segueIdentifier, sender: self)
         }

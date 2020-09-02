@@ -41,6 +41,7 @@
 		C89D766324EE1E4000FDC697 /* GroupCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */; };
 		C89D766524EE2F0300FDC697 /* PhotoCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */; };
 		C89D766924EE4EC500FDC697 /* FriendCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */; };
+		C8B27C112500039300D51311 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B27C102500039300D51311 /* BaseViewController.swift */; };
 		C8BB9D1E24E3548500B05FED /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8BB9D1D24E3548500B05FED /* WebKit.framework */; };
 		C8BB9D2224E35C9000B05FED /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BB9D2124E35C9000B05FED /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
@@ -87,6 +88,7 @@
 		C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCodableRealm.swift; sourceTree = "<group>"; };
 		C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCodableRealm.swift; sourceTree = "<group>"; };
 		C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCodableRealm.swift; sourceTree = "<group>"; };
+		C8B27C102500039300D51311 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C8BB9D1D24E3548500B05FED /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C8BB9D2124E35C9000B05FED /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,13 +131,14 @@
 		C862A88124F7F25100A879DA /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				C865770A24E0630C0004A272 /* Main.storyboard */,
 				C862A88724F8BB4800A879DA /* News */,
 				C862A88824F8BB7500A879DA /* AllGroups */,
 				C862A88924F8BB8B00A879DA /* MyGroups */,
 				C862A88A24F8BBA600A879DA /* ParticularFriend */,
 				C862A88B24F8BBC400A879DA /* Friends */,
 				C862A88224F7F25C00A879DA /* Main */,
+				C865770A24E0630C0004A272 /* Main.storyboard */,
+				C8B27C102500039300D51311 /* BaseViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				C865774724E063CD0004A272 /* NewsViewController.swift in Sources */,
 				C865773224E063B30004A272 /* ParticularFriendCell.swift in Sources */,
 				C862A88D24F945BB00A879DA /* FriendsViewController+TableView.swift in Sources */,
+				C8B27C112500039300D51311 /* BaseViewController.swift in Sources */,
 				C89D766924EE4EC500FDC697 /* FriendCodableRealm.swift in Sources */,
 				C865770524E0630B0004A272 /* AppDelegate.swift in Sources */,
 				C865772124E063A00004A272 /* LoginFormController.swift in Sources */,

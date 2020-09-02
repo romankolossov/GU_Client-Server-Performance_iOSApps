@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class FriendsViewController: UIViewController {
+class FriendsViewController: BaseViewController {
     
     // UI
     @IBOutlet weak var searchBar: UISearchBar! {
@@ -176,16 +176,6 @@ class FriendsViewController: UIViewController {
                 self?.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
-    }
-    
-    private func showAlert(title: String? = nil,
-                           message: String? = nil,
-                           handler: ((UIAlertAction) -> ())? = nil,
-                           completion: (() -> Void)? = nil) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: handler)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: completion)
     }
     
     // MARK: - Actions
