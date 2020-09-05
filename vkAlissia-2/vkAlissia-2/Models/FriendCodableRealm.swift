@@ -9,13 +9,12 @@
 import Foundation
 import RealmSwift
 
-//Realm saving data
+// data to save
 class FriendData: Object {
     //@objc dynamic var id: Int = 0
     var id = RealmOptional<Int>()
     @objc dynamic var friendName: String = ""
     @objc dynamic var friendAvatarURL: String = ""
-    //var favorireImages: [UIImage] = []
     
     override class func primaryKey() -> String? {
            return "id"

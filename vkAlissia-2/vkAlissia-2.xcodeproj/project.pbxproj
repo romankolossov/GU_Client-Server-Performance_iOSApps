@@ -131,24 +131,24 @@
 		C862A88124F7F25100A879DA /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				C865770A24E0630C0004A272 /* Main.storyboard */,
 				C862A88724F8BB4800A879DA /* News */,
 				C862A88824F8BB7500A879DA /* AllGroups */,
 				C862A88924F8BB8B00A879DA /* MyGroups */,
 				C862A88A24F8BBA600A879DA /* ParticularFriend */,
 				C862A88B24F8BBC400A879DA /* Friends */,
-				C862A88224F7F25C00A879DA /* Main */,
-				C865770A24E0630C0004A272 /* Main.storyboard */,
+				C862A88224F7F25C00A879DA /* Login */,
 				C8B27C102500039300D51311 /* BaseViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
 		};
-		C862A88224F7F25C00A879DA /* Main */ = {
+		C862A88224F7F25C00A879DA /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				C865771F24E063A00004A272 /* LoginFormController.swift */,
 			);
-			path = Main;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		C862A88724F8BB4800A879DA /* News */ = {
@@ -314,8 +314,8 @@
 			isa = PBXGroup;
 			children = (
 				C89B6B1124E08D84002CB028 /* Session.swift */,
-				C8BB9D2124E35C9000B05FED /* NetworkManager.swift */,
 				C862A88524F7F55400A879DA /* RealmManager.swift */,
+				C8BB9D2124E35C9000B05FED /* NetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
