@@ -10,6 +10,14 @@ import Foundation
 
 class NetworkManager {
     
+    static let shared = NetworkManager()
+    private init() {}
+    
+    // Some properties
+    enum NetworkError: Error {
+        case incorrectData
+    }
+    
     enum Method: String {
         case groupsGet = "groups.get"
         case friendsGet = "friends.get"
@@ -26,7 +34,8 @@ class NetworkManager {
     
     let vkAPIVersion: String = "5.122"
     
-    // MARK: - networkRequest
+     // MARK: - Major methods
+    
     func networkRequest(for method: Method, completion: ((Result<[Any], Error>) -> Void)? = nil) {
         var urlConstructor = URLComponents()
         urlConstructor.scheme = "https"
@@ -109,38 +118,37 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    // MARK: - loadFriends
-    func loadFriends(completion: ((Result<[FriendItem], Error>) -> Void)? = nil) {
+    // MARK: - Network load methods
+    
+    func loadFriends(completion: ((Result<[FriendItem], NetworkError>) -> Void)? = nil) {
         networkRequest(for: .friendsGet) {result in
             switch result {
             case let .success(friends):
                 completion?(.success(friends as! [FriendItem]))
-            case let .failure(error):
-                completion?(.failure(error))
+            case .failure:
+                completion?(.failure(.incorrectData))
             }
         }
     }
     
-    // MARK: - loadGroups
-    func loadGroups(completion: ((Result<[GroupItem], Error>) -> Void)? = nil) {
+    func loadGroups(completion: ((Result<[GroupItem], NetworkError>) -> Void)? = nil) {
         networkRequest(for: .groupsGet) {result in
             switch result {
             case let .success(groups):
                 completion?(.success(groups as! [GroupItem]))
-            case let .failure(error):
-                completion?(.failure(error))
+            case .failure:
+                completion?(.failure(.incorrectData))
             }
         }
     }
     
-    // MARK: - loadPhotos
-    func loadPhotos(completion: ((Result<[PhotoItem], Error>) -> Void)? = nil) {
+    func loadPhotos(completion: ((Result<[PhotoItem], NetworkError>) -> Void)? = nil) {
         networkRequest(for: .photosGet) {result in
             switch result {
             case let .success(photos):
                 completion?(.success(photos as! [PhotoItem]))
-            case let .failure(error):
-                completion?(.failure(error))
+            case .failure:
+                completion?(.failure(.incorrectData))
             }
         }
     }

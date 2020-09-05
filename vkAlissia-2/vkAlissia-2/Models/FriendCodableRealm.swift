@@ -9,31 +9,46 @@
 import Foundation
 import RealmSwift
 
-class FriendData {
-    let friendName: String
-    var friendAvatarString: String
-    var favorireImages: [UIImage] = []
+//Realm saving data
+class FriendData: Object {
+    //@objc dynamic var id: Int = 0
+    var id = RealmOptional<Int>()
+    @objc dynamic var friendName: String = ""
+    @objc dynamic var friendAvatarURL: String = ""
+    //var favorireImages: [UIImage] = []
+    
+    override class func primaryKey() -> String? {
+           return "id"
+       }
+    override static func indexedProperties() -> [String] {
+        return ["friendName"]
+    }
     
     init(friendItem: FriendItem) {
+        self.id = friendItem.id
         self.friendName = friendItem.firstName
-        self.friendAvatarString = friendItem.photo50
+        self.friendAvatarURL = friendItem.photo50
+    }
+    
+    required init() {
+        super.init()
     }
 }
 
-// MARK: - FriendQuery
+// MARK: - Codable
+
 struct FriendQuery: Codable {
     let response: FriendResponse
 }
 
-// MARK: - FriendResponse
 struct FriendResponse: Codable {
     let count: Int
     let items: [FriendItem]
 }
 
-// MARK: - FriendItem
 class FriendItem: Object, Codable {
-    @objc dynamic var id: Int = 0
+    //@objc dynamic var id: Int = 0
+    var id = RealmOptional<Int>()
     @objc dynamic var firstName: String = ""
     @objc dynamic var lastName: String = ""
     @objc dynamic var domain: String = ""
@@ -49,9 +64,14 @@ class FriendItem: Object, Codable {
         case domain, city, online
     }
     
+//    override class func ignoredProperties() -> [String] {
+//        return ["id", "firstName", "lastName", "domain", "photo50", "city", "online"]
+//    }
+    
     required convenience init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        //let id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        let id = try container.decode(RealmOptional<Int>.self, forKey: .id)
         let firstName = try container.decodeIfPresent(String.self, forKey: .firstName) ?? ""
         let lastName = try container.decodeIfPresent(String.self, forKey: .lastName) ?? ""
         let domain = try container.decodeIfPresent(String.self, forKey: .domain) ?? ""
@@ -62,7 +82,7 @@ class FriendItem: Object, Codable {
         self.init(id: id, firstName: firstName, lastName: lastName, domain: domain, photo50: photo50, city: city, online: online)
     }
     
-    convenience init(id: Int, firstName: String, lastName: String, domain: String, photo50: String, city: City, online: Int) {
+    convenience init(id: RealmOptional<Int>, firstName: String, lastName: String, domain: String, photo50: String, city: City, online: Int) {
         self.init()
         self.id = id
         self.firstName = firstName
@@ -78,7 +98,6 @@ class FriendItem: Object, Codable {
     }
 }
 
-// MARK: - City
 class City: Object, Codable {
     @objc dynamic var id: Int = 0
     @objc dynamic var title: String = ""

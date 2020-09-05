@@ -9,8 +9,12 @@
 import UIKit
 
 class ParticularFriendViewController: UIViewController {
+    // MARK: - UI
     @IBOutlet weak var collectiovView: UICollectionView!
+    
+    // MARK: - Constants & variables
     let interactiveTransition = InteractiveTransition()
+    
     var friendName: String?
     var favoriteImages: [UIImage] = []
     
