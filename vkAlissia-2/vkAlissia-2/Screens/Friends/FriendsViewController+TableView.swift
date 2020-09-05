@@ -52,13 +52,14 @@ extension FriendsViewController: UITableViewDataSource {
 
 extension FriendsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let vc = storyboard?.instantiateViewController(identifier: String(describing: ParticularFriendViewController.self)) as? ParticularFriendViewController else { return }
+        guard let particularFriendVC = storyboard?.instantiateViewController(identifier: String(describing: ParticularFriendViewController.self)) as? ParticularFriendViewController else { return }
         guard let friend = sections[sectionTitles[indexPath.section]]? [indexPath.row] else { return }
         
-        vc.friendName = friend.friendName
-        //vc.favoriteImages = friend.favorireImages
+        particularFriendVC.friendName = friend.friendName
+       
+        Session.shared.friendId = friend.id.value ?? -1
         
-        navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(particularFriendVC, animated: true)
     }
 }
 

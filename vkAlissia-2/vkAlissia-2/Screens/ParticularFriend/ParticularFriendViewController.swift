@@ -7,41 +7,88 @@
 //
 
 import UIKit
+import RealmSwift
+import SDWebImage
 
-class ParticularFriendViewController: UIViewController {
-    // MARK: - UI
-    @IBOutlet weak var collectiovView: UICollectionView!
+class ParticularFriendViewController: BaseViewController {
     
-    // MARK: - Constants & variables
+    // UI
+    @IBOutlet private weak var collectiovView: UICollectionView! {
+        didSet {
+            collectiovView.dataSource = self
+            collectiovView.delegate = self
+        }
+    }
+    var publicCollectiovView: UICollectionView {
+        collectiovView
+    }
+    
     let interactiveTransition = InteractiveTransition()
     
+    // Some properties
     var friendName: String?
-    var favoriteImages: [UIImage] = []
+    var photos: [PhotoData] = []
+    
+    private let networkManager = NetworkManager.shared
+    private let realmManager = RealmManager.shared
+    var publicRealmManager: RealmManager? {
+        realmManager
+    }
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectiovView.dataSource = self
-        collectiovView.delegate = self
         
         if let layout = collectiovView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.itemSize = CGSize(width: 202, height: 202)
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        loadData()
+    }
+    
+    // MARK: - Major methods
+    
+    private func loadData(completion: (() -> Void)? = nil) {
+        networkManager.loadPhotos() { [weak self] result in
+            
+            switch result {
+            case let .success(photoItems):
+                let photos: [PhotoData] = photoItems.map { PhotoData(photoItem: $0) }
+                DispatchQueue.main.async {
+                    self?.photos = photos
+                    self?.collectiovView.reloadData()
+                    completion?()
+                }
+            case let .failure(error):
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
+    }
 }
+
+
+
+
+
 
 // MARK: - UICollectionViewDataSource
 extension ParticularFriendViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return favoriteImages.count
+        return photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ParticularFriendCell", for: indexPath) as? ParticularFriendCell else { fatalError() }
+        let photo = photos[indexPath.row]
         
         cell.nameLabel.text = friendName
-        cell.favoriteImageView.image = favoriteImages[indexPath.row]
+        cell.favoriteImageView.sd_setImage(with: URL(string: photo.sizes[indexPath.row].url))
         
         return cell
     }
@@ -52,7 +99,7 @@ extension ParticularFriendViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let friendPhotoVC = storyboard?.instantiateViewController(identifier: "FriendPhotoVC") as? FriendPhotoViewController else { return }
         
-        friendPhotoVC.favoriteImages = favoriteImages
+        friendPhotoVC.photos = photos
         friendPhotoVC.nameLabel.text = friendName
         friendPhotoVC.currentIndex = indexPath.row
         

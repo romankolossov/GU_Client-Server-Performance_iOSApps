@@ -26,7 +26,7 @@ class FriendData: Object {
     init(friendItem: FriendItem) {
         self.id = friendItem.id
         self.friendName = friendItem.firstName
-        self.friendAvatarURL = friendItem.photo50
+        self.friendAvatarURL = friendItem.photo200
     }
     
     required init() {
@@ -51,7 +51,7 @@ class FriendItem: Object, Codable {
     @objc dynamic var firstName: String = ""
     @objc dynamic var lastName: String = ""
     @objc dynamic var domain: String = ""
-    @objc dynamic var photo50: String = ""
+    @objc dynamic var photo200: String = ""
     @objc dynamic var city: City? = nil
     @objc dynamic var online: Int = 0
 
@@ -59,12 +59,12 @@ class FriendItem: Object, Codable {
         case id
         case firstName = "first_name"
         case lastName = "last_name"
-        case photo50 = "photo_50"
+        case photo200 = "photo_200_orig"
         case domain, city, online
     }
     
 //    override class func ignoredProperties() -> [String] {
-//        return ["id", "firstName", "lastName", "domain", "photo50", "city", "online"]
+//        return ["id", "firstName", "lastName", "domain", "photo200", "city", "online"]
 //    }
     
     required convenience init(from decoder: Decoder) throws {
@@ -74,20 +74,20 @@ class FriendItem: Object, Codable {
         let firstName = try container.decodeIfPresent(String.self, forKey: .firstName) ?? ""
         let lastName = try container.decodeIfPresent(String.self, forKey: .lastName) ?? ""
         let domain = try container.decodeIfPresent(String.self, forKey: .domain) ?? ""
-        let photo50 = try container.decodeIfPresent(String.self, forKey: .photo50) ?? ""
+        let photo50 = try container.decodeIfPresent(String.self, forKey: .photo200) ?? ""
         let city = try container.decode(City.self, forKey: .city)
         let online = try container.decodeIfPresent(Int.self, forKey: .online) ?? 0
         
-        self.init(id: id, firstName: firstName, lastName: lastName, domain: domain, photo50: photo50, city: city, online: online)
+        self.init(id: id, firstName: firstName, lastName: lastName, domain: domain, photo200: photo50, city: city, online: online)
     }
     
-    convenience init(id: RealmOptional<Int>, firstName: String, lastName: String, domain: String, photo50: String, city: City, online: Int) {
+    convenience init(id: RealmOptional<Int>, firstName: String, lastName: String, domain: String, photo200: String, city: City, online: Int) {
         self.init()
         self.id = id
         self.firstName = firstName
         self.lastName = lastName
         self.domain = domain
-        self.photo50 = photo50
+        self.photo200 = photo200
         self.city = city
         self.online = online
     }

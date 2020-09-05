@@ -86,8 +86,6 @@ class MyGroupsViewController: BaseViewController {
                 print("Initialized")
                 #endif
                 
-                //                self?.tableView.reloadData()
-                
             case let .update(results, deletions: deletions, insertions: insertions, modifications: modifications):
                 #if DEBUG
                 print("""
@@ -141,7 +139,6 @@ class MyGroupsViewController: BaseViewController {
                 let groups: [GroupData] = groupItems.map {GroupData(groupItem: $0)}
                 DispatchQueue.main.async {
                     try? self?.realmManager?.add(objects: groups)
-                    //self?.tableView.reloadData()
                     completion?()
                 }
             case let .failure(error):

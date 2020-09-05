@@ -12,7 +12,6 @@ class FriendCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var friendAvatarView: UIImageView!
     @IBOutlet weak var shadowView: UIView!
-    //var favoriteImages: [UIImage] = []
     
     // View model
     var friendModel: FriendData? {

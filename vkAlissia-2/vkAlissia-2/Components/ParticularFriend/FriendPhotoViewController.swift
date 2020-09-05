@@ -11,6 +11,9 @@ import UIKit
 class FriendPhotoViewController: UIViewController {
     
     var favoriteImages : [UIImage] = []
+    var photos: [PhotoData] = []
+    var photosSize: [Size] = []
+    var photoURLs: [String] = []
     var nameLabel = UILabel()
     var currentIndex: Int = 0
     
@@ -44,7 +47,27 @@ class FriendPhotoViewController: UIViewController {
         nameLabel.textAlignment = .center
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-       
+        
+        for photo in photos {
+            photosSize.append(contentsOf: photo.sizes)
+        }
+        photoURLs = photosSize.map { $0.url }
+        
+        for photoURL in photoURLs {
+            guard let url = URL(string: photoURL) else { return }
+            guard let data = try? Data(contentsOf: url) else { return }
+            favoriteImages.append(UIImage(data: data)!)
+        }
+        
+        #if DEBUG
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("photos.count", photos.count)
+        print("photosSize.count", photosSize.count)
+        print("photoURLs.count", photoURLs.count)
+        print("favoriteImages.count", favoriteImages.count)
+        #endif
+        
+        
         view.addSubview(nameLabel)
         layout(imgView: backgrounImageView)
         layout(imgView: imageView)
