@@ -68,7 +68,7 @@ class NetworkManager {
                 URLQueryItem(name: "album_id", value: "wall"),
                 URLQueryItem(name: "rev", value: "0"),
                 URLQueryItem(name: "offset", value: "0"),
-                URLQueryItem(name: "count", value: "8"),
+                URLQueryItem(name: "count", value: "30"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
         default:

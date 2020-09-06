@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
 import SDWebImage
 
 class ParticularFriendViewController: BaseViewController {
@@ -30,10 +29,6 @@ class ParticularFriendViewController: BaseViewController {
     var photos: [PhotoData] = []
     
     private let networkManager = NetworkManager.shared
-    private let realmManager = RealmManager.shared
-    var publicRealmManager: RealmManager? {
-        realmManager
-    }
     
     // MARK: - Lifecycle
     
@@ -72,10 +67,6 @@ class ParticularFriendViewController: BaseViewController {
 }
 
 
-
-
-
-
 // MARK: - UICollectionViewDataSource
 extension ParticularFriendViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -88,7 +79,9 @@ extension ParticularFriendViewController: UICollectionViewDataSource {
         let photo = photos[indexPath.row]
         
         cell.nameLabel.text = friendName
-        cell.favoriteImageView.sd_setImage(with: URL(string: photo.sizes[indexPath.row].url))
+        
+        // value of "6" is the best quality image of the VK photos to .get
+        cell.favoriteImageView.sd_setImage(with: URL(string: photo.sizes[6].url))
         
         return cell
     }
@@ -135,5 +128,4 @@ extension ParticularFriendViewController: UINavigationControllerDelegate {
         }
         return nil
     }
-
 }

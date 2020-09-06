@@ -81,7 +81,7 @@ class FriendsViewController: BaseViewController {
         filteredFriendsNotificationToken = filteredFriends?.observe { [weak self] change in
             switch change {
             case .initial:
-                self?.tableSectionsFormation()
+                self?.setTableSections()
                 #if DEBUG
                 print("Initialized")
                 #endif
@@ -111,7 +111,7 @@ class FriendsViewController: BaseViewController {
         }
     }
     
-    private func tableSectionsFormation() {
+    private func setTableSections() {
         self.sections = [:]
         guard let filteredFriends = self.filteredFriends else { return }
         

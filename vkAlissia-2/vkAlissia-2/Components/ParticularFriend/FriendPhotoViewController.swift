@@ -10,17 +10,7 @@ import UIKit
 
 class FriendPhotoViewController: UIViewController {
     
-    var favoriteImages : [UIImage] = []
-    var photos: [PhotoData] = []
-    var photosSize: [Size] = []
-    var photoURLs: [String] = []
-    var nameLabel = UILabel()
-    var currentIndex: Int = 0
-    
-    private var currentSign = 0
-    private var percent: CGFloat = 0
-    private var interactiveAnimator: UIViewPropertyAnimator?
-    
+    // UI
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleToFill
@@ -29,7 +19,6 @@ class FriendPhotoViewController: UIViewController {
         view.isUserInteractionEnabled = true
         return view
     }()
-    
     private let backgrounImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleToFill
@@ -37,7 +26,20 @@ class FriendPhotoViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    private var interactiveAnimator: UIViewPropertyAnimator?
+    var nameLabel = UILabel()
     
+    // Some properties
+    var photos: [PhotoData] = []
+    var photoURLs: [String] = []
+    var favoriteImages : [UIImage] = []
+    
+    var currentIndex: Int = 0
+    
+    private var currentSign = 0
+    private var percent: CGFloat = 0
+    
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,26 +49,6 @@ class FriendPhotoViewController: UIViewController {
         nameLabel.textAlignment = .center
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        for photo in photos {
-            photosSize.append(contentsOf: photo.sizes)
-        }
-        photoURLs = photosSize.map { $0.url }
-        
-        for photoURL in photoURLs {
-            guard let url = URL(string: photoURL) else { return }
-            guard let data = try? Data(contentsOf: url) else { return }
-            favoriteImages.append(UIImage(data: data)!)
-        }
-        
-        #if DEBUG
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        print("photos.count", photos.count)
-        print("photosSize.count", photosSize.count)
-        print("photoURLs.count", photoURLs.count)
-        print("favoriteImages.count", favoriteImages.count)
-        #endif
-        
         
         view.addSubview(nameLabel)
         layout(imgView: backgrounImageView)
@@ -78,11 +60,16 @@ class FriendPhotoViewController: UIViewController {
             nameLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7)
         ])
         
-        setImages()
+        DispatchQueue.main.async {
+            self.setFavoriteImages()
+            self.setImages()
+        }
         
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
         imageView.addGestureRecognizer(gesture)
     }
+    
+    //MARK: - Major methods
     
     private func layout(imgView: UIImageView) {
         view.addSubview(imgView)
@@ -92,6 +79,21 @@ class FriendPhotoViewController: UIViewController {
             imgView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
             imgView.heightAnchor.constraint(equalTo: view.widthAnchor)
         ])
+    }
+    
+    private func setFavoriteImages() {
+        var images: [UIImage] = []
+        // value of "6" is the best quality image of the VK photos to .get
+        photoURLs = photos.map { $0.sizes[6].url }
+        
+        for photoURL in photoURLs {
+            guard let url = URL(string: photoURL) else { return }
+            guard let data = try? Data(contentsOf: url) else { return }
+            guard let image = UIImage(data: data) else { return }
+            
+            images.append(image)
+        }
+        self.favoriteImages = images
     }
     
     private func setImages() {
@@ -109,6 +111,17 @@ class FriendPhotoViewController: UIViewController {
         
         imageView.image = firstImage
         backgrounImageView.image = backgroundImage
+    }
+    
+    private func resetImageView() {
+        backgrounImageView.alpha = 0.0
+        backgrounImageView.transform = .init(scaleX: 0.8, y: 0.8)
+        imageView.transform = .identity
+        
+        setImages()
+        view.layoutIfNeeded()
+        currentSign = 0
+        interactiveAnimator = nil
     }
     
     private func initAnimator() {
@@ -132,16 +145,7 @@ class FriendPhotoViewController: UIViewController {
         interactiveAnimator?.pauseAnimation()
     }
     
-    private func resetImageView() {
-        backgrounImageView.alpha = 0.0
-        backgrounImageView.transform = .init(scaleX: 0.8, y: 0.8)
-        imageView.transform = .identity
-        
-        setImages()
-        view.layoutIfNeeded()
-        currentSign = 0
-        interactiveAnimator = nil
-    }
+    //MARK: Actions
     
     @objc private func onPan(_ gesture: UIPanGestureRecognizer) {
         switch gesture.state {
