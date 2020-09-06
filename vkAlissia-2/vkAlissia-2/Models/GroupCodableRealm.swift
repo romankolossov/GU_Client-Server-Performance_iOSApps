@@ -25,7 +25,7 @@ class GroupData: Object {
     init(groupItem: GroupItem) {
         self.id = groupItem.id
         self.groupName = groupItem.name
-        self.groupAvatarUrl = groupItem.photo50
+        self.groupAvatarUrl = groupItem.photo200
     }
     
     required init() {
