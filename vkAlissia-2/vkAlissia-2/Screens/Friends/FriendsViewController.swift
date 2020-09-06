@@ -68,6 +68,9 @@ class FriendsViewController: BaseViewController {
             loadData()
         }
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        searchBar.addGestureRecognizer(tapGesture)
+        
         tableView.register(UINib(nibName: String(describing: FriendCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: FriendCell.self))
     }
     
@@ -148,6 +151,10 @@ class FriendsViewController: BaseViewController {
     }
     
     // MARK: - Actions
+    
+    @objc func hideKeyboard(){
+        searchBar.endEditing(true)
+    }
     
     @objc private func refresh(_ sender: UIRefreshControl) {
         //try? realmManager?.deleteAll()

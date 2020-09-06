@@ -68,6 +68,9 @@ class MyGroupsViewController: BaseViewController {
             loadData()
         }
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        searchBar.addGestureRecognizer(tapGesture)
+        
         tableView.register(UINib(nibName: String(describing: MyGroupCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MyGroupCell.self))
     }
     
@@ -155,6 +158,10 @@ class MyGroupsViewController: BaseViewController {
         
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func hideKeyboard(){
+        searchBar.endEditing(true)
     }
     
     @objc private func refresh(_ sender: UIRefreshControl) {

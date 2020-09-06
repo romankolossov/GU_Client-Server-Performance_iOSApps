@@ -30,6 +30,7 @@ class ParticularFriendViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         loadData()
         
         if let layout = collectiovView.collectionViewLayout as? UICollectionViewFlowLayout {
