@@ -47,7 +47,7 @@ class RealmManager {
             realm.delete(object)
         }
     }
-    
+        
     func deleteAll() throws {
         try realm.write {
             realm.deleteAll()

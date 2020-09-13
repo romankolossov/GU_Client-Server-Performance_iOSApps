@@ -10,7 +10,9 @@ import Foundation
 
 class Session {
     private let userIdKey = "com.apple.vkAlissia.user.id"
+    private let friendIdKey = "com.apple.vkAlissia.friend.id"
     
+    // set in: extension LoginFormController
     var token: String = ""
     var userId: Int {
         set {
@@ -18,6 +20,16 @@ class Session {
         }
         get {
             UserDefaults.standard.integer(forKey: userIdKey)
+        }
+    }
+    
+    // set in: extension FriendsViewController
+    var friendId: Int {
+        set {
+            UserDefaults.standard.set(newValue, forKey: friendIdKey)
+        }
+        get {
+            UserDefaults.standard.integer(forKey: friendIdKey)
         }
     }
     

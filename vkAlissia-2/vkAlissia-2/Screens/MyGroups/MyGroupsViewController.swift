@@ -68,6 +68,9 @@ class MyGroupsViewController: BaseViewController {
             loadData()
         }
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        searchBar.addGestureRecognizer(tapGesture)
+        
         tableView.register(UINib(nibName: String(describing: MyGroupCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MyGroupCell.self))
     }
     
@@ -85,8 +88,6 @@ class MyGroupsViewController: BaseViewController {
                 #if DEBUG
                 print("Initialized")
                 #endif
-                
-                //                self?.tableView.reloadData()
                 
             case let .update(results, deletions: deletions, insertions: insertions, modifications: modifications):
                 #if DEBUG
@@ -141,7 +142,6 @@ class MyGroupsViewController: BaseViewController {
                 let groups: [GroupData] = groupItems.map {GroupData(groupItem: $0)}
                 DispatchQueue.main.async {
                     try? self?.realmManager?.add(objects: groups)
-                    //self?.tableView.reloadData()
                     completion?()
                 }
             case let .failure(error):
@@ -158,6 +158,10 @@ class MyGroupsViewController: BaseViewController {
         
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func hideKeyboard(){
+        searchBar.endEditing(true)
     }
     
     @objc private func refresh(_ sender: UIRefreshControl) {

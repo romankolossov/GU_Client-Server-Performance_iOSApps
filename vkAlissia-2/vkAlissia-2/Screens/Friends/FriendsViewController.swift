@@ -68,6 +68,9 @@ class FriendsViewController: BaseViewController {
             loadData()
         }
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        searchBar.addGestureRecognizer(tapGesture)
+        
         tableView.register(UINib(nibName: String(describing: FriendCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: FriendCell.self))
     }
     
@@ -81,7 +84,7 @@ class FriendsViewController: BaseViewController {
         filteredFriendsNotificationToken = filteredFriends?.observe { [weak self] change in
             switch change {
             case .initial:
-                self?.tableSectionsFormation()
+                self?.setTableSections()
                 #if DEBUG
                 print("Initialized")
                 #endif
@@ -97,34 +100,7 @@ class FriendsViewController: BaseViewController {
                     """)
                 #endif
                 
-                
-                
                 self?.tableView.beginUpdates()
-                
-                /* trying to find sections
-                guard let filteredFriends = self?.filteredFriends else { return }
-                guard let friends = self?.friends else { return }
-                
-                let deletedFriendsIds = deletions.map { Array(friends)[$0].id.value }
-                
-                var deletedFriends: [FriendData] = []
-                for friend in filteredFriends {
-                    for id in deletedFriendsIds {
-                        guard let id = id else { return }
-                        if friend.id.value == id {
-                            deletedFriends.append(friend)
-                        }
-                    }
-                }
-                
-                var deletedIndexPaths: [IndexPath] = []
-                
-                for deletedFriend in deletedFriends {
-                    for friend in filteredFriends {
-                        
-                    }
-                }
- */
                     
                 self?.tableView.deleteRows(at: deletions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
                 self?.tableView.insertRows(at: insertions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
@@ -138,7 +114,7 @@ class FriendsViewController: BaseViewController {
         }
     }
     
-    private func tableSectionsFormation() {
+    private func setTableSections() {
         self.sections = [:]
         guard let filteredFriends = self.filteredFriends else { return }
         
@@ -155,10 +131,6 @@ class FriendsViewController: BaseViewController {
         self.sectionTitles = Array(self.sections.keys)
         self.sectionTitles.sort()
         self.tableView.reloadData()
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-//
-//        })
     }
     
     private func loadData(completion: (() -> Void)? = nil) {
@@ -180,6 +152,10 @@ class FriendsViewController: BaseViewController {
     
     // MARK: - Actions
     
+    @objc func hideKeyboard(){
+        searchBar.endEditing(true)
+    }
+    
     @objc private func refresh(_ sender: UIRefreshControl) {
         //try? realmManager?.deleteAll()
         loadData { [weak self] in
@@ -200,3 +176,7 @@ class FriendsViewController: BaseViewController {
 //            destination.favoriteImages = cell.favoriteImages
 //        }
 //    }
+
+//DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+//
+//        })

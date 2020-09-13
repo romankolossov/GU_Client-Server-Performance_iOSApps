@@ -34,7 +34,7 @@ class NetworkManager {
     
     let vkAPIVersion: String = "5.122"
     
-     // MARK: - Major methods
+    // MARK: - Major methods
     
     func networkRequest(for method: Method, completion: ((Result<[Any], Error>) -> Void)? = nil) {
         var urlConstructor = URLComponents()
@@ -56,19 +56,19 @@ class NetworkManager {
                 URLQueryItem(name: "user_id", value: "\(Session.shared.userId)"),
                 URLQueryItem(name: "order", value: "random"),
                 URLQueryItem(name: "offset", value: "5"),
-                URLQueryItem(name: "fields", value: "city,country,domain,photo_50"),
+                URLQueryItem(name: "fields", value: "city,country,domain,photo_200_orig"),
                 URLQueryItem(name: "name_case", value: "nom"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
         case .photosGet:
             urlConstructor.queryItems = [
                 URLQueryItem(name: "access_token", value: Session.shared.token),
-                //URLQueryItem(name: "owner_id", value: "-1"),
-                URLQueryItem(name: "owner_id", value: String(Session.shared.userId)),
-                URLQueryItem(name: "album_id", value: "profile"),
+                URLQueryItem(name: "owner_id", value: String(Session.shared.friendId)),
+                //URLQueryItem(name: "album_id", value: "profile"),
+                URLQueryItem(name: "album_id", value: "wall"),
                 URLQueryItem(name: "rev", value: "0"),
                 URLQueryItem(name: "offset", value: "0"),
-                URLQueryItem(name: "count", value: "3"),
+                URLQueryItem(name: "count", value: "30"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
         default:

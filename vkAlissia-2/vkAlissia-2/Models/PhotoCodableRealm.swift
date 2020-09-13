@@ -9,20 +9,43 @@
 import Foundation
 import RealmSwift
 
-// MARK: - PhotoQuery
+// data to save
+class PhotoData: Object {
+    var id = RealmOptional<Int>()
+    @objc dynamic var ownerID: Int = 0
+    var sizes = List<Size>()
+    
+    override class func primaryKey() -> String? {
+           return "id"
+       }
+    override static func indexedProperties() -> [String] {
+        return ["ownerID"]
+    }
+    
+    init(photoItem: PhotoItem) {
+        self.id = photoItem.id
+        self.ownerID = photoItem.ownerID
+        self.sizes = photoItem.sizes
+    }
+    
+    required init() {
+        super.init()
+    }
+}
+
+// MARK: - Codable
+
 struct PhotoQuery: Codable {
     let response: PhotoResponse
 }
 
-// MARK: - PhotoResponse
 struct PhotoResponse: Codable {
     let count: Int
     let items: [PhotoItem]
 }
 
-// MARK: - PhotoItem
 class PhotoItem: Object, Codable {
-    @objc dynamic var id: Int = 0
+    var id = RealmOptional<Int>()
     @objc dynamic var albumID: Int = 0
     @objc dynamic var ownerID: Int = 0
     @objc dynamic var userID: Int = 0
@@ -40,7 +63,7 @@ class PhotoItem: Object, Codable {
     
     required convenience init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        let id = try container.decode(RealmOptional<Int>.self, forKey: .id)
         let albumID = try container.decodeIfPresent(Int.self, forKey: .albumID) ?? 0
         let ownerID = try container.decodeIfPresent(Int.self, forKey: .ownerID) ?? 0
         let userID = try container.decodeIfPresent(Int.self, forKey: .userID) ?? 0
@@ -52,7 +75,7 @@ class PhotoItem: Object, Codable {
         self.init(id: id, albumID: albumID, ownerID: ownerID, userID: userID, sizes: sizes, text: text, date: date)
     }
     
-    convenience init(id: Int, albumID: Int, ownerID: Int, userID: Int, sizes: [Size], text: String, date: Int) {
+    convenience init(id: RealmOptional<Int>, albumID: Int, ownerID: Int, userID: Int, sizes: [Size], text: String, date: Int) {
         self.init()
         self.id = id
         self.albumID = albumID
@@ -68,7 +91,6 @@ class PhotoItem: Object, Codable {
     }
 }
 
-// MARK: - Size
 class Size: Object, Codable {
     @objc dynamic var type: String = ""
     @objc dynamic var url: String = ""

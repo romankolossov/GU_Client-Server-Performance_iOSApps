@@ -9,9 +9,8 @@
 import Foundation
 import RealmSwift
 
-//Realm saving data
+// data to save
 class GroupData: Object {
-    //@objc dynamic var id: Int = 0
     var id = RealmOptional<Int>()
     @objc dynamic var groupName: String = ""
     @objc dynamic var groupAvatarUrl: String = ""
@@ -26,7 +25,7 @@ class GroupData: Object {
     init(groupItem: GroupItem) {
         self.id = groupItem.id
         self.groupName = groupItem.name
-        self.groupAvatarUrl = groupItem.photo50
+        self.groupAvatarUrl = groupItem.photo200
     }
     
     required init() {
@@ -46,7 +45,6 @@ struct GroupResponse: Codable {
 }
 
 class GroupItem: Object, Codable {
-    //@objc dynamic var id: Int = 0
     var id = RealmOptional<Int>()
     @objc dynamic var name: String = ""
     @objc dynamic var screenName: String = ""
@@ -74,7 +72,6 @@ class GroupItem: Object, Codable {
     
     required convenience init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        //let id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
         let id = try container.decode(RealmOptional<Int>.self, forKey: .id)
         let name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         let screenName = try container.decodeIfPresent(String.self, forKey: .screenName) ?? ""

@@ -42,6 +42,7 @@
 		C89D766524EE2F0300FDC697 /* PhotoCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */; };
 		C89D766924EE4EC500FDC697 /* FriendCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */; };
 		C8B27C112500039300D51311 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B27C102500039300D51311 /* BaseViewController.swift */; };
+		C8B27C13250504D600D51311 /* ParticularFriendViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B27C12250504D600D51311 /* ParticularFriendViewController+CollectionView.swift */; };
 		C8BB9D1E24E3548500B05FED /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8BB9D1D24E3548500B05FED /* WebKit.framework */; };
 		C8BB9D2224E35C9000B05FED /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BB9D2124E35C9000B05FED /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
@@ -89,6 +90,7 @@
 		C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCodableRealm.swift; sourceTree = "<group>"; };
 		C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCodableRealm.swift; sourceTree = "<group>"; };
 		C8B27C102500039300D51311 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		C8B27C12250504D600D51311 /* ParticularFriendViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParticularFriendViewController+CollectionView.swift"; sourceTree = "<group>"; };
 		C8BB9D1D24E3548500B05FED /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C8BB9D2124E35C9000B05FED /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,24 +133,24 @@
 		C862A88124F7F25100A879DA /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				C865770A24E0630C0004A272 /* Main.storyboard */,
 				C862A88724F8BB4800A879DA /* News */,
 				C862A88824F8BB7500A879DA /* AllGroups */,
 				C862A88924F8BB8B00A879DA /* MyGroups */,
 				C862A88A24F8BBA600A879DA /* ParticularFriend */,
 				C862A88B24F8BBC400A879DA /* Friends */,
-				C862A88224F7F25C00A879DA /* Main */,
-				C865770A24E0630C0004A272 /* Main.storyboard */,
+				C862A88224F7F25C00A879DA /* Login */,
 				C8B27C102500039300D51311 /* BaseViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
 		};
-		C862A88224F7F25C00A879DA /* Main */ = {
+		C862A88224F7F25C00A879DA /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				C865771F24E063A00004A272 /* LoginFormController.swift */,
 			);
-			path = Main;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		C862A88724F8BB4800A879DA /* News */ = {
@@ -179,6 +181,7 @@
 		C862A88A24F8BBA600A879DA /* ParticularFriend */ = {
 			isa = PBXGroup;
 			children = (
+				C8B27C12250504D600D51311 /* ParticularFriendViewController+CollectionView.swift */,
 				C865772E24E063B30004A272 /* ParticularFriendViewController.swift */,
 			);
 			path = ParticularFriend;
@@ -257,9 +260,9 @@
 			isa = PBXGroup;
 			children = (
 				C865772A24E063B30004A272 /* LikeControl.swift */,
-				C865772B24E063B30004A272 /* FriendPhotoViewController.swift */,
 				C865772C24E063B30004A272 /* FriendLayout.swift */,
 				C865772D24E063B30004A272 /* ParticularFriendCell.swift */,
+				C865772B24E063B30004A272 /* FriendPhotoViewController.swift */,
 			);
 			path = ParticularFriend;
 			sourceTree = "<group>";
@@ -314,8 +317,8 @@
 			isa = PBXGroup;
 			children = (
 				C89B6B1124E08D84002CB028 /* Session.swift */,
-				C8BB9D2124E35C9000B05FED /* NetworkManager.swift */,
 				C862A88524F7F55400A879DA /* RealmManager.swift */,
+				C8BB9D2124E35C9000B05FED /* NetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				C865772824E063AA0004A272 /* FriendCell.swift in Sources */,
 				C89D766324EE1E4000FDC697 /* GroupCodableRealm.swift in Sources */,
 				C865774024E063C40004A272 /* AllGroupsViewController.swift in Sources */,
+				C8B27C13250504D600D51311 /* ParticularFriendViewController+CollectionView.swift in Sources */,
 				C865772024E063A00004A272 /* GradientView.swift in Sources */,
 				C865774124E063C40004A272 /* GroupCell.swift in Sources */,
 				C865770724E0630C0004A272 /* SceneDelegate.swift in Sources */,
