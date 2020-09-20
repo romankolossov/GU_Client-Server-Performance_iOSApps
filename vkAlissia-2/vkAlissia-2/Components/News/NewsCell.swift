@@ -9,8 +9,10 @@
 import UIKit
 
 class NewsCell: UITableViewCell {
-    @IBOutlet weak var newsLabel: UILabel!
+    @IBOutlet weak var newsProviderNameLabel: UILabel!
+    @IBOutlet weak var newsProviderAvatar: UIImageView!
     @IBOutlet weak var newsImageView: UIImageView!
+    @IBOutlet weak var newsTextView: UITextView!
     
     let likeControl = LikeControl()
 
@@ -33,5 +35,4 @@ class NewsCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
 }
