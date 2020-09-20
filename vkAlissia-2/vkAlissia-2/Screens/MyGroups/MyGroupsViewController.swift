@@ -65,7 +65,9 @@ class MyGroupsViewController: BaseViewController {
         createNotifications()
         
         if let groups = groups, groups.isEmpty {
-            loadData()
+            DispatchQueue.global().async {
+                self.loadData()
+            }
         }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
@@ -166,8 +168,10 @@ class MyGroupsViewController: BaseViewController {
     
     @objc private func refresh(_ sender: UIRefreshControl) {
         // try? realmManager?.deleteAll()
-        loadData { [weak self] in
-            self?.refreshControl.endRefreshing()
+        DispatchQueue.global().async {
+            self.loadData { [weak self] in
+                self?.refreshControl.endRefreshing()
+            }
         }
     }
     

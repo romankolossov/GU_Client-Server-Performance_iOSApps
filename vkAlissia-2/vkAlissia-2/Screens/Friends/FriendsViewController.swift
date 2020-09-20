@@ -65,7 +65,9 @@ class FriendsViewController: BaseViewController {
         createNotification()
         
         if let friends = friends, friends.isEmpty {
-            loadData()
+            DispatchQueue.global().async {
+                self.loadData()
+            }
         }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
@@ -101,7 +103,7 @@ class FriendsViewController: BaseViewController {
                 #endif
                 
                 self?.tableView.beginUpdates()
-                    
+                
                 self?.tableView.deleteRows(at: deletions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
                 self?.tableView.insertRows(at: insertions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
                 self?.tableView.reloadRows(at: modifications.map { IndexPath(item: $0, section: 0) }, with: .automatic)
@@ -158,8 +160,10 @@ class FriendsViewController: BaseViewController {
     
     @objc private func refresh(_ sender: UIRefreshControl) {
         //try? realmManager?.deleteAll()
-        loadData { [weak self] in
-            self?.refreshControl.endRefreshing()
+        DispatchQueue.global().async {
+            self.loadData { [weak self] in
+                self?.refreshControl.endRefreshing()
+            }
         }
     }
 }

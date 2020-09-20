@@ -31,7 +31,10 @@ class ParticularFriendViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadData()
+        DispatchQueue.global().async {
+            self.loadData()
+        }
+        
         
         if let layout = collectiovView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.itemSize = CGSize(width: 202, height: 202)
