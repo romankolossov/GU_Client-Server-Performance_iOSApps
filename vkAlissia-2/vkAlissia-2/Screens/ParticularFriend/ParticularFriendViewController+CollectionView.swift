@@ -23,7 +23,7 @@ extension ParticularFriendViewController: UICollectionViewDataSource {
         
         cell.nameLabel.text = friendName
         // value of "6" (.last) is the best quality image of the VK photos to .get
-        cell.favoriteImageView.sd_setImage(with: URL(string: photo.sizes.last!.url))
+        cell.favoriteImageView.sd_setImage(with: URL(string: photo.sizes.last?.url ?? ""))
         
         return cell
     }

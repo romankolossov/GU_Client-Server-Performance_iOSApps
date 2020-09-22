@@ -13,12 +13,17 @@ class NewsViewController: UIViewController {
     // UI
     @IBOutlet weak var tableView: UITableView!
     
+    // Some properties
+    private let networkManager = NetworkManager.shared
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        
+        networkManager.loadNewsFeed()
         
         tableView.register(UINib(nibName: "NewsCell", bundle: Bundle.main), forCellReuseIdentifier: "NewsCell")
     }
