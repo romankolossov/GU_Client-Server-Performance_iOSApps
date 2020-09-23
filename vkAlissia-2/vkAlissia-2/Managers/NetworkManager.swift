@@ -118,8 +118,7 @@ class NetworkManager {
                 case .newsFeedGet:
                     do {
                         #if DEBUG
-                        print("hello from:")
-                        print(#function)
+                        print("hello from:\n\(#function)")
                         print(data)
                         #endif
                     } catch {

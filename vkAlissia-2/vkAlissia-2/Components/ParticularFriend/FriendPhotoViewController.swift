@@ -84,7 +84,14 @@ class FriendPhotoViewController: UIViewController {
     private func setFavoriteImages() {
         var images: [UIImage] = []
         // value of "6" (.last) is the best quality image of the VK photos to .get
-        photoURLs = photos.map { $0.sizes.last?.url ?? "" }
+        //photoURLs = photos.map { $0.sizes.last?.url ?? "" }
+        photoURLs = photos.map {
+            guard let url = $0.sizes.last?.url else {
+                print("error: nill value of 'photos.sizes.last' in:\n\(#function)\n at line: \(#line - 1)")
+                fatalError()
+            }
+            return url
+        }
         
         for photoURL in photoURLs {
             guard let url = URL(string: photoURL) else { return }
