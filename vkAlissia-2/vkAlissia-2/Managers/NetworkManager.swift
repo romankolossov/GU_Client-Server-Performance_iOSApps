@@ -22,6 +22,7 @@ class NetworkManager {
         case groupsGet = "groups.get"
         case friendsGet = "friends.get"
         case photosGet = "photos.get"
+        case newsFeedGet = "newsfeed.get"
         case groupsSearch = "groups.search"
     }
     
@@ -71,6 +72,14 @@ class NetworkManager {
                 URLQueryItem(name: "count", value: "30"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
+        case .newsFeedGet:
+            urlConstructor.queryItems = [
+                URLQueryItem(name: "access_token", value: Session.shared.token),
+                URLQueryItem(name: "user_id", value: "\(Session.shared.userId)"),
+                URLQueryItem(name: "filters", value: "post,photo,wall_photo,friend,note"),
+                URLQueryItem(name: "source_ids", value: "friends,groups,pages,following"),
+                URLQueryItem(name: "v", value: vkAPIVersion)
+            ]
         default:
             print("error: \(method.rawValue) is out of range")
             return
@@ -103,6 +112,15 @@ class NetworkManager {
                     do {
                         let photos = try JSONDecoder().decode(PhotoQuery.self, from: data).response.items
                         completion?(.success(photos))
+                    } catch {
+                        completion?(.failure(error))
+                    }
+                case .newsFeedGet:
+                    do {
+                        #if DEBUG
+                        print("hello from:\n\(#function)")
+                        print(data)
+                        #endif
                     } catch {
                         completion?(.failure(error))
                     }
@@ -151,5 +169,9 @@ class NetworkManager {
                 completion?(.failure(.incorrectData))
             }
         }
+    }
+    
+    func loadNewsFeed() {
+        networkRequest(for: .newsFeedGet)
     }
 }

@@ -135,17 +135,19 @@ class MyGroupsViewController: BaseViewController {
     }
     
     private func loadData(completion: (() -> Void)? = nil) {
-        networkManager.loadGroups() { [weak self] result in
-            
-            switch result {
-            case let .success(groupItems):
-                let groups: [GroupData] = groupItems.map {GroupData(groupItem: $0)}
-                DispatchQueue.main.async {
-                    try? self?.realmManager?.add(objects: groups)
-                    completion?()
+        DispatchQueue.global().async { [weak self] in
+            self?.networkManager.loadGroups() { [weak self] result in
+                
+                switch result {
+                case let .success(groupItems):
+                    let groups: [GroupData] = groupItems.map {GroupData(groupItem: $0)}
+                    DispatchQueue.main.async {
+                        try? self?.realmManager?.add(objects: groups)
+                        completion?()
+                    }
+                case let .failure(error):
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
                 }
-            case let .failure(error):
-                self?.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
     }
@@ -166,7 +168,7 @@ class MyGroupsViewController: BaseViewController {
     
     @objc private func refresh(_ sender: UIRefreshControl) {
         // try? realmManager?.deleteAll()
-        loadData { [weak self] in
+        self.loadData { [weak self] in
             self?.refreshControl.endRefreshing()
         }
     }

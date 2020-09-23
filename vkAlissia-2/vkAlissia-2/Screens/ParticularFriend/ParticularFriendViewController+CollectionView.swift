@@ -19,11 +19,16 @@ extension ParticularFriendViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ParticularFriendCell", for: indexPath) as? ParticularFriendCell else { fatalError() }
+        
         let photo = photos[indexPath.row]
+        // value of "6" (.last) is the best quality image of the VK photos to .get
+        guard let photoURL = photo.sizes.last?.url else {
+            print("error: nill value of 'photo.sizes.last' in:\n\(#function)\n at line: \(#line - 1)")
+            fatalError()
+        }
         
         cell.nameLabel.text = friendName
-        // value of "6" is the best quality image of the VK photos to .get
-        cell.favoriteImageView.sd_setImage(with: URL(string: photo.sizes[6].url))
+        cell.favoriteImageView.sd_setImage(with: URL(string: photoURL))
         
         return cell
     }

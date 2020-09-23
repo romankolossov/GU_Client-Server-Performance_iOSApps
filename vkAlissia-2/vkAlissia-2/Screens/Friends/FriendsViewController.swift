@@ -101,7 +101,7 @@ class FriendsViewController: BaseViewController {
                 #endif
                 
                 self?.tableView.beginUpdates()
-                    
+                
                 self?.tableView.deleteRows(at: deletions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
                 self?.tableView.insertRows(at: insertions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
                 self?.tableView.reloadRows(at: modifications.map { IndexPath(item: $0, section: 0) }, with: .automatic)
@@ -134,18 +134,20 @@ class FriendsViewController: BaseViewController {
     }
     
     private func loadData(completion: (() -> Void)? = nil) {
-        networkManager.loadFriends() { [weak self] result in
-            
-            switch result {
-            case let .success(friendItems):
-                let friends: [FriendData] = friendItems.map {FriendData(friendItem: $0)}
-                DispatchQueue.main.async {
-                    try? self?.realmManager?.add(objects: friends)
-                    //self?.tableView.reloadData()
-                    completion?()
+        DispatchQueue.global().async { [weak self] in
+            self?.networkManager.loadFriends() { [weak self] result in
+                
+                switch result {
+                case let .success(friendItems):
+                    let friends: [FriendData] = friendItems.map {FriendData(friendItem: $0)}
+                    DispatchQueue.main.async {
+                        try? self?.realmManager?.add(objects: friends)
+                        //self?.tableView.reloadData()
+                        completion?()
+                    }
+                case let .failure(error):
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
                 }
-            case let .failure(error):
-                self?.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
     }
@@ -158,7 +160,7 @@ class FriendsViewController: BaseViewController {
     
     @objc private func refresh(_ sender: UIRefreshControl) {
         //try? realmManager?.deleteAll()
-        loadData { [weak self] in
+        self.loadData { [weak self] in
             self?.refreshControl.endRefreshing()
         }
     }
