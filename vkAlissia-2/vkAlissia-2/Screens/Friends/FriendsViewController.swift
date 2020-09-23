@@ -65,9 +65,7 @@ class FriendsViewController: BaseViewController {
         createNotification()
         
         if let friends = friends, friends.isEmpty {
-            DispatchQueue.global().async {
-                self.loadData()
-            }
+            loadData()
         }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
@@ -136,18 +134,20 @@ class FriendsViewController: BaseViewController {
     }
     
     private func loadData(completion: (() -> Void)? = nil) {
-        networkManager.loadFriends() { [weak self] result in
-            
-            switch result {
-            case let .success(friendItems):
-                let friends: [FriendData] = friendItems.map {FriendData(friendItem: $0)}
-                DispatchQueue.main.async {
-                    try? self?.realmManager?.add(objects: friends)
-                    //self?.tableView.reloadData()
-                    completion?()
+        DispatchQueue.global().async { [weak self] in
+            self?.networkManager.loadFriends() { [weak self] result in
+                
+                switch result {
+                case let .success(friendItems):
+                    let friends: [FriendData] = friendItems.map {FriendData(friendItem: $0)}
+                    DispatchQueue.main.async {
+                        try? self?.realmManager?.add(objects: friends)
+                        //self?.tableView.reloadData()
+                        completion?()
+                    }
+                case let .failure(error):
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
                 }
-            case let .failure(error):
-                self?.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
     }
@@ -160,10 +160,8 @@ class FriendsViewController: BaseViewController {
     
     @objc private func refresh(_ sender: UIRefreshControl) {
         //try? realmManager?.deleteAll()
-        DispatchQueue.global().async {
-            self.loadData { [weak self] in
-                self?.refreshControl.endRefreshing()
-            }
+        self.loadData { [weak self] in
+            self?.refreshControl.endRefreshing()
         }
     }
 }

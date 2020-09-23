@@ -31,10 +31,7 @@ class ParticularFriendViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.global().async {
-            self.loadData()
-        }
-        
+        loadData()
         
         if let layout = collectiovView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.itemSize = CGSize(width: 202, height: 202)
@@ -44,18 +41,20 @@ class ParticularFriendViewController: BaseViewController {
     // MARK: - Major methods
     
     private func loadData(completion: (() -> Void)? = nil) {
-        networkManager.loadPhotos() { [weak self] result in
-            
-            switch result {
-            case let .success(photoItems):
-                let photos: [PhotoData] = photoItems.map { PhotoData(photoItem: $0) }
-                DispatchQueue.main.async {
-                    self?.photos = photos
-                    self?.collectiovView.reloadData()
-                    completion?()
+        DispatchQueue.global().async { [weak self] in
+            self?.networkManager.loadPhotos() { [weak self] result in
+                
+                switch result {
+                case let .success(photoItems):
+                    let photos: [PhotoData] = photoItems.map { PhotoData(photoItem: $0) }
+                    DispatchQueue.main.async {
+                        self?.photos = photos
+                        self?.collectiovView.reloadData()
+                        completion?()
+                    }
+                case let .failure(error):
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
                 }
-            case let .failure(error):
-                self?.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
     }
