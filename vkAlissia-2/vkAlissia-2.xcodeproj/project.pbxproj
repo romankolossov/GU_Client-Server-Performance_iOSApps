@@ -46,6 +46,8 @@
 		C8B27C13250504D600D51311 /* ParticularFriendViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B27C12250504D600D51311 /* ParticularFriendViewController+CollectionView.swift */; };
 		C8BB9D1E24E3548500B05FED /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8BB9D1D24E3548500B05FED /* WebKit.framework */; };
 		C8BB9D2224E35C9000B05FED /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BB9D2124E35C9000B05FED /* NetworkManager.swift */; };
+		C8DBBDEE251C400C00186F9F /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBBDED251C400C00186F9F /* AsyncOperation.swift */; };
+		C8DBBDF0251C44E700186F9F /* GetDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBBDEF251C44E700186F9F /* GetDataOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +97,8 @@
 		C8B27C12250504D600D51311 /* ParticularFriendViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParticularFriendViewController+CollectionView.swift"; sourceTree = "<group>"; };
 		C8BB9D1D24E3548500B05FED /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C8BB9D2124E35C9000B05FED /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C8DBBDED251C400C00186F9F /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		C8DBBDEF251C44E700186F9F /* GetDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,6 +326,8 @@
 				C89B6B1124E08D84002CB028 /* Session.swift */,
 				C862A88524F7F55400A879DA /* RealmManager.swift */,
 				C8BB9D2124E35C9000B05FED /* NetworkManager.swift */,
+				C8DBBDED251C400C00186F9F /* AsyncOperation.swift */,
+				C8DBBDEF251C44E700186F9F /* GetDataOperation.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -460,6 +466,7 @@
 				C865772624E063AA0004A272 /* FriendsViewController.swift in Sources */,
 				C865772F24E063B30004A272 /* LikeControl.swift in Sources */,
 				C865773224E063B30004A272 /* ParticularFriendCell.swift in Sources */,
+				C8DBBDEE251C400C00186F9F /* AsyncOperation.swift in Sources */,
 				C862A88D24F945BB00A879DA /* FriendsViewController+TableView.swift in Sources */,
 				C8297A4D2512B3D700573083 /* NewsCell.swift in Sources */,
 				C8B27C112500039300D51311 /* BaseViewController.swift in Sources */,
@@ -484,6 +491,7 @@
 				C865773124E063B30004A272 /* FriendLayout.swift in Sources */,
 				C865774D24E063DE0004A272 /* Animations.swift in Sources */,
 				C862A88624F7F55400A879DA /* RealmManager.swift in Sources */,
+				C8DBBDF0251C44E700186F9F /* GetDataOperation.swift in Sources */,
 				C8297A492512B3A500573083 /* NewsViewController.swift in Sources */,
 				C8BB9D2224E35C9000B05FED /* NetworkManager.swift in Sources */,
 				C865773324E063B30004A272 /* ParticularFriendViewController.swift in Sources */,
