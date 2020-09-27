@@ -18,7 +18,7 @@ PODS:
   - SDWebImage/Core (5.8.4)
 
 DEPENDENCIES:
-  - PromiseKit (~> 6.13.1)
+  - PromiseKit (= 6.13.1)
   - RealmSwift (= 5.3.5)
   - SDWebImage (= 5.8.4)
 
@@ -35,6 +35,6 @@ SPEC CHECKSUMS:
   RealmSwift: a6ea2ea561039fc3833c08dec81371a9a3bb5ca6
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
 
-PODFILE CHECKSUM: bc7783fc404ebe35b1c87d6742395d5e35a321f1
+PODFILE CHECKSUM: 929026022c9bd155715aedd17bdefa8d3b6e2bcc
 
 COCOAPODS: 1.9.3
