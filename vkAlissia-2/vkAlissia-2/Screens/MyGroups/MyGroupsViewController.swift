@@ -135,22 +135,29 @@ class MyGroupsViewController: BaseViewController {
     }
     
     private func loadData(completion: (() -> Void)? = nil) {
-        DispatchQueue.global().async { [weak self] in
-            self?.networkManager.loadGroups() { [weak self] result in
-                
-                switch result {
-                case let .success(groupItems):
-                    let groups: [GroupData] = groupItems.map {GroupData(groupItem: $0)}
-                    DispatchQueue.main.async {
-                        try? self?.realmManager?.add(objects: groups)
-                        completion?()
-                    }
-                case let .failure(error):
-                    self?.showAlert(title: "Error", message: error.localizedDescription)
-                }
-            }
-        }
+        let queue = OperationQueue()
+        
+        let getDataOperation = GetDataOperation()
+        queue.addOperation(getDataOperation)
     }
+    
+//    private func loadData(completion: (() -> Void)? = nil) {
+//        DispatchQueue.global().async { [weak self] in
+//            self?.networkManager.loadGroups() { [weak self] result in
+//
+//                switch result {
+//                case let .success(groupItems):
+//                    let groups: [GroupData] = groupItems.map {GroupData(groupItem: $0)}
+//                    DispatchQueue.main.async {
+//                        try? self?.realmManager?.add(objects: groups)
+//                        completion?()
+//                    }
+//                case let .failure(error):
+//                    self?.showAlert(title: "Error", message: error.localizedDescription)
+//                }
+//            }
+//        }
+//    }
     
     // MARK: - Actions
     
