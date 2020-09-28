@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import PromiseKit
 
 class MyGroupsViewController: BaseViewController {
     
@@ -49,6 +50,7 @@ class MyGroupsViewController: BaseViewController {
     }
     
     private let networkManager = NetworkManager.shared
+    private let networkManagerPromise = NetworkManagerPromise.shared
     private let realmManager = RealmManager.shared
     var publicRealmManager: RealmManager? {
         realmManager
@@ -144,6 +146,14 @@ class MyGroupsViewController: BaseViewController {
      completion?()
      }
      */
+    
+    private func loadDataPromise(comletion: (() -> Void)? = nil) {
+        firstly {
+            networkManagerPromise.networkRequest(for: .groupsGet)
+        }
+        .get(on: .main) {}
+        
+    }
     
     private func loadData(completion: (() -> Void)? = nil) {
         DispatchQueue.global().async { [weak self] in
