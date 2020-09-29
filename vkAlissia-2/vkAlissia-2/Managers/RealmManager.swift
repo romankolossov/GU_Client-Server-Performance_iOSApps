@@ -59,4 +59,8 @@ class RealmManager {
             closure()
         }
     }
+    
+    func refresh () -> Void {
+        realm.refresh()
+    }
 }

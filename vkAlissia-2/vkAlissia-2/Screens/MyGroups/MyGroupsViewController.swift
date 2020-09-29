@@ -23,6 +23,7 @@ class MyGroupsViewController: BaseViewController {
             tableView.dataSource = self
             tableView.delegate = self
             tableView.refreshControl = refreshControl
+            tableView.register(UINib(nibName: String(describing: MyGroupCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MyGroupCell.self))
         }
     }
     private lazy var refreshControl: UIRefreshControl = {
@@ -67,13 +68,12 @@ class MyGroupsViewController: BaseViewController {
         createNotifications()
         
         if let groups = groups, groups.isEmpty {
-            loadData()
+            //loadData()
+            loadDataPromise()
         }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         searchBar.addGestureRecognizer(tapGesture)
-        
-        tableView.register(UINib(nibName: String(describing: MyGroupCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MyGroupCell.self))
     }
     
     deinit {
@@ -87,6 +87,7 @@ class MyGroupsViewController: BaseViewController {
         filteredGroupsNotificationToken = filteredGroups?.observe { [weak self] change in
             switch change {
             case .initial:
+                self?.realmManager?.refresh()
                 #if DEBUG
                 print("Initialized")
                 #endif
@@ -148,11 +149,27 @@ class MyGroupsViewController: BaseViewController {
      */
     
     private func loadDataPromise(comletion: (() -> Void)? = nil) {
+        
+        //let waiteAtLeast = after(seconds: 3)
+        
         firstly {
             networkManagerPromise.networkRequest(for: .groupsGet)
         }
-        .get(on: .main) {}
-        
+        .recover { Error in
+            self.networkManagerPromise.networkRequest(for: .groupsGet)
+        }
+        .get(on: .main) { [weak self] groupItems in
+            guard let self = self else { return }
+            
+            let groups: [GroupData] = groupItems.map {GroupData(groupItem: $0 as! GroupItem)}
+            try? self.realmManager?.add(objects: groups)
+        }
+        .catch { error in
+            self.showAlert(title: "Error", message: error.localizedDescription)
+        }
+        .finally(on: .main) {
+            comletion?()
+        }
     }
     
     private func loadData(completion: (() -> Void)? = nil) {
@@ -189,9 +206,14 @@ class MyGroupsViewController: BaseViewController {
     
     @objc private func refresh(_ sender: UIRefreshControl) {
         // try? realmManager?.deleteAll()
-        self.loadData { [weak self] in
-            self?.refreshControl.endRefreshing()
-        }
+        
+                self.loadData { [weak self] in
+                    self?.refreshControl.endRefreshing()
+                }
+        
+//        self.loadDataPromise { [weak self] in
+//            self?.refreshControl.endRefreshing()
+//        }
     }
     
     //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

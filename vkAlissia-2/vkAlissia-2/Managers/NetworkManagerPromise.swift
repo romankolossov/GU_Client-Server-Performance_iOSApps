@@ -19,6 +19,10 @@ class NetworkManagerPromise {
         case incorrectData
     }
     
+    enum PromiseError: Error {
+        case promiseRejected
+    }
+    
     enum Method: String {
         case groupsGet = "groups.get"
         case friendsGet = "friends.get"
@@ -83,7 +87,7 @@ class NetworkManagerPromise {
             ]
         default:
             print("error: \(method.rawValue) is out of range")
-            return Promise { Resolver in Resolver.reject(NetworkError.incorrectData)
+            return Promise { Resolver in Resolver.reject(PromiseError.promiseRejected)
             }
         }
         
@@ -133,11 +137,11 @@ class NetworkManagerPromise {
             //                    }
             default:
                 print("error: \(method.rawValue) is out of range")
-                return Promise { Resolver in Resolver.reject(NetworkError.incorrectData)
+                return Promise { Resolver in Resolver.reject(PromiseError.promiseRejected)
                 }
             }
         } else {
-            return Promise { Resolver in Resolver.reject(NetworkError.incorrectData)
+            return Promise { Resolver in Resolver.reject(PromiseError.promiseRejected)
             }
         }
         //dataTask.resume()

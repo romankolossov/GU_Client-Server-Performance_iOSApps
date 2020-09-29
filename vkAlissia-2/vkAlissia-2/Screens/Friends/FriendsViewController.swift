@@ -22,6 +22,7 @@ class FriendsViewController: BaseViewController {
             tableView.dataSource = self
             tableView.delegate = self
             tableView.refreshControl = refreshControl
+            tableView.register(UINib(nibName: String(describing: FriendCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: FriendCell.self))
         }
     }
     private lazy var refreshControl: UIRefreshControl = {
@@ -70,8 +71,6 @@ class FriendsViewController: BaseViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         searchBar.addGestureRecognizer(tapGesture)
-        
-        tableView.register(UINib(nibName: String(describing: FriendCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: FriendCell.self))
     }
     
     deinit {
@@ -84,6 +83,7 @@ class FriendsViewController: BaseViewController {
         filteredFriendsNotificationToken = filteredFriends?.observe { [weak self] change in
             switch change {
             case .initial:
+                self?.realmManager?.refresh()
                 self?.setTableSections()
                 #if DEBUG
                 print("Initialized")
