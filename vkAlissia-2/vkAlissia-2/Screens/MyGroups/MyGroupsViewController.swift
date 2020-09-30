@@ -67,10 +67,12 @@ class MyGroupsViewController: BaseViewController {
         
         createNotifications()
         
-        if let groups = groups, groups.isEmpty {
-            //loadData()
-            loadDataPromise()
-        }
+        loadDataPromise()
+        
+//        if let groups = groups, groups.isEmpty {
+//            //loadData()
+//            loadDataPromise()
+//        }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         searchBar.addGestureRecognizer(tapGesture)
@@ -206,14 +208,13 @@ class MyGroupsViewController: BaseViewController {
     
     @objc private func refresh(_ sender: UIRefreshControl) {
         // try? realmManager?.deleteAll()
+        self.loadData { [weak self] in
+            self?.refreshControl.endRefreshing()
+        }
         
-                self.loadData { [weak self] in
-                    self?.refreshControl.endRefreshing()
-                }
-        
-//        self.loadDataPromise { [weak self] in
-//            self?.refreshControl.endRefreshing()
-//        }
+        //        self.loadDataPromise { [weak self] in
+        //            self?.refreshControl.endRefreshing()
+        //        }
     }
     
     //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
