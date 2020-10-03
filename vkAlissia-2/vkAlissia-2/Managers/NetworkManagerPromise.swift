@@ -97,51 +97,69 @@ class NetworkManagerPromise {
         request.httpMethod = "GET"
         //request.allowsCellularAccess = false
         
-        let dataTask = session.dataTask(.promise, with: request)
         
-        if let data = dataTask.value {
-            
-            switch method {
-            case .friendsGet:
-                do {
-                    let friends = try JSONDecoder().decode(FriendQuery.self, from: data.data).response.items
-                    return Promise.value(friends)
-                } catch {
-                    return Promise { Resolver in Resolver.reject(error) }
-                }
-            case .groupsGet:
-                do {
-                    let groups = try JSONDecoder().decode(GroupQuery.self, from: data.data).response.items
+        return session.dataTask(.promise, with: request)
+            .then(on: DispatchQueue.global()) { (data, response) -> Promise <[Any]> in
+                switch method {
+                case .groupsGet:
+                    let groups = try JSONDecoder().decode(GroupQuery.self, from: data).response.items
                     return Promise.value(groups)
-                } catch {
-                    return Promise { Resolver in Resolver.reject(error) }
+                default:
+                    print("error: \(method.rawValue) is out of range")
+                    return Promise { Resolver in Resolver.reject(PromiseError.promiseRejected) }
                 }
-            case .photosGet:
-                do {
-                    let photos = try JSONDecoder().decode(PhotoQuery.self, from: data.data).response.items
-                    return Promise.value(photos)
-                } catch {
-                    return Promise { Resolver in Resolver.reject(error) }
-                }
-                //                case .newsFeedGet:
-                //                    do {
-                //                        #if DEBUG
-                //                        print("hello from:\n\(#function)")
-                //                        print(data)
-                //                        #endif
-                //                    } catch {
-                //                        return Promise { Resolver in Resolver.reject(error)
-                //                        }
-            //                    }
-            default:
-                print("error: \(method.rawValue) is out of range")
-                return Promise { Resolver in Resolver.reject(PromiseError.promiseRejected) }
-            }
         }
-        else {
-            print("ERROR: data ")
-            return Promise { Resolver in Resolver.reject(PromiseError.promiseRejected) }
-        }
+        
+        
+        
+        /*
+         let dataTask = session.dataTask(.promise, with: request)
+         
+         if let data = dataTask.value {
+         
+         switch method {
+         case .friendsGet:
+         do {
+         let friends = try JSONDecoder().decode(FriendQuery.self, from: data.data).response.items
+         return Promise.value(friends)
+         } catch {
+         return Promise { Resolver in Resolver.reject(error) }
+         }
+         case .groupsGet:
+         do {
+         let groups = try JSONDecoder().decode(GroupQuery.self, from: data.data).response.items
+         return Promise.value(groups)
+         } catch {
+         return Promise { Resolver in Resolver.reject(error) }
+         }
+         case .photosGet:
+         do {
+         let photos = try JSONDecoder().decode(PhotoQuery.self, from: data.data).response.items
+         return Promise.value(photos)
+         } catch {
+         return Promise { Resolver in Resolver.reject(error) }
+         }
+         //                case .newsFeedGet:
+         //                    do {
+         //                        #if DEBUG
+         //                        print("hello from:\n\(#function)")
+         //                        print(data)
+         //                        #endif
+         //                    } catch {
+         //                        return Promise { Resolver in Resolver.reject(error)
+         //                        }
+         //                    }
+         default:
+         print("error: \(method.rawValue) is out of range")
+         return Promise { Resolver in Resolver.reject(PromiseError.promiseRejected) }
+         }
+         }
+         else {
+         print("ERROR: data ")
+         return Promise { Resolver in Resolver.reject(PromiseError.promiseRejected) }
+         }
+         */
+        
         
         //dataTask.resume()
     }

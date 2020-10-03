@@ -51,11 +51,12 @@ class MyGroupsViewController: BaseViewController {
     }
     
     private let networkManager = NetworkManager.shared
-    private let networkManagerPromise = NetworkManagerPromise.shared
     private let realmManager = RealmManager.shared
     var publicRealmManager: RealmManager? {
         realmManager
     }
+    // Promise use version
+    private let networkManagerPromise = NetworkManagerPromise.shared
     
     private var filteredGroupsNotificationToken: NotificationToken?
     private var firstGroupNotificationToken: NotificationToken?
@@ -67,12 +68,12 @@ class MyGroupsViewController: BaseViewController {
         
         createNotifications()
         
-        loadDataPromise()
-        
-//        if let groups = groups, groups.isEmpty {
-//            //loadData()
-//            loadDataPromise()
-//        }
+        if let groups = groups, groups.isEmpty {
+            //loadData()
+            
+            // Promise use version
+            loadDataPromise()
+        }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         searchBar.addGestureRecognizer(tapGesture)
@@ -139,19 +140,18 @@ class MyGroupsViewController: BaseViewController {
         }
     }
     
-    /*
-     // func loadData Operation use version
-     private func loadData(completion: (() -> Void)? = nil) {
-     let queue = OperationQueue()
-     
-     let getDataOperation = GetDataOperation()
-     queue.addOperation(getDataOperation)
-     completion?()
-     }
-     */
     
+    // Operation use version
+    //    private func loadData(completion: (() -> Void)? = nil) {
+    //        let queue = OperationQueue()
+    //
+    //        let getDataOperation = GetDataOperation()
+    //        queue.addOperation(getDataOperation)
+    //        completion?()
+    //    }
+    
+    // Promise use version
     private func loadDataPromise(comletion: (() -> Void)? = nil) {
-        
         //let waiteAtLeast = after(seconds: 3)
         
         firstly {
@@ -207,14 +207,16 @@ class MyGroupsViewController: BaseViewController {
     }
     
     @objc private func refresh(_ sender: UIRefreshControl) {
-        // try? realmManager?.deleteAll()
-//        self.loadData { [weak self] in
-//            self?.refreshControl.endRefreshing()
-//        }
+        //        try? realmManager?.deleteAll()
         
-                self.loadDataPromise { [weak self] in
-                    self?.refreshControl.endRefreshing()
-                }
+        //        self.loadData { [weak self] in
+        //            self?.refreshControl.endRefreshing()
+        //        }
+        
+        // Promise use version
+        self.loadDataPromise { [weak self] in
+            self?.refreshControl.endRefreshing()
+        }
     }
     
     //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
