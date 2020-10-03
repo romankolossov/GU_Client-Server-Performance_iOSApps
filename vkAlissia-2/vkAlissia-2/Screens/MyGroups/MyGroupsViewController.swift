@@ -208,13 +208,13 @@ class MyGroupsViewController: BaseViewController {
     
     @objc private func refresh(_ sender: UIRefreshControl) {
         // try? realmManager?.deleteAll()
-        self.loadData { [weak self] in
-            self?.refreshControl.endRefreshing()
-        }
+//        self.loadData { [weak self] in
+//            self?.refreshControl.endRefreshing()
+//        }
         
-        //        self.loadDataPromise { [weak self] in
-        //            self?.refreshControl.endRefreshing()
-        //        }
+                self.loadDataPromise { [weak self] in
+                    self?.refreshControl.endRefreshing()
+                }
     }
     
     //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

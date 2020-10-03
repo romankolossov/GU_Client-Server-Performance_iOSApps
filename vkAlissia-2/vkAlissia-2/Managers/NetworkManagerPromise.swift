@@ -100,30 +100,28 @@ class NetworkManagerPromise {
         let dataTask = session.dataTask(.promise, with: request)
         
         if let data = dataTask.value {
+            
             switch method {
             case .friendsGet:
                 do {
                     let friends = try JSONDecoder().decode(FriendQuery.self, from: data.data).response.items
                     return Promise.value(friends)
                 } catch {
-                    return Promise { Resolver in Resolver.reject(error)
-                    }
+                    return Promise { Resolver in Resolver.reject(error) }
                 }
             case .groupsGet:
                 do {
                     let groups = try JSONDecoder().decode(GroupQuery.self, from: data.data).response.items
                     return Promise.value(groups)
                 } catch {
-                    return Promise { Resolver in Resolver.reject(error)
-                    }
+                    return Promise { Resolver in Resolver.reject(error) }
                 }
             case .photosGet:
                 do {
                     let photos = try JSONDecoder().decode(PhotoQuery.self, from: data.data).response.items
                     return Promise.value(photos)
                 } catch {
-                    return Promise { Resolver in Resolver.reject(error)
-                    }
+                    return Promise { Resolver in Resolver.reject(error) }
                 }
                 //                case .newsFeedGet:
                 //                    do {
@@ -137,13 +135,16 @@ class NetworkManagerPromise {
             //                    }
             default:
                 print("error: \(method.rawValue) is out of range")
-                return Promise { Resolver in Resolver.reject(PromiseError.promiseRejected)
-                }
-            }
-        } else {
-            return Promise { Resolver in Resolver.reject(PromiseError.promiseRejected)
+                return Promise { Resolver in Resolver.reject(PromiseError.promiseRejected) }
             }
         }
+        else {
+            print("ERROR: data ")
+            return Promise { Resolver in Resolver.reject(PromiseError.promiseRejected) }
+        }
+        
         //dataTask.resume()
     }
 }
+
+
