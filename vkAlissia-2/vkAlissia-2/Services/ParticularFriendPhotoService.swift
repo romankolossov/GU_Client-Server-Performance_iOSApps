@@ -15,18 +15,6 @@ fileprivate protocol DataReloadable {
 
 class ParticularFriendPhotoService {
     
-    //    static let sharedManager: SessionManager = {
-    //        let config = URLSessionConfiguration.default
-    //
-    //        config.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
-    //        config.timeoutIntervalForRequest = 40
-    //
-    //        let manager = Alamofire.SessionManager(configuration: config)
-    //
-    //        return manager
-    //    }()
-    
-    
     // Some properties
     enum NetworkError: Error {
         case incorrectData
@@ -34,32 +22,29 @@ class ParticularFriendPhotoService {
     
     private static let pathName: String = {
         let pathName = "images"
-        
-        guard let cashesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-            return pathName
-        }
+        guard let cashesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+            else { return pathName }
         
         let url = cashesDirectory.appendingPathComponent(pathName, isDirectory: true)
         
         if !FileManager.default.fileExists(atPath: url.path) {
             try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
         }
-        
         return pathName
     }()
     
     private lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
-        //configuration.allowsCellularAccess = false
         let session =  URLSession(configuration: configuration)
         return session
     }()
     let vkAPIVersion: String = "5.122"
     
-    private let cacheLifeTime: TimeInterval = 30 * 24 * 60 * 60
+    private let cacheLifeTime: TimeInterval = 60 * 60
     private var images = [String: UIImage]()
     private let container: DataReloadable
     
+    // initializers
     init(container: UITableView) {
         self.container = Table(tableView: container)
     }
@@ -110,18 +95,15 @@ class ParticularFriendPhotoService {
     }
     
     private func getFilePath(url: String) -> String? {
-        guard let cashesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-            return nil
-        }
+        guard let cashesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+            else { return nil }
         
         let hashName = url.split(separator: "/").last ?? "default"
-        
         return cashesDirectory.appendingPathComponent(ParticularFriendPhotoService.pathName + "/" + hashName).path
     }
     
     private func saveImageToCache(url: String, image: UIImage) {
-        guard let fileLocalyPath = getFilePath(url: url),
-            let data = image.pngData()
+        guard let fileLocalyPath = getFilePath(url: url), let data = image.pngData()
             else { return }
         
         FileManager.default.createFile(atPath: fileLocalyPath, contents: data, attributes: nil)
@@ -142,7 +124,6 @@ class ParticularFriendPhotoService {
         DispatchQueue.main.async { [weak self] in
             self?.images[url] = image
         }
-        
         return image
     }
     
@@ -154,21 +135,21 @@ class ParticularFriendPhotoService {
                 case let .success(photosData):
                     let photoData = photosData[indexPath.row]
                     // value of "6" (.last) is the best quality image of the VK photos to .get
-                    #if DEBUG
-                    print("PHOTO DATA: \(#function), \(photoData)")
-                    #endif
                     guard let photoStringURL = photoData.sizes.last?.url else {
                         print("error: nill value of 'photo.sizes.last' in:\n\(#function)\n at line: \(#line - 1)")
                         fatalError()
                     }
-                    
                     let photoURL = URL(string: photoStringURL)
-                    
                     let data = try? Data(contentsOf: photoURL!)
                     let image = UIImage(data: data!)
                     
                     DispatchQueue.main.async { [weak self] in
-                        self?.images[url] = image
+                        self?.images[photoStringURL] = image
+                    }
+                    self?.saveImageToCache(url: photoStringURL, image: image!)
+                    
+                    DispatchQueue.main.async { [weak self] in
+                        self?.container.reloadRow(atIndexPath: indexPath)
                     }
                 case let .failure(error):
                     #if DEBUG
@@ -178,27 +159,6 @@ class ParticularFriendPhotoService {
             }
         }
     }
-    
-//    private func loadPhoto(atIndexPath indexPath: IndexPath, byUrl url: String) {
-//        ParticularFriendPhotoService.sharedManager.request(url).responseData(
-//            queue: DispatchQueue.global(),
-//            completionHandler: { [weak self] response in
-//                guard let data = response.data,
-//                    let image = UIImage(data: data)
-//                    else  { return }
-//
-//                DispatchQueue.main.async { [weak self] in
-//                    self?.images[url] = image
-//                }
-//
-//                self?.saveImageToCache(url: url, image: image)
-//
-//                DispatchQueue.main.async { [weak self] in
-//                    self?.container.reloadRow(atIndexPath: indexPath)
-//                }
-//            }
-//        )
-//    }
     
     func getPhoto(atIndexPath indexPath: IndexPath, byUrl url: String) -> UIImage? {
         var image: UIImage?
@@ -213,7 +173,6 @@ class ParticularFriendPhotoService {
             print("\(url) : ЗАГРУЗКА ИЗ СЕТИ")
             loadPhoto(atIndexPath: indexPath, byUrl: url)
         }
-        
         return image
     }
 }
