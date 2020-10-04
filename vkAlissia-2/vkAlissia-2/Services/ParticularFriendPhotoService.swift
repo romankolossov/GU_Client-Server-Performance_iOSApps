@@ -6,7 +6,6 @@
 //  Copyright © 2020 Roman N. Kolosov. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 fileprivate protocol DataReloadable {
@@ -16,10 +15,6 @@ fileprivate protocol DataReloadable {
 class ParticularFriendPhotoService {
     
     // Some properties
-    enum NetworkError: Error {
-        case incorrectData
-    }
-    
     private static let pathName: String = {
         let pathName = "images"
         guard let cashesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
@@ -40,7 +35,7 @@ class ParticularFriendPhotoService {
     }()
     let vkAPIVersion: String = "5.122"
     
-    private let cacheLifeTime: TimeInterval = 60 * 60
+    private let cacheLifeTime: TimeInterval = 1 * 60 * 60
     private var images = [String: UIImage]()
     private let container: DataReloadable
     
@@ -75,7 +70,6 @@ class ParticularFriendPhotoService {
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        //request.allowsCellularAccess = false
         
         let dataTask = session.dataTask(with: request) { (data, response, error) in
             if let data = data {
@@ -139,14 +133,14 @@ class ParticularFriendPhotoService {
                         print("error: nill value of 'photo.sizes.last' in:\n\(#function)\n at line: \(#line - 1)")
                         fatalError()
                     }
-                    let photoURL = URL(string: photoStringURL)
-                    let data = try? Data(contentsOf: photoURL!)
-                    let image = UIImage(data: data!)
+                    guard let photoURL = URL(string: photoStringURL) else { return }
+                    guard let data = try? Data(contentsOf: photoURL) else { return }
+                    guard let image = UIImage(data: data) else { return }
                     
                     DispatchQueue.main.async { [weak self] in
                         self?.images[photoStringURL] = image
                     }
-                    self?.saveImageToCache(url: photoStringURL, image: image!)
+                    self?.saveImageToCache(url: photoStringURL, image: image)
                     
                     DispatchQueue.main.async { [weak self] in
                         self?.container.reloadRow(atIndexPath: indexPath)
@@ -176,7 +170,6 @@ class ParticularFriendPhotoService {
         return image
     }
 }
-
 
 // MARK: - DataReloadable
 
