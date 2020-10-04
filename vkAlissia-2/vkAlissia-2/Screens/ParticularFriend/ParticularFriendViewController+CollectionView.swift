@@ -28,7 +28,8 @@ extension ParticularFriendViewController: UICollectionViewDataSource {
         }
         
         cell.nameLabel.text = friendName
-        cell.favoriteImageView.sd_setImage(with: URL(string: photoURL))
+        cell.favoriteImageView.image = particularFriendPhotoService!.getPhoto(atIndexPath: indexPath, byUrl: photoURL)
+        //cell.favoriteImageView.sd_setImage(with: URL(string: photoURL))
         
         return cell
     }

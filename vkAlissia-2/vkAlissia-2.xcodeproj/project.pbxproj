@@ -38,6 +38,7 @@
 		C865774C24E063DE0004A272 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865774A24E063DE0004A272 /* StarView.swift */; };
 		C865774D24E063DE0004A272 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865774B24E063DE0004A272 /* Animations.swift */; };
 		C865774F24E064050004A272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C865774E24E064050004A272 /* Assets.xcassets */; };
+		C88DB2A825290FC300A28687 /* ParticularFriendPhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88DB2A725290FC300A28687 /* ParticularFriendPhotoService.swift */; };
 		C89B6B1224E08D84002CB028 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89B6B1124E08D84002CB028 /* Session.swift */; };
 		C89D766324EE1E4000FDC697 /* GroupCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */; };
 		C89D766524EE2F0300FDC697 /* PhotoCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */; };
@@ -90,6 +91,7 @@
 		C865774A24E063DE0004A272 /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		C865774B24E063DE0004A272 /* Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		C865774E24E064050004A272 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C88DB2A725290FC300A28687 /* ParticularFriendPhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticularFriendPhotoService.swift; sourceTree = "<group>"; };
 		C89B6B1124E08D84002CB028 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCodableRealm.swift; sourceTree = "<group>"; };
 		C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCodableRealm.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 		C865770324E0630B0004A272 /* vkAlissia-2 */ = {
 			isa = PBXGroup;
 			children = (
+				C88DB2A425290E7000A28687 /* Services */,
 				C87E1D3C24E30BF80061E697 /* Managers */,
 				C862A88024F7F1F300A879DA /* Components */,
 				C865771824E063940004A272 /* Models */,
@@ -329,10 +332,18 @@
 				C862A88524F7F55400A879DA /* RealmManager.swift */,
 				C8BB9D2124E35C9000B05FED /* NetworkManager.swift */,
 				C8BBF79B2521237D00DDA41D /* NetworkManagerPromise.swift */,
-				C8DBBDED251C400C00186F9F /* AsyncOperation.swift */,
-				C8DBBDEF251C44E700186F9F /* GetDataOperation.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		C88DB2A425290E7000A28687 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C8DBBDED251C400C00186F9F /* AsyncOperation.swift */,
+				C8DBBDEF251C44E700186F9F /* GetDataOperation.swift */,
+				C88DB2A725290FC300A28687 /* ParticularFriendPhotoService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		C8BB9D1C24E3548500B05FED /* Frameworks */ = {
@@ -497,6 +508,7 @@
 				C862A88624F7F55400A879DA /* RealmManager.swift in Sources */,
 				C8DBBDF0251C44E700186F9F /* GetDataOperation.swift in Sources */,
 				C8297A492512B3A500573083 /* NewsViewController.swift in Sources */,
+				C88DB2A825290FC300A28687 /* ParticularFriendPhotoService.swift in Sources */,
 				C8BB9D2224E35C9000B05FED /* NetworkManager.swift in Sources */,
 				C865773324E063B30004A272 /* ParticularFriendViewController.swift in Sources */,
 			);
