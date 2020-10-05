@@ -45,6 +45,7 @@ class FriendPhotoViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         nameLabel.textColor = .black
+        nameLabel.backgroundColor = .white
         nameLabel.font = .preferredFont(forTextStyle: .title1)
         nameLabel.textAlignment = .center
         
