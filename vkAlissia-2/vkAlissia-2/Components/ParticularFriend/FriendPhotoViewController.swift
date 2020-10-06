@@ -61,9 +61,9 @@ class FriendPhotoViewController: UIViewController {
             nameLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7)
         ])
         
-        DispatchQueue.main.async {
-            self.setFavoriteImages()
-            self.setImages()
+        DispatchQueue.main.async { [weak self] in
+            self?.setFavoriteImages()
+            self?.setImages()
         }
         
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
