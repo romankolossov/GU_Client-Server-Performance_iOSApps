@@ -25,11 +25,16 @@ class ParticularFriendViewController: BaseViewController {
     var photos: [PhotoData] = []
     
     private let networkManager = NetworkManager.shared
+    private var particularFriendPhotoService: ParticularFriendPhotoService?
+    var publicParticularFriendPhotoService: ParticularFriendPhotoService? {
+        particularFriendPhotoService
+    }
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        particularFriendPhotoService = ParticularFriendPhotoService(container: collectiovView)
         
         loadData()
         

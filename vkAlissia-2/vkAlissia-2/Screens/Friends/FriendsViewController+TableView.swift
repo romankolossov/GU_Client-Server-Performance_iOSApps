@@ -56,7 +56,7 @@ extension FriendsViewController: UITableViewDelegate {
         guard let friend = sections[sectionTitles[indexPath.section]]? [indexPath.row] else { return }
         
         particularFriendVC.friendName = friend.friendName
-       
+        
         Session.shared.friendId = friend.id.value ?? -1
         
         navigationController?.pushViewController(particularFriendVC, animated: true)
