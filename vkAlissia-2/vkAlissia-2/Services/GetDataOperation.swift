@@ -19,7 +19,7 @@ class GetDataOperation: AsyncOperation {
             switch result {
             case let .success(groupItems):
                 let groups: [GroupData] = groupItems.map {GroupData(groupItem: $0)}
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
                     try? self?.realmManager?.add(objects: groups)
                 }
             case let .failure(error):

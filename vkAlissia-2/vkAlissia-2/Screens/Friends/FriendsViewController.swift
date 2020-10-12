@@ -140,7 +140,7 @@ class FriendsViewController: BaseViewController {
                 switch result {
                 case let .success(friendItems):
                     let friends: [FriendData] = friendItems.map {FriendData(friendItem: $0)}
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async { [weak self] in
                         try? self?.realmManager?.add(objects: friends)
                         //self?.tableView.reloadData()
                         completion?()

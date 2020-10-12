@@ -52,7 +52,7 @@ class ParticularFriendViewController: BaseViewController {
                 switch result {
                 case let .success(photoItems):
                     let photos: [PhotoData] = photoItems.map { PhotoData(photoItem: $0) }
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async { [weak self] in
                         self?.photos = photos
                         self?.collectiovView.reloadData()
                         completion?()
