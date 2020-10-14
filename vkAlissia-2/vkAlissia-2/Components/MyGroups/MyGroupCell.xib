@@ -15,29 +15,19 @@
                 <rect key="frame" x="0.0" y="0.0" width="424" height="88"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ns-qe-ExR">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ns-qe-ExR">
                         <rect key="frame" x="21" y="32" width="226" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BMW" translatesAutoresizingMaskIntoConstraints="NO" id="qfL-lG-1Ml">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BMW" translatesAutoresizingMaskIntoConstraints="NO" id="qfL-lG-1Ml">
                         <rect key="frame" x="315" y="0.0" width="88" height="88"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="qfL-lG-1Ml" secondAttribute="height" multiplier="1:1" id="Axw-t5-BOb"/>
-                            <constraint firstAttribute="height" constant="88" id="b7M-xa-T31"/>
-                        </constraints>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="qfL-lG-1Ml" firstAttribute="centerY" secondItem="VVQ-aC-FE3" secondAttribute="centerY" id="GoI-M0-FCT"/>
-                    <constraint firstItem="1Ns-qe-ExR" firstAttribute="top" secondItem="VVQ-aC-FE3" secondAttribute="top" constant="32" id="ZFb-Fa-1xf"/>
-                    <constraint firstAttribute="trailing" secondItem="qfL-lG-1Ml" secondAttribute="trailing" constant="21" id="aUl-lf-wL6"/>
-                    <constraint firstItem="1Ns-qe-ExR" firstAttribute="leading" secondItem="VVQ-aC-FE3" secondAttribute="leading" constant="21" id="fHJ-JC-QNG"/>
-                    <constraint firstItem="1Ns-qe-ExR" firstAttribute="centerY" secondItem="VVQ-aC-FE3" secondAttribute="centerY" id="rHn-Zs-16B"/>
-                    <constraint firstItem="qfL-lG-1Ml" firstAttribute="leading" secondItem="1Ns-qe-ExR" secondAttribute="trailing" constant="68" id="sa3-Yi-u5n"/>
-                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="myGroupAvatarView" destination="qfL-lG-1Ml" id="wQ1-EV-hR7"/>
