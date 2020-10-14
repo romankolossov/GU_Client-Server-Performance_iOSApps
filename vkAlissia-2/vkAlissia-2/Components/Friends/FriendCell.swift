@@ -9,9 +9,24 @@
 import UIKit
 
 class FriendCell: UITableViewCell {
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var friendAvatarView: UIImageView!
-    @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var nameLabel: UILabel! {
+        didSet {
+            nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+    @IBOutlet weak var friendAvatarView: UIImageView! {
+        didSet {
+            friendAvatarView.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+    @IBOutlet weak var shadowView: UIView! {
+        didSet {
+            shadowView.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+    let inset: CGFloat = 30
+    let avatarSideLength: CGFloat = 80
+    let nameLabelFont: UIFont = .preferredFont(forTextStyle: .title3)
     
     // View model
     var friendModel: FriendData? {
@@ -25,10 +40,10 @@ class FriendCell: UITableViewCell {
         guard let friendModel = friendModel else { return }
         
         //let id = friendModel.id.value ?? -1
-        let groupName = friendModel.friendName
+        let friendName = friendModel.friendName
         let friendAvatarURL = friendModel.friendAvatarURL
         
-        nameLabel.text = groupName
+        nameLabel.text = friendName
         friendAvatarView.sd_setImage(with: URL(string: friendAvatarURL))
     }
     
@@ -38,14 +53,23 @@ class FriendCell: UITableViewCell {
         super.prepareForReuse()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        setNameLabelFrame()
+        setFriendAvatarViewFrame()
+        //setShadowViewFrame()
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        nameLabel.font = nameLabelFont
         
-        shadowView?.layer.cornerRadius = shadowView.bounds.height
+        shadowView?.layer.cornerRadius = shadowView.bounds.height / 2
         shadowView?.layer.shadowColor = UIColor.black.cgColor
-        shadowView?.layer.shadowOpacity = 0.8
-        shadowView?.layer.shadowRadius = 8
-        shadowView?.layer.shadowOffset = CGSize.zero
+        shadowView?.layer.shadowOpacity = 30
+        shadowView?.layer.shadowRadius = 11
+        shadowView?.layer.shadowOffset = CGSize(width: 6, height: 6)
         shadowView?.layer.shadowPath = UIBezierPath(ovalIn: shadowView.bounds).cgPath
         
         friendAvatarView?.layer.cornerRadius = friendAvatarView.bounds.height / 2
@@ -56,6 +80,46 @@ class FriendCell: UITableViewCell {
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(onAvatarTapped(_:)))
         friendAvatarView.addGestureRecognizer(gesture)
+    }
+    
+    // MARK: Major methods
+    
+    private func calculateLabelSize(text: String, font: UIFont) -> CGSize {
+        let maxWidth = bounds.width - avatarSideLength - inset * 3
+        
+        let textBlockSize = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
+        
+        let curText = text as NSString
+        let rect = curText.getBoundingRect(textBlock: textBlockSize, font: font)
+        
+        let width = ceil (Double(rect.size.width))
+        let height = ceil (Double(rect.size.height))
+        
+        let size = CGSize(width: width, height: height)
+        
+        return size
+    }
+    
+    func setNameLabelFrame() {
+        let nameLabelSize = calculateLabelSize(text: nameLabel.text ?? "", font: nameLabelFont)
+        
+        let y = ceil (bounds.midY - nameLabelSize.height / 2)
+        
+        let origin = CGPoint(x: inset, y: y)
+        
+        nameLabel.frame = CGRect(origin: origin, size: nameLabelSize)
+    }
+    
+    func setFriendAvatarViewFrame() {
+        let imageSize = CGSize(width: avatarSideLength, height: avatarSideLength)
+        
+        let x = ceil (bounds.width - avatarSideLength - inset)
+        let y = ceil (bounds.midY - avatarSideLength / 2)
+        
+        let origin = CGPoint( x: x, y: y )
+        
+        friendAvatarView.frame = CGRect(origin: origin, size: imageSize)
+        shadowView.frame = CGRect(origin: origin, size: imageSize)
     }
     
     // MARK: Actions

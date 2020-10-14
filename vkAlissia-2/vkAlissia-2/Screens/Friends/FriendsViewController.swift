@@ -83,7 +83,7 @@ class FriendsViewController: BaseViewController {
         filteredFriendsNotificationToken = filteredFriends?.observe { [weak self] change in
             switch change {
             case .initial:
-                self?.realmManager?.refresh()
+                //self?.realmManager?.refresh()
                 self?.setTableSections()
                 #if DEBUG
                 print("Initialized")
@@ -131,6 +131,7 @@ class FriendsViewController: BaseViewController {
         self.sectionTitles = Array(self.sections.keys)
         self.sectionTitles.sort()
         self.tableView.reloadData()
+        self.tableView.layoutIfNeeded()
     }
     
     private func loadData(completion: (() -> Void)? = nil) {

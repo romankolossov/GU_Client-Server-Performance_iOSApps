@@ -90,7 +90,7 @@ class MyGroupsViewController: BaseViewController {
         filteredGroupsNotificationToken = filteredGroups?.observe { [weak self] change in
             switch change {
             case .initial:
-                self?.realmManager?.refresh()
+                //self?.realmManager?.refresh()
                 #if DEBUG
                 print("Initialized")
                 #endif

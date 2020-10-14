@@ -11,6 +11,10 @@ import UIKit
 // MARK: - UITableViewDataSource
 
 extension FriendsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[sectionTitles[section]]?.count ?? 0
     }

@@ -21,5 +21,4 @@ extension NSString {
         
         return rect
     }
-    
 }

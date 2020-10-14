@@ -20,8 +20,9 @@ class MyGroupCell: UITableViewCell {
             myGroupAvatarView.translatesAutoresizingMaskIntoConstraints = false
         }
     }
-    let insetet: CGFloat = 10
-    let imageSideLength: CGFloat = 80
+    let inset: CGFloat = 10
+    let avatarSideLength: CGFloat = 80
+    let labelFont: UIFont = .preferredFont(forTextStyle: .body)
     
     // View model
     var groupModel: GroupData? {
@@ -39,21 +40,27 @@ class MyGroupCell: UITableViewCell {
         let groupAvatarURL = groupModel.groupAvatarUrl
         
         myGroupNameLabel.text = groupName
-        setMyGroupNameLabelFrame()
         myGroupAvatarView.sd_setImage(with: URL(string: groupAvatarURL))
-        setMyGroupAvatarViewFrame()
     }
     
     // MARK: Lifecycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        myGroupNameLabel.font = labelFont
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        setMyGroupNameLabelFrame()
+        setMyGroupAvatarViewFrame()
     }
     
     // MARK: Major methods
     
     private func calculateLabelSize(text: String, font: UIFont) -> CGSize {
-        let maxWidth = bounds.width - imageSideLength - insetet * 3
+        let maxWidth = bounds.width - avatarSideLength - inset * 3
         
         let textBlockSize = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
         
@@ -69,31 +76,24 @@ class MyGroupCell: UITableViewCell {
     }
     
     func setMyGroupNameLabelFrame() {
-        let weatherLabelSize = calculateLabelSize(text: myGroupNameLabel.text ?? "", font: .preferredFont(forTextStyle: .title1))
+        let myGroupNameLabelSize = calculateLabelSize(text: myGroupNameLabel.text ?? "", font: labelFont)
         
-        let y = ceil (bounds.midY - weatherLabelSize.height / 2)
+        let y = ceil (bounds.midY - myGroupNameLabelSize.height / 2)
         
-        let origin = CGPoint(x: insetet, y: y)
+        let origin = CGPoint(x: inset, y: y)
         
-        myGroupNameLabel.frame = CGRect(origin: origin, size: weatherLabelSize)
+        myGroupNameLabel.frame = CGRect(origin: origin, size: myGroupNameLabelSize)
     }
     
     func setMyGroupAvatarViewFrame() {
-        let imageSize = CGSize(width: imageSideLength, height: imageSideLength)
+        let imageSize = CGSize(width: avatarSideLength, height: avatarSideLength)
         
-        let x = ceil (bounds.width - imageSideLength - insetet)
-        let y = ceil (bounds.midY - imageSideLength / 2)
+        let x = ceil (bounds.width - avatarSideLength - inset)
+        let y = ceil (bounds.midY - avatarSideLength / 2)
         
         let origin = CGPoint( x: x, y: y )
         
         myGroupAvatarView.frame = CGRect(origin: origin, size: imageSize)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        setMyGroupNameLabelFrame()
-        setMyGroupAvatarViewFrame()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
