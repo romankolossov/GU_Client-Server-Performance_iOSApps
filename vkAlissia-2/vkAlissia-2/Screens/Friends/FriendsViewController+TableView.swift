@@ -15,26 +15,22 @@ extension FriendsViewController: UITableViewDataSource {
         return 100
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[sectionTitles[section]]?.count ?? 0
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
-    
-    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return sectionTitles.map{String($0)}
+        sortedUsers.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return String(sectionTitles[section])
+        String(sortedUsers[section].first?.friendName.first ?? Character(""))
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        sortedUsers[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FriendCell.self), for: indexPath) as? FriendCell else { fatalError() }
-        guard  let friend = sections[sectionTitles[indexPath.section]]? [indexPath.row] else { fatalError() }
         
+        let friend = sortedUsers[indexPath.section][indexPath.item]
         cell.friendModel = friend
         
         return cell
@@ -42,12 +38,8 @@ extension FriendsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            //guard let friend = friends?[indexPath.item] else { return }
-            guard  let friend = sections[sectionTitles[indexPath.section]]? [indexPath.row] else { fatalError() }
-            
+            let friend = sortedUsers[indexPath.section][indexPath.item]
             try? publicRealmManager?.delete(object: friend)
-            
-            //tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 }
@@ -57,7 +49,7 @@ extension FriendsViewController: UITableViewDataSource {
 extension FriendsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let particularFriendVC = storyboard?.instantiateViewController(identifier: String(describing: ParticularFriendViewController.self)) as? ParticularFriendViewController else { return }
-        guard let friend = sections[sectionTitles[indexPath.section]]? [indexPath.row] else { return }
+        let friend = sortedUsers[indexPath.section][indexPath.item]
         
         particularFriendVC.friendName = friend.friendName
         
@@ -72,6 +64,7 @@ extension FriendsViewController: UITableViewDelegate {
 extension FriendsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         publicTableView.reloadData()
+        publicTableView.layoutIfNeeded()
     }
 }
 
