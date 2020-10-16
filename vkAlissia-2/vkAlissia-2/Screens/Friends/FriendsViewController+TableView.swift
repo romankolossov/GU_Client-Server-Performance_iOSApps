@@ -32,7 +32,7 @@ extension FriendsViewController: UITableViewDataSource {
         
         let friend = sortedUsers[indexPath.section][indexPath.item]
         cell.friendModel = friend
-        
+    
         return cell
     }
     
@@ -64,7 +64,6 @@ extension FriendsViewController: UITableViewDelegate {
 extension FriendsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         publicTableView.reloadData()
-        publicTableView.layoutIfNeeded()
     }
 }
 

@@ -14,30 +14,7 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oQD-8W-tYb" id="d2q-cz-Abj">
                 <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                 <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9ri-Xh-IXc">
-                        <rect key="frame" x="21" y="30" width="163" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <view contentMode="scaleToFill" id="mS3-hE-OFf">
-                        <rect key="frame" x="315.5" y="5" width="70.5" height="70"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="m99-8I-eWd">
-                        <rect key="frame" x="237" y="5" width="70.5" height="70"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
-                </subviews>
             </tableViewCellContentView>
-            <connections>
-                <outlet property="friendAvatarView" destination="m99-8I-eWd" id="bWY-oF-iDu"/>
-                <outlet property="nameLabel" destination="9ri-Xh-IXc" id="P2X-ti-gGl"/>
-                <outlet property="shadowView" destination="mS3-hE-OFf" id="A4c-oQ-RgR"/>
-            </connections>
             <point key="canvasLocation" x="127.53623188405798" y="65.625"/>
         </tableViewCell>
     </objects>
