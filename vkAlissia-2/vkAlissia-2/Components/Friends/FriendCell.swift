@@ -29,6 +29,7 @@ class FriendCell: UITableViewCell {
     private var nameLabel = UILabel() {
         didSet {
             nameLabel.font = nameLabelFont
+            nameLabel.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     private let nameLabelFont: UIFont = .preferredFont(forTextStyle: .title3)

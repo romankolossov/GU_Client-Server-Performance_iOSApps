@@ -98,6 +98,7 @@ class FriendsViewController: BaseViewController {
                 //self?.realmManager?.refresh()
                 self.sortUsers()
                 self.tableView.reloadData()
+                self.tableView.layoutIfNeeded()
                 #if DEBUG
                 print("Initialized")
                 #endif
@@ -121,6 +122,7 @@ class FriendsViewController: BaseViewController {
                 
                 guard insertions.count == 0 else {
                     self.tableView.reloadData()
+                    self.tableView.layoutIfNeeded()
                     return
                 }
                 

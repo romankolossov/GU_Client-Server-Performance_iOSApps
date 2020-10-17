@@ -64,6 +64,7 @@ extension FriendsViewController: UITableViewDelegate {
 extension FriendsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         publicTableView.reloadData()
+        publicTableView.layoutIfNeeded()
     }
 }
 
