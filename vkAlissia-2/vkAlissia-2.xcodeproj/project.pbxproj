@@ -129,6 +129,22 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		C83BB1F6253C8A8E005EE503 /* Storybord */ = {
+			isa = PBXGroup;
+			children = (
+				C865770A24E0630C0004A272 /* Main.storyboard */,
+			);
+			path = Storybord;
+			sourceTree = "<group>";
+		};
+		C83BB1F7253C8AEB005EE503 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C8B27C102500039300D51311 /* BaseViewController.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		C862A88024F7F1F300A879DA /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,14 +161,14 @@
 		C862A88124F7F25100A879DA /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				C865770A24E0630C0004A272 /* Main.storyboard */,
+				C83BB1F6253C8A8E005EE503 /* Storybord */,
 				C862A88724F8BB4800A879DA /* News */,
 				C862A88824F8BB7500A879DA /* AllGroups */,
 				C862A88924F8BB8B00A879DA /* MyGroups */,
 				C862A88A24F8BBA600A879DA /* ParticularFriend */,
 				C862A88B24F8BBC400A879DA /* Friends */,
 				C862A88224F7F25C00A879DA /* Login */,
-				C8B27C102500039300D51311 /* BaseViewController.swift */,
+				C83BB1F7253C8AEB005EE503 /* Common */,
 			);
 			path = Screens;
 			sourceTree = "<group>";

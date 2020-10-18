@@ -12,7 +12,7 @@ import UIKit
 
 extension FriendsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        CGFloat(FriendCell.publicCellHeight)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -64,7 +64,6 @@ extension FriendsViewController: UITableViewDelegate {
 extension FriendsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         publicTableView.reloadData()
-        publicTableView.layoutIfNeeded()
     }
 }
 

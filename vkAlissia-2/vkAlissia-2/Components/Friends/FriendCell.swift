@@ -10,31 +10,45 @@ import UIKit
 
 class FriendCell: UITableViewCell {
     
-    private let friendAvatarView: UIImageView = {
-        let view = UIImageView()
-        //view.contentMode = .scaleToFill
-        view.contentMode = .scaleAspectFill
-        view.clipsToBounds = true
-        view.isUserInteractionEnabled = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    private let shadowView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    private var nameLabel = UILabel() {
+    static private let cellHeight = 100
+    static var publicCellHeight: Int {
+        cellHeight
+    }
+    
+    // UI
+    private var friendAvatarView: UIImageView! {
         didSet {
-            nameLabel.font = nameLabelFont
-            nameLabel.translatesAutoresizingMaskIntoConstraints = false
+            setViewFrame(for: friendAvatarView)
+            friendAvatarView.layer.cornerRadius = friendAvatarView.bounds.height / 2
+            friendAvatarView.contentMode = .scaleAspectFill
+            friendAvatarView.clipsToBounds = true
+            friendAvatarView.isUserInteractionEnabled = true
+            //friendAvatarView.translatesAutoresizingMaskIntoConstraints = false
         }
     }
-    private let nameLabelFont: UIFont = .preferredFont(forTextStyle: .title3)
-    private let avatarSideLength: CGFloat = 80
+    private var shadowView: UIView! {
+        didSet {
+            setViewFrame(for: shadowView)
+            shadowView.layer.cornerRadius = shadowView.bounds.height / 2
+            shadowView.layer.shadowColor = UIColor.black.cgColor
+            shadowView.layer.shadowOpacity = 30
+            shadowView.layer.shadowRadius = 11
+            shadowView.layer.shadowOffset = CGSize(width: 6, height: 6)
+            shadowView.layer.shadowPath = UIBezierPath(ovalIn: shadowView.bounds).cgPath
+            //shadowView.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+    private var nameLabel: UILabel! {
+        didSet {
+            nameLabel.font = nameLabelFont
+            //nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+    
+    // Some properties
     private let inset: CGFloat = 30
+    private let avatarSideSize: CGFloat = 80
+    private let nameLabelFont: UIFont = .preferredFont(forTextStyle: .title3)
     
     // View model
     var friendModel: FriendData? {
@@ -57,11 +71,14 @@ class FriendCell: UITableViewCell {
     
     // MARK: - Lifecycle
     
+    // no direct call use, started automatically
+    // or when layoutIfNeeded() or setNeedsLayout() is called
     override func layoutSubviews() {
         super.layoutSubviews()
         
         setNameLabelFrame()
-        setFriendAvatarViewFrame()
+        setViewFrame(for: friendAvatarView)
+        setViewFrame(for: shadowView)
     }
     
     override func prepareForReuse() {
@@ -70,14 +87,14 @@ class FriendCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        layoutIfNeeded()
         
+        nameLabel = UILabel()
+        shadowView = UIView()
+        friendAvatarView = UIImageView()
+       
         addSubview(nameLabel)
         addSubview(shadowView)
         addSubview(friendAvatarView)
-        
-        friendAvatarViewCofigure()
-        shadowViewConfigure()
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(onAvatarTapped(_:)))
         friendAvatarView.addGestureRecognizer(gesture)
@@ -85,22 +102,9 @@ class FriendCell: UITableViewCell {
     
     // MARK: - Major methods
     
-    private func shadowViewConfigure() {
-        shadowView.layer.cornerRadius = shadowView.bounds.height / 2
-        shadowView.layer.shadowColor = UIColor.black.cgColor
-        shadowView.layer.shadowOpacity = 30
-        shadowView.layer.shadowRadius = 11
-        shadowView.layer.shadowOffset = CGSize(width: 6, height: 6)
-        shadowView.layer.shadowPath = UIBezierPath(ovalIn: shadowView.bounds).cgPath
-    }
-    
-    private func friendAvatarViewCofigure() {
-        friendAvatarView.layer.cornerRadius = friendAvatarView.bounds.height / 2
-    }
-    
     // Frame layout
     private func calculateLabelSize(text: String, font: UIFont) -> CGSize {
-        let maxWidth = bounds.width - avatarSideLength - inset * 3
+        let maxWidth = bounds.width - avatarSideSize - inset * 3
         
         let textBlockSize = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
         
@@ -124,16 +128,15 @@ class FriendCell: UITableViewCell {
         nameLabel.frame = CGRect(origin: origin, size: nameLabelSize)
     }
     
-    private func setFriendAvatarViewFrame() {
-        let imageSize = CGSize(width: avatarSideLength, height: avatarSideLength)
+    private func setViewFrame(for view: UIView) {
+        let imageSize = CGSize(width: avatarSideSize, height: avatarSideSize)
         
-        let x = ceil (bounds.width - avatarSideLength - inset)
-        let y = ceil (bounds.midY - avatarSideLength / 2)
+        let x = ceil (bounds.width - avatarSideSize - inset)
+        let y = ceil (bounds.midY - avatarSideSize / 2)
         
         let origin = CGPoint( x: x, y: y )
         
-        friendAvatarView.frame = CGRect(origin: origin, size: imageSize)
-        shadowView.frame = CGRect(origin: origin, size: imageSize)
+        view.frame = CGRect(origin: origin, size: imageSize)
     }
     
     // MARK: - Actions
