@@ -10,8 +10,8 @@ import UIKit
 
 class FriendCell: UITableViewCell {
     
-    static private let cellHeight = 100
-    static var publicCellHeight: Int {
+    static private let cellHeight: CGFloat = 100
+    static var publicCellHeight: CGFloat {
         cellHeight
     }
     

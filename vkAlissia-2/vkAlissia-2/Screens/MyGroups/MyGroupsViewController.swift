@@ -218,17 +218,15 @@ class MyGroupsViewController: BaseViewController {
             self?.refreshControl.endRefreshing()
         }
     }
-    
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segue.identifier == DetailViewController.storyboardIdentifier {
-    //            if let destinationVC = segue.destination as? DetailViewController {
-    //                destinationVC.user = sender as? User
-    //            }
-    //        }
-    //    }
-    
 }
 
-
-
+/*
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+ if segue.identifier == DetailViewController.storyboardIdentifier {
+ if let destinationVC = segue.destination as? DetailViewController {
+ destinationVC.user = sender as? User
+ }
+ }
+ }
+ */
 

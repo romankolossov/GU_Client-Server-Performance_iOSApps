@@ -12,7 +12,7 @@ import UIKit
 
 extension FriendsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        CGFloat(FriendCell.publicCellHeight)
+        FriendCell.publicCellHeight
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

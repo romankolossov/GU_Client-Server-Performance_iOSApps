@@ -10,19 +10,29 @@ import UIKit
 import SDWebImage
 
 class MyGroupCell: UITableViewCell {
-    @IBOutlet weak var myGroupNameLabel: UILabel! {
+    
+    private static let cellHeight: CGFloat = 100
+    static var publicCellHeight: CGFloat {
+        cellHeight
+    }
+    
+    // UI
+    @IBOutlet private weak var myGroupNameLabel: UILabel! {
         didSet {
-            myGroupNameLabel.translatesAutoresizingMaskIntoConstraints = false
+            myGroupNameLabel.font = labelFont
+            //myGroupNameLabel.translatesAutoresizingMaskIntoConstraints = false
         }
     }
-    @IBOutlet weak var myGroupAvatarView: UIImageView! {
+    @IBOutlet private weak var myGroupAvatarView: UIImageView! {
         didSet {
-            myGroupAvatarView.translatesAutoresizingMaskIntoConstraints = false
+            //myGroupAvatarView.translatesAutoresizingMaskIntoConstraints = false
         }
     }
-    let inset: CGFloat = 10
-    let avatarSideLength: CGFloat = 80
-    let labelFont: UIFont = .preferredFont(forTextStyle: .body)
+    
+    // Some properties
+    private let inset: CGFloat = 10
+    private let avatarSideSize: CGFloat = 80
+    private let labelFont: UIFont = .preferredFont(forTextStyle: .body)
     
     // View model
     var groupModel: GroupData? {
@@ -47,7 +57,6 @@ class MyGroupCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        myGroupNameLabel.font = labelFont
     }
     
     override func layoutSubviews() {
@@ -59,8 +68,9 @@ class MyGroupCell: UITableViewCell {
     
     // MARK: Major methods
     
+    // Frame layout
     private func calculateLabelSize(text: String, font: UIFont) -> CGSize {
-        let maxWidth = bounds.width - avatarSideLength - inset * 3
+        let maxWidth = bounds.width - avatarSideSize - inset * 3
         
         let textBlockSize = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
         
@@ -75,21 +85,20 @@ class MyGroupCell: UITableViewCell {
         return size
     }
     
-    func setMyGroupNameLabelFrame() {
+    private func setMyGroupNameLabelFrame() {
         let myGroupNameLabelSize = calculateLabelSize(text: myGroupNameLabel.text ?? "", font: labelFont)
         
         let y = ceil (bounds.midY - myGroupNameLabelSize.height / 2)
-        
         let origin = CGPoint(x: inset, y: y)
         
         myGroupNameLabel.frame = CGRect(origin: origin, size: myGroupNameLabelSize)
     }
     
-    func setMyGroupAvatarViewFrame() {
-        let imageSize = CGSize(width: avatarSideLength, height: avatarSideLength)
+    private func setMyGroupAvatarViewFrame() {
+        let imageSize = CGSize(width: avatarSideSize, height: avatarSideSize)
         
-        let x = ceil (bounds.width - avatarSideLength - inset)
-        let y = ceil (bounds.midY - avatarSideLength / 2)
+        let x = ceil (bounds.width - avatarSideSize - inset)
+        let y = ceil (bounds.midY - avatarSideSize / 2)
         
         let origin = CGPoint( x: x, y: y )
         
