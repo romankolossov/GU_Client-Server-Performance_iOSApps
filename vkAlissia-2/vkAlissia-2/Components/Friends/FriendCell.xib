@@ -10,10 +10,10 @@
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="80" id="oQD-8W-tYb" customClass="FriendCell" customModule="vkAlissia_2" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
-            <autoresizingMask key="autoresizingMask"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oQD-8W-tYb" translatesAutoresizingMaskIntoConstraints="NO" id="d2q-cz-Abj">
                 <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             </tableViewCellContentView>
             <point key="canvasLocation" x="127.53623188405798" y="65.625"/>
         </tableViewCell>

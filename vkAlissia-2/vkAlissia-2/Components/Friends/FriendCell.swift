@@ -87,6 +87,7 @@ class FriendCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         
         nameLabel = UILabel()
         shadowView = UIView()

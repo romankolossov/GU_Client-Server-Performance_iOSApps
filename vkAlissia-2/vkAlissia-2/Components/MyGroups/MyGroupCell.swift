@@ -57,6 +57,7 @@ class MyGroupCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     override func layoutSubviews() {
