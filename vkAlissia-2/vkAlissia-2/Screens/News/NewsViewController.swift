@@ -52,7 +52,7 @@ class NewsViewController: BaseViewController {
                     #if DEBUG
                     print("news count from\(#function) ", self?.news.count)
                     #endif
-                    self?.tableView.reloadData()
+                    //self?.tableView.reloadData()
                     completion?()
                 }
             case let .failure(error):
