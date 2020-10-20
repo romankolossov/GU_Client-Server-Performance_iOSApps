@@ -56,7 +56,7 @@ class ParticularFriendPhotoService {
         urlConstructor.path = "/method/photos.get"
         
         urlConstructor.queryItems = [
-            URLQueryItem(name: "access_token", value: Session.shared.token),
+            URLQueryItem(name: "access_token", value: "\(Session.shared.token)"),
             URLQueryItem(name: "owner_id", value: String(Session.shared.friendId)),
             //URLQueryItem(name: "album_id", value: "profile"),
             URLQueryItem(name: "album_id", value: "wall"),
