@@ -20,9 +20,8 @@ class NewsViewController: BaseViewController {
     var publicRealmManager: RealmManager? {
         realmManager
     }
-    var news = [NewsItem]()
-    var newsGroups = [OwnerItem]()
-    var profiles = [OwnerItem]()
+    var news = [ItemNewsItem]()
+    
     
     // MARK: - Lifecycle
     
@@ -37,27 +36,23 @@ class NewsViewController: BaseViewController {
     }
     
     private func loadData(completion: (() -> Void)? = nil) {
-        self.networkManager.loadNewsFeed() { [weak self] result in
-            
-            switch result {
-            case let .success(newsDataItemArray):
-                let newsDataItem = newsDataItemArray[0]
-                DispatchQueue.main.async { [weak self] in
-                    //                        try? self?.realmManager?.add(objects: newsDataItem.items)
-                    //                        try? self?.realmManager?.add(objects: newsDataItem.groups)
-                    //                        try? self?.realmManager?.add(objects: newsDataItem.profiles)
-                    self?.news = newsDataItem.news
-                    self?.newsGroups = newsDataItem.newsGroups
-                    self?.profiles = newsDataItem.profiles
-                    #if DEBUG
-                    print("news count from\(#function) ", self?.news.count)
-                    #endif
-                    //self?.tableView.reloadData()
-                    completion?()
+        DispatchQueue.global().async { [weak self] in
+            self?.networkManager.loadNewsFeed() { [weak self] result in
+                
+                switch result {
+                case let .success(newsItems):
+                    // let news: [ItemNewsItem] = newsItems.map {FriendData(friendItem: $0)}
+                    DispatchQueue.main.async { [weak self] in
+                        self?.news = newsItems
+                        //try? self?.realmManager?.add(objects: friends)
+                        self?.tableView.reloadData()
+                        completion?()
+                    }
+                case let .failure(error):
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
                 }
-            case let .failure(error):
-                self?.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
     }
+    
 }

@@ -20,14 +20,14 @@ extension NewsViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as? NewsCell else { fatalError() }
        
         
-//        let particularNews = news[indexPath.row]
-//        let userProfile = profiles[indexPath.row]
-//    
-//        cell.newsProviderNameLabel.text = userProfile.userName
-//        cell.newsProviderAvatar.sd_setImage(with: URL(fileURLWithPath: userProfile.ownerPhoto))
-//        
-//        cell.newsTextView.text = particularNews.postText
-//        cell.newsImageView.sd_setImage(with: URL(fileURLWithPath: particularNews.postImage))
+        let particularNews = news.first
+        //let userProfile = profiles[indexPath.row]
+
+        //cell.newsProviderNameLabel.text = userProfile.userName
+        //cell.newsProviderAvatar.sd_setImage(with: URL(fileURLWithPath: userProfile.ownerPhoto))
+
+        cell.newsTextView.text = particularNews?.text
+        //cell.newsImageView.sd_setImage(with: URL(fileURLWithPath: particularNews.postImage))
         
         return cell
     }

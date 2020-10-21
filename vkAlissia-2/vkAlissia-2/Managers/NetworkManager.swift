@@ -126,20 +126,12 @@ class NetworkManager {
                         print(data)
                         print(json)
                         #endif
-                        
-                        let news: [NewsItem] = json["response"]["items"].arrayValue.map { NewsItem(json: $0) }
-                        let profiles: [OwnerItem] = json["response"]["profiles"].arrayValue.map { OwnerItem(json: $0) }
-                        let newsGroups: [OwnerItem] = json["response"]["groups"].arrayValue.map { OwnerItem(json: $0) }
-                        //let nextFrom = json["response"]["next_from"].stringValue
-                        
-                        //SessionApp.shared.nextFrom = nextFrom
-                        let newsDataItem: VKNewsDataItem = VKNewsDataItem(news: news, profiles: profiles, newsGroups: newsGroups)
-                        #if DEBUG
-                        print("news, users, groups from:\n\(#function)")
-                        print("\(news.count)\n\(profiles.count)\n\(newsGroups.count)" )
-                        #endif
-                        
-                        completion?(.success([newsDataItem]))
+                        do {
+                            let news = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.items
+                            completion?(.success(news))
+                        } catch {
+                            completion?(.failure(error))
+                        }
                     } catch {
                         completion?(.failure(error))
                     }
@@ -190,11 +182,11 @@ class NetworkManager {
         }
     }
     
-    func loadNewsFeed(completion: ((Result<[VKNewsDataItem], NetworkError>) -> Void)? = nil) {
+    func loadNewsFeed(completion: ((Result<[ItemNewsItem], NetworkError>) -> Void)? = nil) {
         networkRequest(for: .newsFeedGet) {result in
             switch result {
-            case let .success(newsDataArray):
-                completion?(.success(newsDataArray as! [VKNewsDataItem]))
+            case let .success(news):
+                completion?(.success(news as! [ItemNewsItem]))
             case .failure:
                 completion?(.failure(.incorrectData))
             }

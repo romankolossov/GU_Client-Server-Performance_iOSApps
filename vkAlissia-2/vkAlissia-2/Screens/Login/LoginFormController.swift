@@ -57,7 +57,9 @@ class LoginFormController: UIViewController {
         components.path = "/authorize"
         components.queryItems = [
             URLQueryItem(name: "client_id", value: "7631437"),
-            URLQueryItem(name: "scope", value: "262150"),
+            //URLQueryItem(name: "scope", value: "262150"), // без новостей
+            //URLQueryItem(name: "scope", value: "270342"), // для новостей
+            URLQueryItem(name: "scope", value: "friends,photos,wall,groups"),
             URLQueryItem(name: "display", value: "mobile"),
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
             URLQueryItem(name: "response_type", value: "token"),

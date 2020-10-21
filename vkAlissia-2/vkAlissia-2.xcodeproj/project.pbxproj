@@ -38,10 +38,8 @@
 		C865774C24E063DE0004A272 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865774A24E063DE0004A272 /* StarView.swift */; };
 		C865774D24E063DE0004A272 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865774B24E063DE0004A272 /* Animations.swift */; };
 		C865774F24E064050004A272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C865774E24E064050004A272 /* Assets.xcassets */; };
+		C881C67F2540B7DE009A960E /* NewsCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C881C67E2540B7DE009A960E /* NewsCodable.swift */; };
 		C8877DC72535F27B00DEF04C /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8877DC62535F27B00DEF04C /* String+Extensions.swift */; };
-		C88B41B1253ED8550037F77B /* NewsSwiftyJsonRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88B41B0253ED8550037F77B /* NewsSwiftyJsonRealm.swift */; };
-		C88B41B3253EE38E0037F77B /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88B41B2253EE38E0037F77B /* NewsModel.swift */; };
-		C88B41B5253EE4210037F77B /* NewsOwnerSwiftyJsonRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88B41B4253EE4210037F77B /* NewsOwnerSwiftyJsonRealm.swift */; };
 		C88DB2A825290FC300A28687 /* ParticularFriendPhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88DB2A725290FC300A28687 /* ParticularFriendPhotoService.swift */; };
 		C89B6B1224E08D84002CB028 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89B6B1124E08D84002CB028 /* Session.swift */; };
 		C89D766324EE1E4000FDC697 /* GroupCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */; };
@@ -95,10 +93,8 @@
 		C865774A24E063DE0004A272 /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		C865774B24E063DE0004A272 /* Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		C865774E24E064050004A272 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C881C67E2540B7DE009A960E /* NewsCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCodable.swift; sourceTree = "<group>"; };
 		C8877DC62535F27B00DEF04C /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
-		C88B41B0253ED8550037F77B /* NewsSwiftyJsonRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSwiftyJsonRealm.swift; sourceTree = "<group>"; };
-		C88B41B2253EE38E0037F77B /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
-		C88B41B4253EE4210037F77B /* NewsOwnerSwiftyJsonRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsOwnerSwiftyJsonRealm.swift; sourceTree = "<group>"; };
 		C88DB2A725290FC300A28687 /* ParticularFriendPhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticularFriendPhotoService.swift; sourceTree = "<group>"; };
 		C89B6B1124E08D84002CB028 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCodableRealm.swift; sourceTree = "<group>"; };
@@ -268,12 +264,10 @@
 		C865771824E063940004A272 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C88B41B2253EE38E0037F77B /* NewsModel.swift */,
-				C88B41B0253ED8550037F77B /* NewsSwiftyJsonRealm.swift */,
-				C88B41B4253EE4210037F77B /* NewsOwnerSwiftyJsonRealm.swift */,
 				C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */,
 				C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */,
 				C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */,
+				C881C67E2540B7DE009A960E /* NewsCodable.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -527,12 +521,9 @@
 				C865772824E063AA0004A272 /* FriendCell.swift in Sources */,
 				C8297A4B2512B3AF00573083 /* NewsViewController+TableView.swift in Sources */,
 				C89D766324EE1E4000FDC697 /* GroupCodableRealm.swift in Sources */,
-				C88B41B5253EE4210037F77B /* NewsOwnerSwiftyJsonRealm.swift in Sources */,
-				C88B41B1253ED8550037F77B /* NewsSwiftyJsonRealm.swift in Sources */,
 				C865774024E063C40004A272 /* AllGroupsViewController.swift in Sources */,
 				C8877DC72535F27B00DEF04C /* String+Extensions.swift in Sources */,
 				C8B27C13250504D600D51311 /* ParticularFriendViewController+CollectionView.swift in Sources */,
-				C88B41B3253EE38E0037F77B /* NewsModel.swift in Sources */,
 				C865772024E063A00004A272 /* GradientView.swift in Sources */,
 				C865774124E063C40004A272 /* GroupCell.swift in Sources */,
 				C865770724E0630C0004A272 /* SceneDelegate.swift in Sources */,
@@ -551,6 +542,7 @@
 				C88DB2A825290FC300A28687 /* ParticularFriendPhotoService.swift in Sources */,
 				C8BB9D2224E35C9000B05FED /* NetworkManager.swift in Sources */,
 				C865773324E063B30004A272 /* ParticularFriendViewController.swift in Sources */,
+				C881C67F2540B7DE009A960E /* NewsCodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
