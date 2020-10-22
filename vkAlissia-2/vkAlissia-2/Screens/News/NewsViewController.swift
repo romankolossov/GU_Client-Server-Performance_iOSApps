@@ -12,28 +12,27 @@ import RealmSwift
 class NewsViewController: BaseViewController {
     
     // UI
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.dataSource = self
+            tableView.delegate = self
+            tableView.register(UINib(nibName: "NewsCell", bundle: Bundle.main), forCellReuseIdentifier: "NewsCell")
+        }
+    }
     
     // Some properties
+    var news: [ItemNewsItem]?
     private let networkManager = NetworkManager.shared
-    private let realmManager = RealmManager.shared
-    var publicRealmManager: RealmManager? {
-        realmManager
-    }
-    var news = [ItemNewsItem]()
-    
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
         
-        loadData()
-        
-        tableView.register(UINib(nibName: "NewsCell", bundle: Bundle.main), forCellReuseIdentifier: "NewsCell")
+        loadData() {[weak self] in self?.tableView.reloadData()}
     }
+    
+    // MARK: - Main methods
     
     private func loadData(completion: (() -> Void)? = nil) {
         DispatchQueue.global().async { [weak self] in
@@ -41,11 +40,10 @@ class NewsViewController: BaseViewController {
                 
                 switch result {
                 case let .success(newsItems):
-                    // let news: [ItemNewsItem] = newsItems.map {FriendData(friendItem: $0)}
                     DispatchQueue.main.async { [weak self] in
-                        self?.news = newsItems
-                        //try? self?.realmManager?.add(objects: friends)
-                        self?.tableView.reloadData()
+                        self?.news?.removeAll()
+                        self?.news = newsItems.map{$0}
+                        //self?.news = newsItems
                         completion?()
                     }
                 case let .failure(error):
