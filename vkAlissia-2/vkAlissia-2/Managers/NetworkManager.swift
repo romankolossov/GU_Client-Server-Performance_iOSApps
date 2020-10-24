@@ -132,8 +132,10 @@ class NetworkManager {
                     #endif
                     DispatchQueue.main.async {
                         do {
+                            print("News1")
                             let news = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.items
-                            completion?(.success(news))
+                            print("News2", news!)
+                            completion?(.success(news!))
                         } catch {
                             completion?(.failure(DecoderError.failureInJSONdecoding))
                         }
@@ -188,11 +190,11 @@ class NetworkManager {
         }
     }
     
-    func loadNewsFeed(completion: ((Result<[NewsItemOfItem], NetworkError>) -> Void)? = nil) {
+    func loadNewsFeed(completion: ((Result<[NewsItem], NetworkError>) -> Void)? = nil) {
         networkRequest(for: .newsFeedGet) {result in
             switch result {
             case let .success(news):
-                completion?(.success(news as! [NewsItemOfItem]))
+                completion?(.success(news as! [NewsItem]))
             case .failure:
                 completion?(.failure(.incorrectData))
             }

@@ -22,7 +22,7 @@ class NewsViewController: BaseViewController {
     
     // Some properties
     //var newsData: Array<NewsItemdData>?
-    var newsData = [NewsItemOfItem]()
+    var newsData = [NewsItem]()
     private let networkManager = NetworkManager.shared
     
     // MARK: - Lifecycle
