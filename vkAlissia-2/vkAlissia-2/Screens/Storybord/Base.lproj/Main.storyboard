@@ -82,7 +82,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqf-VJ-6nZ">
-                                        <rect key="frame" x="176" y="340" width="62" height="39"/>
+                                        <rect key="frame" x="176" y="476.5" width="62" height="39"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <state key="normal" title="Войти"/>
                                     </button>
@@ -94,7 +94,7 @@
                                     <constraint firstItem="i6W-Bm-K7s" firstAttribute="width" secondItem="6BC-Pk-rpH" secondAttribute="width" id="5i8-cd-2Kv"/>
                                     <constraint firstItem="ik6-H0-4fG" firstAttribute="centerX" secondItem="9eg-B3-Nnj" secondAttribute="centerX" id="5lI-Em-j0w"/>
                                     <constraint firstItem="ik6-H0-4fG" firstAttribute="width" secondItem="Ktv-55-zf6" secondAttribute="width" multiplier="0.33" id="9Vi-X1-jlM"/>
-                                    <constraint firstItem="hqf-VJ-6nZ" firstAttribute="top" secondItem="9eg-B3-Nnj" secondAttribute="bottom" constant="73.5" id="Ax3-2F-rBf"/>
+                                    <constraint firstItem="hqf-VJ-6nZ" firstAttribute="top" secondItem="9eg-B3-Nnj" secondAttribute="bottom" constant="210" id="Ax3-2F-rBf"/>
                                     <constraint firstItem="E2K-5N-bHG" firstAttribute="centerX" secondItem="i6W-Bm-K7s" secondAttribute="centerX" id="Bji-IG-nXc"/>
                                     <constraint firstItem="617-TV-Oxk" firstAttribute="top" secondItem="9eg-B3-Nnj" secondAttribute="bottom" constant="58" id="Fr9-Ld-qtW"/>
                                     <constraint firstAttribute="trailing" secondItem="9eg-B3-Nnj" secondAttribute="trailing" constant="20" symbolic="YES" id="HOY-Xv-aXc"/>

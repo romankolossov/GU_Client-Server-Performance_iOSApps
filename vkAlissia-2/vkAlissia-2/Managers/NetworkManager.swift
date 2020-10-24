@@ -19,6 +19,10 @@ class NetworkManager {
         case incorrectData
     }
     
+    enum DecoderError: Error {
+        case failureInJSONdecoding
+    }
+    
     enum Method: String {
         case groupsGet = "groups.get"
         case friendsGet = "friends.get"
@@ -80,7 +84,7 @@ class NetworkManager {
                 URLQueryItem(name: "filters", value: "post,photo,wall_photo"),
                 URLQueryItem(name: "source_ids", value: "friends,groups,pages,following"),
                 //URLQueryItem(name: "start_from", value: ""),
-                URLQueryItem(name: "count", value: "30"),
+                URLQueryItem(name: "count", value: "1"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
         default:
@@ -102,44 +106,46 @@ class NetworkManager {
                         let friends = try JSONDecoder().decode(FriendQuery.self, from: data).response.items
                         completion?(.success(friends))
                     } catch {
-                        completion?(.failure(error))
+                        completion?(.failure(DecoderError.failureInJSONdecoding))
                     }
                 case .groupsGet:
                     do {
                         let groups = try JSONDecoder().decode(GroupQuery.self, from: data).response.items
                         completion?(.success(groups))
                     } catch {
-                        completion?(.failure(error))
+                        completion?(.failure(DecoderError.failureInJSONdecoding))
                     }
                 case .photosGet:
                     do {
                         let photos = try JSONDecoder().decode(PhotoQuery.self, from: data).response.items
                         completion?(.success(photos))
                     } catch {
-                        completion?(.failure(error))
+                        completion?(.failure(DecoderError.failureInJSONdecoding))
                     }
                 case .newsFeedGet:
-                    do {
-                        let json = try JSON(data: data)
-                        #if DEBUG
-                        print("data from:\n\(#function)")
-                        print(data)
-                        print(json)
-                        #endif
+                    guard let json = try? JSON(data: data) else { return }
+                    //let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                    #if DEBUG
+                    print(json)
+                    print("data for the JSON is from:\n\(#function)")
+                    print("of size: ", data)
+                    #endif
+                    DispatchQueue.main.async {
                         do {
                             let news = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.items
                             completion?(.success(news))
                         } catch {
-                            completion?(.failure(error))
+                            completion?(.failure(DecoderError.failureInJSONdecoding))
                         }
-                    } catch {
-                        completion?(.failure(error))
                     }
                 default:
                     print("error: \(method.rawValue) is out of range")
                     return
                 }
             } else if let error = error {
+                #if DEBUG
+                print("error in session.dataTask from:\n\(#function)")
+                #endif
                 completion?(.failure(error))
             }
         }
@@ -182,11 +188,11 @@ class NetworkManager {
         }
     }
     
-    func loadNewsFeed(completion: ((Result<[ItemNewsItem], NetworkError>) -> Void)? = nil) {
+    func loadNewsFeed(completion: ((Result<[NewsItemOfItem], NetworkError>) -> Void)? = nil) {
         networkRequest(for: .newsFeedGet) {result in
             switch result {
             case let .success(news):
-                completion?(.success(news as! [ItemNewsItem]))
+                completion?(.success(news as! [NewsItemOfItem]))
             case .failure:
                 completion?(.failure(.incorrectData))
             }

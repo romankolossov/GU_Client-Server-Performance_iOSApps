@@ -21,7 +21,8 @@ class NewsViewController: BaseViewController {
     }
     
     // Some properties
-    var news: [ItemNewsItem]?
+    //var newsData: Array<NewsItemdData>?
+    var newsData = [NewsItemOfItem]()
     private let networkManager = NetworkManager.shared
     
     // MARK: - Lifecycle
@@ -29,7 +30,7 @@ class NewsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadData() {[weak self] in self?.tableView.reloadData()}
+        loadData()
     }
     
     // MARK: - Main methods
@@ -40,14 +41,19 @@ class NewsViewController: BaseViewController {
                 
                 switch result {
                 case let .success(newsItems):
+                    //let newsData: [NewsItemdData] = newsItems.map {NewsItemdData(newsItem: $0)}
+                    print("Hello from success ", #function)
                     DispatchQueue.main.async { [weak self] in
-                        self?.news?.removeAll()
-                        self?.news = newsItems.map{$0}
-                        //self?.news = newsItems
+                        self?.newsData.removeAll()
+                        //self?.newsData = newsData.map{$0}
+                        self?.newsData = newsItems
+                        self?.tableView.reloadData()
                         completion?()
                     }
                 case let .failure(error):
-                    self?.showAlert(title: "Error", message: error.localizedDescription)
+                    print("Hello from failure ", #function)
+                    self?.showAlert(title: "Error", message:
+                        error.localizedDescription)
                 }
             }
         }
