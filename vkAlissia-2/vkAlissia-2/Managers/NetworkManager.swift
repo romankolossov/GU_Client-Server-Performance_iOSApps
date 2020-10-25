@@ -81,7 +81,7 @@ class NetworkManager {
             urlConstructor.queryItems = [
                 URLQueryItem(name: "access_token", value: "\(Session.shared.token)"),
                 URLQueryItem(name: "user_id", value: "\(Session.shared.userId)"),
-                URLQueryItem(name: "filters", value: "post,photo,wall_photo"),
+                URLQueryItem(name: "filters", value: "post,photo,photo_tag, wall_photo"),
                 URLQueryItem(name: "source_ids", value: "friends,groups,pages,following"),
                 //URLQueryItem(name: "start_from", value: ""),
                 URLQueryItem(name: "count", value: "1"),
@@ -134,8 +134,8 @@ class NetworkManager {
                         do {
                             print("News1")
                             let news = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.items
-                            print("News2", news!)
-                            completion?(.success(news!))
+                            print("News2", news)
+                            completion?(.success(news))
                         } catch {
                             completion?(.failure(DecoderError.failureInJSONdecoding))
                         }
