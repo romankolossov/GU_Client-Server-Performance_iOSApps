@@ -22,7 +22,7 @@ class NewsViewController: BaseViewController {
     
     // Some properties
     //var newsData: Array<NewsItemdData>?
-    var newsData = [NewsItem]()
+    var newsData: [NewsItem] = []
     private let networkManager = NetworkManager.shared
     
     // MARK: - Lifecycle
@@ -36,13 +36,12 @@ class NewsViewController: BaseViewController {
     // MARK: - Main methods
     
     private func loadData(completion: (() -> Void)? = nil) {
-        //DispatchQueue.global().async { [weak self] in
-            self.networkManager.loadNewsFeed() { [weak self] result in
+        DispatchQueue.global().async { [weak self] in
+            self?.networkManager.loadNewsFeed() { [weak self] result in
                 
                 switch result {
                 case let .success(newsItems):
                     //let newsData: [NewsItemdData] = newsItems.map {NewsItemdData(newsItem: $0)}
-                    print("Hello from success ", #function)
                     DispatchQueue.main.async { [weak self] in
                         self?.newsData.removeAll()
                         //self?.newsData = newsData.map{$0}
@@ -51,12 +50,11 @@ class NewsViewController: BaseViewController {
                         completion?()
                     }
                 case let .failure(error):
-                    print("Hello from failure ", #function)
                     self?.showAlert(title: "Error", message:
                         error.localizedDescription)
                 }
             }
-        //}
+        }
     }
     
 }

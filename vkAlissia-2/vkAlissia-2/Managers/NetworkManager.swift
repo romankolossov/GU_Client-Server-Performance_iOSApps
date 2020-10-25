@@ -84,7 +84,7 @@ class NetworkManager {
                 URLQueryItem(name: "filters", value: "post,photo,photo_tag, wall_photo"),
                 URLQueryItem(name: "source_ids", value: "friends,groups,pages,following"),
                 //URLQueryItem(name: "start_from", value: ""),
-                URLQueryItem(name: "count", value: "10"),
+                URLQueryItem(name: "count", value: "30"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
         default:
@@ -123,23 +123,19 @@ class NetworkManager {
                         completion?(.failure(DecoderError.failureInJSONdecoding))
                     }
                 case .newsFeedGet:
-                    guard let json = try? JSON(data: data) else { return }
-                    //let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                    #if DEBUG
-                    print(json)
-                    print("data for the JSON is from:\n\(#function)")
-                    print("of size: ", data)
-                    #endif
-                    //DispatchQueue.main.async {
-                        do {
-                            print("News1")
-                            let news = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.items
-                            print("News2", news)
-                            completion?(.success(news))
-                        } catch {
-                            completion?(.failure(DecoderError.failureInJSONdecoding))
-                        }
-                    //}
+//                    guard let json = try? JSON(data: data) else { return }
+//                    //let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                    #if DEBUG
+//                    print(json)
+//                    print("data for the JSON is from:\n\(#function)")
+//                    print("of size: ", data)
+//                    #endif
+                    do {
+                        let news = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.items
+                        completion?(.success(news))
+                    } catch {
+                        completion?(.failure(DecoderError.failureInJSONdecoding))
+                    }
                 default:
                     print("error: \(method.rawValue) is out of range")
                     return

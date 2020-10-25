@@ -13,22 +13,20 @@ import SDWebImage
 
 extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return newsData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as? NewsCell else { fatalError() }
        
-        //let oneNews = self.newsData[indexPath.row]
+        let oneNews = self.newsData[indexPath.row]
+        let imageStringUrl = oneNews.attachments?[0].photo?.sizes[1].url
         
-        //let particularNews = news.first
-        //let userProfile = profiles[indexPath.row]
-
         //cell.newsProviderNameLabel.text = userProfile.userName
         //cell.newsProviderAvatar.sd_setImage(with: URL(fileURLWithPath: userProfile.ownerPhoto))
 
-        //cell.newsTextView.text = oneNews.text
-        //cell.newsImageView.sd_setImage(with: URL(string: oneNews?.newsImageURL ?? ""))
+        cell.newsTextView.text = oneNews.text
+        cell.newsImageView.sd_setImage(with: URL(string: imageStringUrl ?? ""))
         
         return cell
     }
