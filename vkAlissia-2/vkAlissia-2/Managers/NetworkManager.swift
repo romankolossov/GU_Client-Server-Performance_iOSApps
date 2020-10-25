@@ -84,7 +84,7 @@ class NetworkManager {
                 URLQueryItem(name: "filters", value: "post,photo,photo_tag, wall_photo"),
                 URLQueryItem(name: "source_ids", value: "friends,groups,pages,following"),
                 //URLQueryItem(name: "start_from", value: ""),
-                URLQueryItem(name: "count", value: "1"),
+                URLQueryItem(name: "count", value: "10"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
         default:
@@ -130,7 +130,7 @@ class NetworkManager {
                     print("data for the JSON is from:\n\(#function)")
                     print("of size: ", data)
                     #endif
-                    DispatchQueue.main.async {
+                    //DispatchQueue.main.async {
                         do {
                             print("News1")
                             let news = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.items
@@ -139,7 +139,7 @@ class NetworkManager {
                         } catch {
                             completion?(.failure(DecoderError.failureInJSONdecoding))
                         }
-                    }
+                    //}
                 default:
                     print("error: \(method.rawValue) is out of range")
                     return
@@ -191,7 +191,7 @@ class NetworkManager {
     }
     
     func loadNewsFeed(completion: ((Result<[NewsItem], NetworkError>) -> Void)? = nil) {
-        networkRequest(for: .newsFeedGet) {result in
+        networkRequest(for: .newsFeedGet) { result in
             switch result {
             case let .success(news):
                 completion?(.success(news as! [NewsItem]))

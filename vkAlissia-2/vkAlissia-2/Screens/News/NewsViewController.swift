@@ -36,8 +36,8 @@ class NewsViewController: BaseViewController {
     // MARK: - Main methods
     
     private func loadData(completion: (() -> Void)? = nil) {
-        DispatchQueue.global().async { [weak self] in
-            self?.networkManager.loadNewsFeed() { [weak self] result in
+        //DispatchQueue.global().async { [weak self] in
+            self.networkManager.loadNewsFeed() { [weak self] result in
                 
                 switch result {
                 case let .success(newsItems):
@@ -56,7 +56,7 @@ class NewsViewController: BaseViewController {
                         error.localizedDescription)
                 }
             }
-        }
+        //}
     }
     
 }

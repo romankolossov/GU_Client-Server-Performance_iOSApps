@@ -6,7 +6,6 @@
 //  Copyright © 2020 Roman N. Kolosov. All rights reserved.
 //
 
-
 //   let welcome = try? newJSONDecoder().decode(Welcome.self, from: jsonData)
 
 import Foundation
@@ -19,8 +18,8 @@ struct NewsFeedQuery: Codable {
 // MARK: - Response
 struct Response: Codable {
     let items: [NewsItem]
-    let profiles: [NewsProfileItem]
-    let groups: [NewsGroupItem]
+    let profiles: [NewsProfile]
+    let groups: [NewsGroup]
     let nextFrom: String
 
     enum CodingKeys: String, CodingKey {
@@ -30,7 +29,7 @@ struct Response: Codable {
 }
 
 // MARK: - Group
-struct NewsGroupItem: Codable {
+struct NewsGroup: Codable {
     let id: Int
     let name, screenName: String
     let isClosed: Int
@@ -96,7 +95,7 @@ struct Photo: Codable {
     let albumID, date, id, ownerID: Int
     let hasTags: Bool
     let accessKey: String
-    let sizes: [SizeOfPhoto]
+    let sizes: [PhotoSize]
     let text: String
     let userID: Int
 
@@ -112,7 +111,7 @@ struct Photo: Codable {
 }
 
 // MARK: - Size
-struct SizeOfPhoto: Codable {
+struct PhotoSize: Codable {
     let height: Int
     let url: String
     let type: String
@@ -164,7 +163,7 @@ struct Views: Codable {
 }
 
 // MARK: - Profile
-struct NewsProfileItem: Codable {
+struct NewsProfile: Codable {
     let id: Int
     let firstName, lastName: String
     let isClosed, canAccessClosed: Bool
@@ -199,6 +198,8 @@ struct OnlineInfo: Codable {
         case isMobile = "is_mobile"
     }
 }
+
+
 
 
 
