@@ -10,7 +10,31 @@
 
 import Foundation
 
-// MARK: - Welcome
+// data to save
+class NewsItemdData {
+    var newsText: String?
+    var attachments: [Attachment]?
+
+    init(newsItem: NewsItem) {
+
+        self.newsText = newsItem.text
+        self.attachments = newsItem.attachments
+    }
+}
+
+class NewsProfileData {
+    var firstName: String?
+    var photo100: String?
+
+    init(newsProfile: NewsProfileItem) {
+
+        self.firstName = newsProfile.firstName
+        self.photo100 = newsProfile.photo100
+    }
+}
+
+
+// MARK: - NewsFeedQuery
 struct NewsFeedQuery: Codable {
     let response: Response
 }

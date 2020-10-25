@@ -132,7 +132,14 @@ class NetworkManager {
 //                    #endif
                     do {
                         let news = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.items
-                        completion?(.success(news))
+                        let newsProfiles = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.profiles
+                        let newsNextFrom = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.nextFrom
+                        var newsFeedResult: [Any] = []
+                        
+                            newsFeedResult.append(news)
+                            newsFeedResult.append(newsProfiles)
+                            newsFeedResult.append(newsNextFrom as Any)
+                        completion?(.success(newsFeedResult))
                     } catch {
                         completion?(.failure(DecoderError.failureInJSONdecoding))
                     }
@@ -186,11 +193,33 @@ class NetworkManager {
         }
     }
     
-    func loadNewsFeed(completion: ((Result<[NewsItem], NetworkError>) -> Void)? = nil) {
+    func loadNews(completion: ((Result<[NewsItem], NetworkError>) -> Void)? = nil) {
         networkRequest(for: .newsFeedGet) { result in
             switch result {
-            case let .success(news):
-                completion?(.success(news as! [NewsItem]))
+            case let .success(newsFeedResult):
+                completion?(.success((newsFeedResult.first as! [NewsItem])))
+            case .failure:
+                completion?(.failure(.incorrectData))
+            }
+        }
+    }
+    
+    func loadNewsProfiles(completion: ((Result<[NewsProfileItem], NetworkError>) -> Void)? = nil) {
+        networkRequest(for: .newsFeedGet) { result in
+            switch result {
+            case let .success(newsFeedResult):
+                completion?(.success((newsFeedResult[1] as! [NewsProfileItem])))
+            case .failure:
+                completion?(.failure(.incorrectData))
+            }
+        }
+    }
+    
+    func loadNewsNextFrom(completion: ((Result<String, NetworkError>) -> Void)? = nil) {
+        networkRequest(for: .newsFeedGet) { result in
+            switch result {
+            case let .success(newsFeedResult):
+                completion?(.success((newsFeedResult.last as! String)))
             case .failure:
                 completion?(.failure(.incorrectData))
             }

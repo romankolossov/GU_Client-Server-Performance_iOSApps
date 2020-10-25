@@ -22,7 +22,7 @@ class NewsViewController: BaseViewController {
     
     // Some properties
     //var newsData: Array<NewsItemdData>?
-    var newsData: [NewsItem] = []
+    var newsData: [NewsItemdData] = []
     private let networkManager = NetworkManager.shared
     
     // MARK: - Lifecycle
@@ -37,15 +37,15 @@ class NewsViewController: BaseViewController {
     
     private func loadData(completion: (() -> Void)? = nil) {
         DispatchQueue.global().async { [weak self] in
-            self?.networkManager.loadNewsFeed() { [weak self] result in
+            self?.networkManager.loadNews() { [weak self] result in
                 
                 switch result {
                 case let .success(newsItems):
-                    //let newsData: [NewsItemdData] = newsItems.map {NewsItemdData(newsItem: $0)}
+                    let newsData: [NewsItemdData] = newsItems.map { NewsItemdData(newsItem: $0) }
                     DispatchQueue.main.async { [weak self] in
                         self?.newsData.removeAll()
                         //self?.newsData = newsData.map{$0}
-                        self?.newsData = newsItems
+                        self?.newsData = newsData
                         self?.tableView.reloadData()
                         completion?()
                     }
