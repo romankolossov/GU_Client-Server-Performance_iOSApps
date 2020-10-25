@@ -21,8 +21,9 @@ class NewsViewController: BaseViewController {
     }
     
     // Some properties
-    //var newsData: Array<NewsItemdData>?
     var newsData: [NewsItemdData] = []
+    var newsProfileData: [NewsProfileData] = []
+    
     private let networkManager = NetworkManager.shared
     
     // MARK: - Lifecycle
@@ -31,6 +32,7 @@ class NewsViewController: BaseViewController {
         super.viewDidLoad()
         
         loadData()
+        loadProfileData()
     }
     
     // MARK: - Main methods
@@ -57,4 +59,24 @@ class NewsViewController: BaseViewController {
         }
     }
     
+    private func loadProfileData(completion: (() -> Void)? = nil) {
+        DispatchQueue.global().async { [weak self] in
+            self?.networkManager.loadNewsProfiles() { [weak self] result in
+                
+                switch result {
+                case let .success(newsProfileItems):
+                    let newsProfileData: [NewsProfileData] = newsProfileItems.map { NewsProfileData(newsProfile: $0) }
+                    DispatchQueue.main.async { [weak self] in
+                        self?.newsProfileData.removeAll()
+                        self?.newsProfileData = newsProfileData
+                        self?.tableView.reloadData()
+                        completion?()
+                    }
+                case let .failure(error):
+                    self?.showAlert(title: "Error", message:
+                        error.localizedDescription)
+                }
+            }
+        }
+    }
 }

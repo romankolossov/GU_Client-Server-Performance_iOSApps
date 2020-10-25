@@ -123,22 +123,22 @@ class NetworkManager {
                         completion?(.failure(DecoderError.failureInJSONdecoding))
                     }
                 case .newsFeedGet:
-//                    guard let json = try? JSON(data: data) else { return }
-//                    //let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-//                    #if DEBUG
-//                    print(json)
-//                    print("data for the JSON is from:\n\(#function)")
-//                    print("of size: ", data)
-//                    #endif
+                    //                    guard let json = try? JSON(data: data) else { return }
+                    //                    //let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                    //                    #if DEBUG
+                    //                    print(json)
+                    //                    print("data for the JSON is from:\n\(#function)")
+                    //                    print("of size: ", data)
+                    //                    #endif
                     do {
                         let news = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.items
                         let newsProfiles = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.profiles
                         let newsNextFrom = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.nextFrom
-                        var newsFeedResult: [Any] = []
+                        var newsFeedResult: [Any] = (0...2).map{$0}
                         
-                            newsFeedResult.append(news)
-                            newsFeedResult.append(newsProfiles)
-                            newsFeedResult.append(newsNextFrom as Any)
+                        newsFeedResult[0] = news
+                        newsFeedResult[1] = newsProfiles
+                        newsFeedResult[2] = newsNextFrom as Any
                         completion?(.success(newsFeedResult))
                     } catch {
                         completion?(.failure(DecoderError.failureInJSONdecoding))
