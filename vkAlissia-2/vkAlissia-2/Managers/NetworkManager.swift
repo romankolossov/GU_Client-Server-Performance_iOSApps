@@ -133,12 +133,14 @@ class NetworkManager {
                     do {
                         let news = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.items
                         let newsProfiles = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.profiles
+                        let newsGroup = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.groups
                         let newsNextFrom = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.nextFrom
-                        var newsFeedResult: [Any] = (0...2).map{$0}
+                        var newsFeedResult: [Any] = (0...3).map{$0}
                         
-                        newsFeedResult[0] = news
-                        newsFeedResult[1] = newsProfiles
-                        newsFeedResult[2] = newsNextFrom as Any
+                            newsFeedResult[0] = news
+                            newsFeedResult[1] = newsProfiles
+                            newsFeedResult[2] = newsGroup
+                            newsFeedResult[3] = newsNextFrom as Any
                         completion?(.success(newsFeedResult))
                     } catch {
                         completion?(.failure(DecoderError.failureInJSONdecoding))
@@ -209,6 +211,17 @@ class NetworkManager {
             switch result {
             case let .success(newsFeedResult):
                 completion?(.success((newsFeedResult[1] as! [NewsProfileItem])))
+            case .failure:
+                completion?(.failure(.incorrectData))
+            }
+        }
+    }
+    
+    func loadNewsGroups(completion: ((Result<[NewsGroupItem], NetworkError>) -> Void)? = nil) {
+        networkRequest(for: .newsFeedGet) { result in
+            switch result {
+            case let .success(newsFeedResult):
+                completion?(.success((newsFeedResult[2] as! [NewsGroupItem])))
             case .failure:
                 completion?(.failure(.incorrectData))
             }

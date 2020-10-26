@@ -11,14 +11,29 @@
 import Foundation
 
 // data to save
-class NewsItemdData {
+class NewsItemData {
+    var sourceID: Int?
     var newsText: String?
     var attachments: [Attachment]?
 
     init(newsItem: NewsItem) {
-
+        
+        self.sourceID = newsItem.sourceID
         self.newsText = newsItem.text
         self.attachments = newsItem.attachments
+    }
+}
+
+class NewsGroupData {
+    var id: Int?
+    var name: String?
+    var photo200: String?
+
+    init(groupItem: NewsGroupItem) {
+        
+        self.id = groupItem.id
+        self.name = groupItem.name
+        self.photo200 = groupItem.photo200
     }
 }
 

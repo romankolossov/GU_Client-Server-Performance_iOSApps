@@ -21,14 +21,14 @@ class NewsViewController: BaseViewController {
     }
     
     // Some properties
-    var newsData: [NewsItemdData] = []
+    var newsData: [NewsItemData] = []
+    var newsGroupData: [NewsGroupData] = []
     //var newsProfileData: [NewsProfileData] = []
     var newsProfileData: [NewsProfileItem] = []
     
-    var refreshControl: UIRefreshControl?
-    
     private let networkManager = NetworkManager.shared
     
+    var refreshControl: UIRefreshControl?
     
     // MARK: - Lifecycle
     
@@ -36,7 +36,8 @@ class NewsViewController: BaseViewController {
         super.viewDidLoad()
         
         loadData()
-        loadProfileData()
+        loadNewsGroupsData()
+        //loadNewsProfilesData()
         
         //setupRefreshControl()
     }
@@ -63,7 +64,7 @@ class NewsViewController: BaseViewController {
                 
                 switch result {
                 case let .success(newsItems):
-                    let newsData: [NewsItemdData] = newsItems.map { NewsItemdData(newsItem: $0) }
+                    let newsData: [NewsItemData] = newsItems.map { NewsItemData(newsItem: $0) }
                     DispatchQueue.main.async { [weak self] in
                         self?.newsData.removeAll()
                         //self?.newsData = newsData.map{$0}
@@ -79,16 +80,16 @@ class NewsViewController: BaseViewController {
         }
     }
     
-    private func loadProfileData(completion: (() -> Void)? = nil) {
+    private func loadNewsProfilesData(completion: (() -> Void)? = nil) {
         DispatchQueue.global().async { [weak self] in
             self?.networkManager.loadNewsProfiles() { [weak self] result in
                 
                 switch result {
                 case let .success(newsProfileItems):
-                    //let newsProfileData: [NewsProfileData] = newsProfileItems.map { NewsProfileData(newsProfile: $0) }
+                    //let newsData: [NewsItemdData] = newsItems.map { NewsItemdData(newsItem: $0) }
                     DispatchQueue.main.async { [weak self] in
                         self?.newsProfileData.removeAll()
-                        //self?.newsProfileData = newsProfileData
+                        //self?.newsData = newsData.map{$0}
                         self?.newsProfileData = newsProfileItems
                         self?.tableView.reloadData()
                         completion?()
@@ -100,6 +101,30 @@ class NewsViewController: BaseViewController {
             }
         }
     }
+    
+    private func loadNewsGroupsData(completion: (() -> Void)? = nil) {
+        DispatchQueue.global().async { [weak self] in
+            self?.networkManager.loadNewsGroups() { [weak self] result in
+                
+                switch result {
+                case let .success(newsGroupItems):
+                    let newsGroupData: [NewsGroupData] = newsGroupItems.map { NewsGroupData(groupItem: $0) }
+                    DispatchQueue.main.async { [weak self] in
+                        self?.newsGroupData.removeAll()
+                        //self?.newsData = newsData.map{$0}
+                        self?.newsGroupData = newsGroupData
+                        self?.tableView.reloadData()
+                        completion?()
+                    }
+                case let .failure(error):
+                    self?.showAlert(title: "Error", message:
+                        error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    
     
     // MARK: - Actions
     
