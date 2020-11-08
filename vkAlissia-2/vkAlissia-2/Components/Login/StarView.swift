@@ -20,7 +20,7 @@ import UIKit
     }
     
     func configure() {
-        backgroundColor = .starBacgroundColor
+        backgroundColor = .starBackgroundColor
         
         path.move(to: CGPoint(x: 40, y: 20))
         path.addLine(to: CGPoint(x: 45, y: 40))

@@ -16,6 +16,9 @@ extension UIColor {
     // LoginFormController, ParticularFriendCell
     static let greenBorderColor: UIColor = .green
     
+    // ParticularFriendCell
+    static let whiteBackgroundColor: UIColor = .white
+    
     // FriendCell
     static let shadowColor: UIColor = .black
     
@@ -24,7 +27,7 @@ extension UIColor {
     static let gradientEndColor: UIColor = .black
     
     // StarView
-    static let starBacgroundColor: UIColor = .clear
+    static let starBackgroundColor: UIColor = .clear
     static let starFillColor: UIColor = .clear
     static let starStrokeColor: UIColor = .red
     

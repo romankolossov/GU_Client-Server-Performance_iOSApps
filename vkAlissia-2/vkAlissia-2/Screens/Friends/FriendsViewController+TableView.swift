@@ -31,6 +31,7 @@ extension FriendsViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FriendCell.self), for: indexPath) as? FriendCell else { fatalError() }
         
         let friend = sortedUsers[indexPath.section][indexPath.item]
+        
         cell.friendModel = friend
     
         return cell
@@ -39,6 +40,7 @@ extension FriendsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let friend = sortedUsers[indexPath.section][indexPath.item]
+            
             try? publicRealmManager?.delete(object: friend)
         }
     }
@@ -49,6 +51,7 @@ extension FriendsViewController: UITableViewDataSource {
 extension FriendsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let particularFriendVC = storyboard?.instantiateViewController(identifier: String(describing: ParticularFriendViewController.self)) as? ParticularFriendViewController else { return }
+        
         let friend = sortedUsers[indexPath.section][indexPath.item]
         
         particularFriendVC.friendName = friend.friendName
