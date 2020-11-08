@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class NetworkManager {
     
@@ -16,6 +17,10 @@ class NetworkManager {
     // Some properties
     enum NetworkError: Error {
         case incorrectData
+    }
+    
+    enum DecoderError: Error {
+        case failureInJSONdecoding
     }
     
     enum Method: String {
@@ -46,14 +51,14 @@ class NetworkManager {
         switch method {
         case .groupsGet:
             urlConstructor.queryItems = [
-                URLQueryItem(name: "access_token", value: Session.shared.token),
+                URLQueryItem(name: "access_token", value: "\(Session.shared.token)"),
                 URLQueryItem(name: "user_id", value: "\(Session.shared.userId)"),
                 URLQueryItem(name: "extended", value: "1"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
         case .friendsGet:
             urlConstructor.queryItems = [
-                URLQueryItem(name: "access_token", value: Session.shared.token),
+                URLQueryItem(name: "access_token", value: "\(Session.shared.token)"),
                 URLQueryItem(name: "user_id", value: "\(Session.shared.userId)"),
                 URLQueryItem(name: "order", value: "random"),
                 URLQueryItem(name: "offset", value: "5"),
@@ -63,7 +68,7 @@ class NetworkManager {
             ]
         case .photosGet:
             urlConstructor.queryItems = [
-                URLQueryItem(name: "access_token", value: Session.shared.token),
+                URLQueryItem(name: "access_token", value: "\(Session.shared.token)"),
                 URLQueryItem(name: "owner_id", value: String(Session.shared.friendId)),
                 //URLQueryItem(name: "album_id", value: "profile"),
                 URLQueryItem(name: "album_id", value: "wall"),
@@ -74,10 +79,12 @@ class NetworkManager {
             ]
         case .newsFeedGet:
             urlConstructor.queryItems = [
-                URLQueryItem(name: "access_token", value: Session.shared.token),
+                URLQueryItem(name: "access_token", value: "\(Session.shared.token)"),
                 URLQueryItem(name: "user_id", value: "\(Session.shared.userId)"),
-                URLQueryItem(name: "filters", value: "post,photo,wall_photo,friend,note"),
+                URLQueryItem(name: "filters", value: "post,photo,photo_tag, wall_photo"),
                 URLQueryItem(name: "source_ids", value: "friends,groups,pages,following"),
+                //URLQueryItem(name: "start_from", value: ""),
+                URLQueryItem(name: "count", value: "30"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
         default:
@@ -99,36 +106,53 @@ class NetworkManager {
                         let friends = try JSONDecoder().decode(FriendQuery.self, from: data).response.items
                         completion?(.success(friends))
                     } catch {
-                        completion?(.failure(error))
+                        completion?(.failure(DecoderError.failureInJSONdecoding))
                     }
                 case .groupsGet:
                     do {
                         let groups = try JSONDecoder().decode(GroupQuery.self, from: data).response.items
                         completion?(.success(groups))
                     } catch {
-                        completion?(.failure(error))
+                        completion?(.failure(DecoderError.failureInJSONdecoding))
                     }
                 case .photosGet:
                     do {
                         let photos = try JSONDecoder().decode(PhotoQuery.self, from: data).response.items
                         completion?(.success(photos))
                     } catch {
-                        completion?(.failure(error))
+                        completion?(.failure(DecoderError.failureInJSONdecoding))
                     }
                 case .newsFeedGet:
+                    //                    guard let json = try? JSON(data: data) else { return }
+                    //                    //let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                    //                    #if DEBUG
+                    //                    print(json)
+                    //                    print("data for the JSON is from:\n\(#function)")
+                    //                    print("of size: ", data)
+                    //                    #endif
                     do {
-                        #if DEBUG
-                        print("hello from:\n\(#function)")
-                        print(data)
-                        #endif
+                        let news = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.items
+                        let newsProfiles = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.profiles
+                        let newsGroup = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.groups
+                        let newsNextFrom = try JSONDecoder().decode(NewsFeedQuery.self, from: data).response.nextFrom
+                        var newsFeedResult: [Any] = (0...3).map{$0}
+                        
+                            newsFeedResult[0] = news
+                            newsFeedResult[1] = newsProfiles
+                            newsFeedResult[2] = newsGroup
+                            newsFeedResult[3] = newsNextFrom as Any
+                        completion?(.success(newsFeedResult))
                     } catch {
-                        completion?(.failure(error))
+                        completion?(.failure(DecoderError.failureInJSONdecoding))
                     }
                 default:
                     print("error: \(method.rawValue) is out of range")
                     return
                 }
             } else if let error = error {
+                #if DEBUG
+                print("error in session.dataTask from:\n\(#function)")
+                #endif
                 completion?(.failure(error))
             }
         }
@@ -171,7 +195,47 @@ class NetworkManager {
         }
     }
     
-    func loadNewsFeed() {
-        networkRequest(for: .newsFeedGet)
+    func loadNews(completion: ((Result<[NewsItem], NetworkError>) -> Void)? = nil) {
+        networkRequest(for: .newsFeedGet) { result in
+            switch result {
+            case let .success(newsFeedResult):
+                completion?(.success((newsFeedResult.first as! [NewsItem])))
+            case .failure:
+                completion?(.failure(.incorrectData))
+            }
+        }
+    }
+    
+    func loadNewsProfiles(completion: ((Result<[NewsProfileItem], NetworkError>) -> Void)? = nil) {
+        networkRequest(for: .newsFeedGet) { result in
+            switch result {
+            case let .success(newsFeedResult):
+                completion?(.success((newsFeedResult[1] as! [NewsProfileItem])))
+            case .failure:
+                completion?(.failure(.incorrectData))
+            }
+        }
+    }
+    
+    func loadNewsGroups(completion: ((Result<[NewsGroupItem], NetworkError>) -> Void)? = nil) {
+        networkRequest(for: .newsFeedGet) { result in
+            switch result {
+            case let .success(newsFeedResult):
+                completion?(.success((newsFeedResult[2] as! [NewsGroupItem])))
+            case .failure:
+                completion?(.failure(.incorrectData))
+            }
+        }
+    }
+    
+    func loadNewsNextFrom(completion: ((Result<String, NetworkError>) -> Void)? = nil) {
+        networkRequest(for: .newsFeedGet) { result in
+            switch result {
+            case let .success(newsFeedResult):
+                completion?(.success((newsFeedResult.last as! String)))
+            case .failure:
+                completion?(.failure(.incorrectData))
+            }
+        }
     }
 }

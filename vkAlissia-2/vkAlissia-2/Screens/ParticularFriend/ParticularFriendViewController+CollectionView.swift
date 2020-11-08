@@ -28,6 +28,7 @@ extension ParticularFriendViewController: UICollectionViewDataSource {
         }
         
         cell.nameLabel.text = friendName
+        cell.favoriteImageView.backgroundColor = .white
         cell.favoriteImageView.image = publicParticularFriendPhotoService!.getPhoto(atIndexPath: indexPath, byUrl: photoURL)
         //cell.favoriteImageView.sd_setImage(with: URL(string: photoURL))
         

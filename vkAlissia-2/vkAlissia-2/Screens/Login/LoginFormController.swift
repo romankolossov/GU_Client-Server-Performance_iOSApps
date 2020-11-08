@@ -20,9 +20,7 @@ class LoginFormController: UIViewController {
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-    
-    @IBOutlet weak var authButton: UIButton!
-    
+    @IBOutlet weak var alissiaImageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var starView: StarView!
     @IBOutlet var webView: WKWebView! {
@@ -30,6 +28,9 @@ class LoginFormController: UIViewController {
             webView.navigationDelegate = self
         }
     }
+    @IBOutlet weak var authButton: UIButton!
+    @IBOutlet weak var entryButton: UIButton!
+    
     private let heartLabelA = UILabel()
     private let heartLabelB = UILabel()
     private let heartLabelC = UILabel()
@@ -43,9 +44,11 @@ class LoginFormController: UIViewController {
         super.viewDidLoad()
         removeCookies()
         webView.isHidden = true
+        entryButton.isHidden = true
         
         // MARK: - Targets
         authButton.addTarget(self, action: #selector(performSegueAction), for: .touchUpInside)
+        entryButton.addTarget(self, action: #selector(afterVKAuthPerformSegueAction), for: .touchUpInside)
         
         var components = URLComponents()
         
@@ -53,8 +56,10 @@ class LoginFormController: UIViewController {
         components.host = "oauth.vk.com"
         components.path = "/authorize"
         components.queryItems = [
-            URLQueryItem(name: "client_id", value: "7564683"),
-            URLQueryItem(name: "scope", value: "262150"),
+            URLQueryItem(name: "client_id", value: "7631437"),
+            //URLQueryItem(name: "scope", value: "262150"), // без новостей
+            //URLQueryItem(name: "scope", value: "270342"), // для новостей
+            URLQueryItem(name: "scope", value: "friends,photos,wall,groups"),
             URLQueryItem(name: "display", value: "mobile"),
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
             URLQueryItem(name: "response_type", value: "token"),
@@ -170,15 +175,19 @@ class LoginFormController: UIViewController {
     }
     
     private func showLoginSuccess() {
-        let  alert = UIAlertController(title: "Успешный вход", message: "Если показан экрана входа VK, нажмите пожалуйста кнопку \"Log in\" и перезапустите приложение", preferredStyle: .actionSheet)
-        let continueAction = UIAlertAction(title: "Продолжить", style: .cancel) {
-            [weak self] (_) in self?.performSegue(withIdentifier: LoginFormController.segueIdentifier, sender: self)
+        let  alert = UIAlertController(title: "Вход", message: "При необходимости, нажмите, пожалуйста, OK\nзатем \"Log in\" и \"Войти\"\nиначе Продолжить", preferredStyle: .actionSheet)
+        
+        let confirmLoginAtion = UIAlertAction(title: "OK", style: .default) { [weak self] (_) in
+            self?.entryButton.isHidden = false
+            self?.alissiaImageView.isHidden = true
         }
-        let toConfirmLoginAtion = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let continueAction = UIAlertAction(title: "Продолжить", style: .default) { [weak self] (_) in
+            self?.performSegue(withIdentifier: LoginFormController.segueIdentifier, sender: self)
+        }
         
         alert.addAction(continueAction)
-        alert.addAction(toConfirmLoginAtion)
-
+        alert.addAction(confirmLoginAtion)
+        
         present(alert, animated: true, completion: nil)
     }
     
@@ -191,6 +200,10 @@ class LoginFormController: UIViewController {
         } else {
             showLoginError()
         }
+    }
+    
+    @objc private func afterVKAuthPerformSegueAction() {
+        self.performSegue(withIdentifier: LoginFormController.segueIdentifier, sender: self)
     }
     
     @objc func onPan (_ recognizer: UIPanGestureRecognizer) {

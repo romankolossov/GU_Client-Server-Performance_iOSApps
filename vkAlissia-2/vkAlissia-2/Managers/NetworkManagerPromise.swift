@@ -59,14 +59,14 @@ class NetworkManagerPromise {
         switch method {
         case .groupsGet:
             urlConstructor.queryItems = [
-                URLQueryItem(name: "access_token", value: Session.shared.token),
+                URLQueryItem(name: "access_token", value: "\(Session.shared.token)"),
                 URLQueryItem(name: "user_id", value: "\(Session.shared.userId)"),
                 URLQueryItem(name: "extended", value: "1"),
                 URLQueryItem(name: "v", value: vkAPIVersion)
             ]
         case .friendsGet:
             urlConstructor.queryItems = [
-                URLQueryItem(name: "access_token", value: Session.shared.token),
+                URLQueryItem(name: "access_token", value: "\(Session.shared.token)"),
                 URLQueryItem(name: "user_id", value: "\(Session.shared.userId)"),
                 URLQueryItem(name: "order", value: "random"),
                 URLQueryItem(name: "offset", value: "5"),
@@ -76,7 +76,7 @@ class NetworkManagerPromise {
             ]
         case .photosGet:
             urlConstructor.queryItems = [
-                URLQueryItem(name: "access_token", value: Session.shared.token),
+                URLQueryItem(name: "access_token", value: "\(Session.shared.token)"),
                 URLQueryItem(name: "owner_id", value: String(Session.shared.friendId)),
                 //URLQueryItem(name: "album_id", value: "profile"),
                 URLQueryItem(name: "album_id", value: "wall"),
@@ -87,7 +87,7 @@ class NetworkManagerPromise {
             ]
         case .newsFeedGet:
             urlConstructor.queryItems = [
-                URLQueryItem(name: "access_token", value: Session.shared.token),
+                URLQueryItem(name: "access_token", value: "\(Session.shared.token)"),
                 URLQueryItem(name: "user_id", value: "\(Session.shared.userId)"),
                 URLQueryItem(name: "filters", value: "post,photo,wall_photo,friend,note"),
                 URLQueryItem(name: "source_ids", value: "friends,groups,pages,following"),

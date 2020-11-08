@@ -90,7 +90,7 @@ class MyGroupsViewController: BaseViewController {
         filteredGroupsNotificationToken = filteredGroups?.observe { [weak self] change in
             switch change {
             case .initial:
-                self?.realmManager?.refresh()
+                //self?.realmManager?.refresh()
                 #if DEBUG
                 print("Initialized")
                 #endif
@@ -218,17 +218,15 @@ class MyGroupsViewController: BaseViewController {
             self?.refreshControl.endRefreshing()
         }
     }
-    
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segue.identifier == DetailViewController.storyboardIdentifier {
-    //            if let destinationVC = segue.destination as? DetailViewController {
-    //                destinationVC.user = sender as? User
-    //            }
-    //        }
-    //    }
-    
 }
 
-
-
+/*
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+ if segue.identifier == DetailViewController.storyboardIdentifier {
+ if let destinationVC = segue.destination as? DetailViewController {
+ destinationVC.user = sender as? User
+ }
+ }
+ }
+ */
 

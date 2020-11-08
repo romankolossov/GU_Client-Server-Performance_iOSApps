@@ -22,6 +22,7 @@ class FriendsViewController: BaseViewController {
             tableView.dataSource = self
             tableView.delegate = self
             tableView.refreshControl = refreshControl
+            
             tableView.register(UINib(nibName: String(describing: FriendCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: FriendCell.self))
         }
     }
@@ -37,14 +38,24 @@ class FriendsViewController: BaseViewController {
     }
     
     // Some properties
-    private var friends: Results<FriendData>? {
-        let friends: Results<FriendData>? = realmManager?.getObjects()
-        return friends?.sorted(byKeyPath: "friendName", ascending: true)
+    private var filteredUsers: Results<FriendData>? {
+        let users: Results<FriendData>? = realmManager?.getObjects()
+        guard !searchText.isEmpty else { return users }
+        return users?.filter("friendName CONTAINS[cd] %@", searchText)
     }
-    var filteredFriends: Results<FriendData>? {
-        guard !searchText.isEmpty else { return friends }
-        return friends?.filter("friendName CONTAINS[cd] %@", searchText)
+    var sortedUsers = [[FriendData]]() {
+        didSet {
+            sortedIds = sortedUsers.map { $0.map { $0.id.value } }
+            
+            if let users: Results<FriendData> = realmManager?.getObjects() {
+                self.cachedUserIds = Array(users).map { $0.id.value }
+            } else {
+                cachedUserIds.removeAll()
+            }
+        }
     }
+    var sortedIds = [[Int?]]()
+    var cachedUserIds = [Int?]()
     private var searchText: String {
         searchBar.text ?? ""
     }
@@ -53,84 +64,119 @@ class FriendsViewController: BaseViewController {
     var publicRealmManager: RealmManager? {
         realmManager
     }
-    var sections: [Character: [FriendData]] = [:]
-    var sectionTitles = [Character]()
     
-    private var filteredFriendsNotificationToken: NotificationToken?
+    private var filteredUsersNotificationToken: NotificationToken?
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createNotification()
-        
-        if let friends = friends, friends.isEmpty {
+        if let users = filteredUsers, users.isEmpty {
             loadData()
         }
+        
+        createNotification()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         searchBar.addGestureRecognizer(tapGesture)
     }
     
     deinit {
-        filteredFriendsNotificationToken?.invalidate()
+        filteredUsersNotificationToken?.invalidate()
     }
     
     // MARK: - Major methods
     
     private func createNotification() {
-        filteredFriendsNotificationToken = filteredFriends?.observe { [weak self] change in
+        filteredUsersNotificationToken = filteredUsers?.observe { [weak self] change in
+            
+            guard let self = self else { return }
+            
             switch change {
             case .initial:
-                self?.realmManager?.refresh()
-                self?.setTableSections()
+                //self?.realmManager?.refresh()
+                self.sortUsers()
+                self.tableView.reloadData()
                 #if DEBUG
                 print("Initialized")
                 #endif
-                //self?.tableView.reloadData()
                 
-            case let .update(results, deletions: deletions, insertions: insertions, modifications: modifications):
+            case let .update(results, deletions: del, insertions: ins, modifications: mod):
                 #if DEBUG
                 print("""
                     New count: \(results.count)
-                    Deletions: \(deletions)
-                    Insertions: \(insertions)
-                    Modifications: \(modifications)
+                    Deletions: \(del)
+                    Insertions: \(ins)
+                    Modifications: \(mod)
                     """)
                 #endif
                 
-                self?.tableView.beginUpdates()
+                let deletions = del.compactMap { self.getUserIndexPathByRealmOrder(order: $0) }
+                let modifications = mod.compactMap { self.getUserIndexPathByRealmOrder(order: $0) }
                 
-                self?.tableView.deleteRows(at: deletions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
-                self?.tableView.insertRows(at: insertions.map { IndexPath(item: $0, section: 0) }, with: .automatic)
-                self?.tableView.reloadRows(at: modifications.map { IndexPath(item: $0, section: 0) }, with: .automatic)
+                self.sortUsers()
                 
-                self?.tableView.endUpdates()
+                let insertions = ins.compactMap { self.getUserIndexPathByRealmOrder(order: $0) }
+                
+                guard insertions.count == 0 else {
+                    self.tableView.reloadData()
+                    return
+                }
+                
+                self.tableView.beginUpdates()
+                
+                if !modifications.isEmpty {
+                    self.tableView.reloadRows(at: modifications, with: .automatic)
+                }
+                if !deletions.isEmpty {
+                    let rowsInDeleteSections = Set(deletions.map { $0.section })
+                        .compactMap { ($0, self.tableView.numberOfRows(inSection: $0)) }
+                    let sectionsWithOneCell = rowsInDeleteSections.filter { section, count in count == 1 }.map { section, _ in section }
+                    let sectionsWithMoreCells = rowsInDeleteSections.filter { section, count in count > 1 }.map { section, _ in section }
+                    if sectionsWithOneCell.count > 0 {
+                        self.tableView.deleteSections(IndexSet(sectionsWithOneCell), with: .automatic)
+                    }
+                    if sectionsWithMoreCells.count > 0 {
+                        let indexForDeletion = deletions.filter { sectionsWithMoreCells.contains($0.section) }
+                        self.tableView.deleteRows(at: indexForDeletion, with: .automatic)
+                    }
+                }
+                //TODO....
+                //                if !insertions.isEmpty {
+                //                    let newSections = self.sortedUsers.enumerated()
+                //                        .compactMap({ $1.contains(where: { ins.contains($0.id.value ?? -1) }) ? $0 : nil })
+                //                    self.tableView.insertSections(IndexSet(newSections), with: .automatic)
+                //                    self.tableView.insertRows(at: insertions, with: .automatic)
+                //                }
+                
+                self.tableView.endUpdates()
+               
                 
             case let .error(error):
-                self?.showAlert(title: "Error", message: error.localizedDescription)
+                self.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
     }
     
-    private func setTableSections() {
-        self.sections = [:]
-        guard let filteredFriends = self.filteredFriends else { return }
+    private func sortUsers() {
+        sortedUsers.removeAll()
         
-        for friend in filteredFriends {
-            let firstLetter = friend.friendName.first!
-            
-            if self.sections[firstLetter] != nil {
-                self.sections[firstLetter]?.append(friend)
-            } else {
-                self.sections[firstLetter] = [friend]
+        guard let filteredUsers = filteredUsers else { return }
+        let users: [FriendData] = Array(filteredUsers)
+        var sortedUsers = [[FriendData]]()
+        
+        let groupedElements = Dictionary(grouping: users) { user -> String in
+            return String(user.friendName.prefix(1))
+        }
+        let sortedKeys = groupedElements.keys.sorted()
+        sortedKeys.forEach { key in
+            if let values = groupedElements[key] {
+                sortedUsers.append(values)
             }
         }
         
-        self.sectionTitles = Array(self.sections.keys)
-        self.sectionTitles.sort()
-        self.tableView.reloadData()
+        self.sortedUsers = sortedUsers
     }
     
     private func loadData(completion: (() -> Void)? = nil) {
@@ -152,6 +198,15 @@ class FriendsViewController: BaseViewController {
         }
     }
     
+    private func getUserIndexPathByRealmOrder(order: Int) -> IndexPath? {
+        guard order < cachedUserIds.count, let userId = cachedUserIds[order] else { return nil }
+        
+        guard let section = sortedIds.firstIndex(where: { $0.contains(userId) }),
+            let item = sortedIds[section].firstIndex(where: { $0 == userId }) else { return nil }
+        
+        return IndexPath(item: item, section: section)
+    }
+    
     // MARK: - Actions
     
     @objc func hideKeyboard(){
@@ -168,17 +223,18 @@ class FriendsViewController: BaseViewController {
 
 
 
-
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        super.prepare(for: segue, sender: sender)
-//        if let destination = segue.destination as? ParticularFriendViewController {
-//            guard let cell = sender as? FriendCell else { return }
-//
-//            destination.friendName = cell.nameLabel.text
-//            destination.favoriteImages = cell.favoriteImages
-//        }
-//    }
-
-//DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-//
-//        })
+/*
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+ super.prepare(for: segue, sender: sender)
+ if let destination = segue.destination as? ParticularFriendViewController {
+ guard let cell = sender as? FriendCell else { return }
+ 
+ destination.friendName = cell.nameLabel.text
+ destination.favoriteImages = cell.favoriteImages
+ }
+ }
+ 
+ DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+ 
+ })
+ */

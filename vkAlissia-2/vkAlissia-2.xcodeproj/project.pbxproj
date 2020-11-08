@@ -38,6 +38,8 @@
 		C865774C24E063DE0004A272 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865774A24E063DE0004A272 /* StarView.swift */; };
 		C865774D24E063DE0004A272 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865774B24E063DE0004A272 /* Animations.swift */; };
 		C865774F24E064050004A272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C865774E24E064050004A272 /* Assets.xcassets */; };
+		C881C67F2540B7DE009A960E /* NewsCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C881C67E2540B7DE009A960E /* NewsCodable.swift */; };
+		C8877DC72535F27B00DEF04C /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8877DC62535F27B00DEF04C /* String+Extensions.swift */; };
 		C88DB2A825290FC300A28687 /* ParticularFriendPhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88DB2A725290FC300A28687 /* ParticularFriendPhotoService.swift */; };
 		C89B6B1224E08D84002CB028 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89B6B1124E08D84002CB028 /* Session.swift */; };
 		C89D766324EE1E4000FDC697 /* GroupCodableRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */; };
@@ -91,6 +93,8 @@
 		C865774A24E063DE0004A272 /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		C865774B24E063DE0004A272 /* Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		C865774E24E064050004A272 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C881C67E2540B7DE009A960E /* NewsCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCodable.swift; sourceTree = "<group>"; };
+		C8877DC62535F27B00DEF04C /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		C88DB2A725290FC300A28687 /* ParticularFriendPhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticularFriendPhotoService.swift; sourceTree = "<group>"; };
 		C89B6B1124E08D84002CB028 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCodableRealm.swift; sourceTree = "<group>"; };
@@ -127,14 +131,30 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		C83BB1F6253C8A8E005EE503 /* Storybord */ = {
+			isa = PBXGroup;
+			children = (
+				C865770A24E0630C0004A272 /* Main.storyboard */,
+			);
+			path = Storybord;
+			sourceTree = "<group>";
+		};
+		C83BB1F7253C8AEB005EE503 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C8B27C102500039300D51311 /* BaseViewController.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		C862A88024F7F1F300A879DA /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				C865774224E063CD0004A272 /* News */,
-				C865773B24E063C40004A272 /* AllGroups */,
-				C865773424E063BD0004A272 /* MyGroups */,
-				C865772924E063B30004A272 /* ParticularFriend */,
 				C865772224E063AA0004A272 /* Friends */,
+				C865772924E063B30004A272 /* ParticularFriend */,
+				C865773424E063BD0004A272 /* MyGroups */,
+				C865773B24E063C40004A272 /* AllGroups */,
 				C865771D24E063A00004A272 /* Login */,
 			);
 			path = Components;
@@ -143,14 +163,14 @@
 		C862A88124F7F25100A879DA /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				C865770A24E0630C0004A272 /* Main.storyboard */,
+				C83BB1F6253C8A8E005EE503 /* Storybord */,
 				C862A88724F8BB4800A879DA /* News */,
-				C862A88824F8BB7500A879DA /* AllGroups */,
-				C862A88924F8BB8B00A879DA /* MyGroups */,
-				C862A88A24F8BBA600A879DA /* ParticularFriend */,
 				C862A88B24F8BBC400A879DA /* Friends */,
+				C862A88A24F8BBA600A879DA /* ParticularFriend */,
+				C862A88924F8BB8B00A879DA /* MyGroups */,
+				C862A88824F8BB7500A879DA /* AllGroups */,
 				C862A88224F7F25C00A879DA /* Login */,
-				C8B27C102500039300D51311 /* BaseViewController.swift */,
+				C83BB1F7253C8AEB005EE503 /* Common */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -166,8 +186,8 @@
 		C862A88724F8BB4800A879DA /* News */ = {
 			isa = PBXGroup;
 			children = (
-				C8297A4A2512B3AF00573083 /* NewsViewController+TableView.swift */,
 				C8297A482512B3A500573083 /* NewsViewController.swift */,
+				C8297A4A2512B3AF00573083 /* NewsViewController+TableView.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -183,8 +203,8 @@
 		C862A88924F8BB8B00A879DA /* MyGroups */ = {
 			isa = PBXGroup;
 			children = (
-				C806ABF224FA525500AF5D27 /* MyGroupsViewController+TableView.swift */,
 				C865773724E063BD0004A272 /* MyGroupsViewController.swift */,
+				C806ABF224FA525500AF5D27 /* MyGroupsViewController+TableView.swift */,
 			);
 			path = MyGroups;
 			sourceTree = "<group>";
@@ -192,8 +212,8 @@
 		C862A88A24F8BBA600A879DA /* ParticularFriend */ = {
 			isa = PBXGroup;
 			children = (
-				C8B27C12250504D600D51311 /* ParticularFriendViewController+CollectionView.swift */,
 				C865772E24E063B30004A272 /* ParticularFriendViewController.swift */,
+				C8B27C12250504D600D51311 /* ParticularFriendViewController+CollectionView.swift */,
 			);
 			path = ParticularFriend;
 			sourceTree = "<group>";
@@ -201,8 +221,8 @@
 		C862A88B24F8BBC400A879DA /* Friends */ = {
 			isa = PBXGroup;
 			children = (
-				C862A88C24F945BB00A879DA /* FriendsViewController+TableView.swift */,
 				C865772324E063AA0004A272 /* FriendsViewController.swift */,
+				C862A88C24F945BB00A879DA /* FriendsViewController+TableView.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -230,10 +250,11 @@
 			children = (
 				C88DB2A425290E7000A28687 /* Services */,
 				C87E1D3C24E30BF80061E697 /* Managers */,
-				C862A88024F7F1F300A879DA /* Components */,
 				C865771824E063940004A272 /* Models */,
+				C862A88024F7F1F300A879DA /* Components */,
 				C862A88124F7F25100A879DA /* Screens */,
 				C865774924E063DE0004A272 /* Utils */,
+				C8877DC52535F23F00DEF04C /* Extensions */,
 				C865775224E06AF20004A272 /* SupportingFiles */,
 				C865771224E0630D0004A272 /* Info.plist */,
 			);
@@ -243,9 +264,10 @@
 		C865771824E063940004A272 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */,
-				C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */,
+				C881C67E2540B7DE009A960E /* NewsCodable.swift */,
 				C89D766824EE4EC500FDC697 /* FriendCodableRealm.swift */,
+				C89D766224EE1E4000FDC697 /* GroupCodableRealm.swift */,
+				C89D766424EE2F0300FDC697 /* PhotoCodableRealm.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -262,8 +284,8 @@
 		C865772224E063AA0004A272 /* Friends */ = {
 			isa = PBXGroup;
 			children = (
-				C865772424E063AA0004A272 /* FriendCell.xib */,
 				C865772524E063AA0004A272 /* FriendCell.swift */,
+				C865772424E063AA0004A272 /* FriendCell.xib */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -271,10 +293,10 @@
 		C865772924E063B30004A272 /* ParticularFriend */ = {
 			isa = PBXGroup;
 			children = (
-				C865772A24E063B30004A272 /* LikeControl.swift */,
-				C865772C24E063B30004A272 /* FriendLayout.swift */,
-				C865772D24E063B30004A272 /* ParticularFriendCell.swift */,
 				C865772B24E063B30004A272 /* FriendPhotoViewController.swift */,
+				C865772D24E063B30004A272 /* ParticularFriendCell.swift */,
+				C865772C24E063B30004A272 /* FriendLayout.swift */,
+				C865772A24E063B30004A272 /* LikeControl.swift */,
 			);
 			path = ParticularFriend;
 			sourceTree = "<group>";
@@ -282,8 +304,8 @@
 		C865773424E063BD0004A272 /* MyGroups */ = {
 			isa = PBXGroup;
 			children = (
-				C865773524E063BD0004A272 /* MyGroupCell.xib */,
 				C865773624E063BD0004A272 /* MyGroupCell.swift */,
+				C865773524E063BD0004A272 /* MyGroupCell.xib */,
 			);
 			path = MyGroups;
 			sourceTree = "<group>";
@@ -291,8 +313,8 @@
 		C865773B24E063C40004A272 /* AllGroups */ = {
 			isa = PBXGroup;
 			children = (
-				C865773C24E063C40004A272 /* GroupCell.xib */,
 				C865773E24E063C40004A272 /* GroupCell.swift */,
+				C865773C24E063C40004A272 /* GroupCell.xib */,
 			);
 			path = AllGroups;
 			sourceTree = "<group>";
@@ -300,8 +322,8 @@
 		C865774224E063CD0004A272 /* News */ = {
 			isa = PBXGroup;
 			children = (
-				C8297A4E2512B3E300573083 /* NewsCell.xib */,
 				C8297A4C2512B3D700573083 /* NewsCell.swift */,
+				C8297A4E2512B3E300573083 /* NewsCell.xib */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -329,11 +351,19 @@
 			isa = PBXGroup;
 			children = (
 				C89B6B1124E08D84002CB028 /* Session.swift */,
-				C862A88524F7F55400A879DA /* RealmManager.swift */,
 				C8BB9D2124E35C9000B05FED /* NetworkManager.swift */,
 				C8BBF79B2521237D00DDA41D /* NetworkManagerPromise.swift */,
+				C862A88524F7F55400A879DA /* RealmManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		C8877DC52535F23F00DEF04C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C8877DC62535F27B00DEF04C /* String+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C88DB2A425290E7000A28687 /* Services */ = {
@@ -492,6 +522,7 @@
 				C8297A4B2512B3AF00573083 /* NewsViewController+TableView.swift in Sources */,
 				C89D766324EE1E4000FDC697 /* GroupCodableRealm.swift in Sources */,
 				C865774024E063C40004A272 /* AllGroupsViewController.swift in Sources */,
+				C8877DC72535F27B00DEF04C /* String+Extensions.swift in Sources */,
 				C8B27C13250504D600D51311 /* ParticularFriendViewController+CollectionView.swift in Sources */,
 				C865772024E063A00004A272 /* GradientView.swift in Sources */,
 				C865774124E063C40004A272 /* GroupCell.swift in Sources */,
@@ -511,6 +542,7 @@
 				C88DB2A825290FC300A28687 /* ParticularFriendPhotoService.swift in Sources */,
 				C8BB9D2224E35C9000B05FED /* NetworkManager.swift in Sources */,
 				C865773324E063B30004A272 /* ParticularFriendViewController.swift in Sources */,
+				C881C67F2540B7DE009A960E /* NewsCodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
