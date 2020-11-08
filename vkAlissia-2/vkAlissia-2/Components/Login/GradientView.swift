@@ -9,12 +9,12 @@
 import UIKit
 
 class GradientView: UIView {
-    @IBInspectable var startColor: UIColor = .white {
+    @IBInspectable var startColor: UIColor = UIColor.gradientStartColor {
         didSet {
             self.updateColors()
         }
     }
-    @IBInspectable var endColor: UIColor = .black {
+    @IBInspectable var endColor: UIColor = UIColor.gradientEndColor {
         didSet {
             self.updateColors()
         }

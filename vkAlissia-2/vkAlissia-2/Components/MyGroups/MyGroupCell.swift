@@ -32,7 +32,7 @@ class MyGroupCell: UITableViewCell {
     // Some properties
     private let inset: CGFloat = 10
     private let avatarSideSize: CGFloat = 80
-    private let labelFont: UIFont = .preferredFont(forTextStyle: .body)
+    private let labelFont: UIFont = UIFont.groupNameFont
     
     // View model
     var groupModel: GroupData? {

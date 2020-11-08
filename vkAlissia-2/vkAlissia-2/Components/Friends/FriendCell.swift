@@ -30,7 +30,7 @@ class FriendCell: UITableViewCell {
         didSet {
             setViewFrame(for: shadowView)
             shadowView.layer.cornerRadius = shadowView.bounds.height / 2
-            shadowView.layer.shadowColor = UIColor.black.cgColor
+            shadowView.layer.shadowColor = UIColor.shadowColor.cgColor
             shadowView.layer.shadowOpacity = 30
             shadowView.layer.shadowRadius = 11
             shadowView.layer.shadowOffset = CGSize(width: 6, height: 6)
@@ -48,7 +48,7 @@ class FriendCell: UITableViewCell {
     // Some properties
     private let inset: CGFloat = 30
     private let avatarSideSize: CGFloat = 80
-    private let nameLabelFont: UIFont = .preferredFont(forTextStyle: .title3)
+    private let nameLabelFont: UIFont = UIFont.nameFont
     
     // View model
     var friendModel: FriendData? {

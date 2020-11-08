@@ -20,7 +20,7 @@ class ParticularFriendCell: UICollectionViewCell {
         likeControl.translatesAutoresizingMaskIntoConstraints = false
         
         backView.layer.cornerRadius = 10
-        backView.layer.borderColor = UIColor.green.cgColor
+        backView.layer.borderColor = UIColor.greenBorderColor.cgColor
         backView.layer.borderWidth = 1
         
         contentView.addSubview(likeControl)

@@ -326,9 +326,9 @@ class LoginFormController: UIViewController {
     
     func animateCorrectPassword() {
         self.loginField.layer.borderWidth = 1
-        self.loginField.layer.borderColor = UIColor.green.cgColor
+        self.loginField.layer.borderColor = UIColor.greenBorderColor.cgColor
         self.passwordField.layer.borderWidth = 1
-        self.passwordField.layer.borderColor = UIColor.green.cgColor
+        self.passwordField.layer.borderColor = UIColor.greenBorderColor.cgColor
     }
     
     func animateWrongPassword() {
@@ -339,11 +339,11 @@ class LoginFormController: UIViewController {
                        options: [.autoreverse],
                        animations: {
                         self.loginField.layer.borderWidth = 1
-                        self.loginField.layer.borderColor = UIColor.red.cgColor
+                        self.loginField.layer.borderColor = UIColor.redBorderColor.cgColor
                         self.loginField.layer.frame.origin.x += 1
                         self.loginField.layer.frame.origin.y += 1
                         self.passwordField.layer.borderWidth = 1
-                        self.passwordField.layer.borderColor = UIColor.red.cgColor
+                        self.passwordField.layer.borderColor = UIColor.redBorderColor.cgColor
                         self.passwordField.frame.origin.x += 1
                         self.passwordField.frame.origin.y += 1
                         
