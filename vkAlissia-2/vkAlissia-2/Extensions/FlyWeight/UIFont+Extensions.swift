@@ -10,16 +10,16 @@ import UIKit
 
 extension UIFont {
     
-    // FriendCell
+    // used in FriendCell
     static let nameFont: UIFont = .preferredFont(forTextStyle: .title3)
     
-    // MyGroupCell
+    // used in MyGroupCell
     static let groupNameFont: UIFont = .preferredFont(forTextStyle: .body)
     
-    // FriendsViewController, MyGroupsViewController
+    // used in FriendsViewController, MyGroupsViewController
     static let refreshControlFont: UIFont = UIFont.systemFont(ofSize: 10)
     
-    // FriendPhotoViewController
+    // used in FriendPhotoViewController
     static let photoFont: UIFont = .preferredFont(forTextStyle: .title1)
 }
 

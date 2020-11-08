@@ -27,8 +27,6 @@ extension ParticularFriendViewController: UICollectionViewDataSource {
                            photoService: publicParticularFriendPhotoService,
                            indexPath: indexPath)
         
-        //cell.favoriteImageView.sd_setImage(with: URL(string: photoURL))
-        
         return cell
     }
 }

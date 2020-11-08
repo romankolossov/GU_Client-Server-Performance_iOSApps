@@ -10,23 +10,23 @@ import UIKit
 
 extension UIColor {
     
-    // LoginFormController
+    // used in LoginFormController
     static let redBorderColor: UIColor = .red
     
-    // LoginFormController, ParticularFriendCell
+    // used in LoginFormController, ParticularFriendCell
     static let greenBorderColor: UIColor = .green
     
-    // ParticularFriendCell
+    // used in ParticularFriendCell
     static let whiteBackgroundColor: UIColor = .white
     
-    // FriendCell
+    // used in FriendCell
     static let shadowColor: UIColor = .black
     
-    // GradientView
+    // used in GradientView
     static let gradientStartColor: UIColor = .white
     static let gradientEndColor: UIColor = .black
     
-    // StarView
+    // used in StarView
     static let starBackgroundColor: UIColor = .clear
     static let starFillColor: UIColor = .clear
     static let starStrokeColor: UIColor = .red
