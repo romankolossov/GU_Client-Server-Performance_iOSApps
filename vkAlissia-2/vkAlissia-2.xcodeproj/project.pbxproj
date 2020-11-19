@@ -38,6 +38,8 @@
 		C865774C24E063DE0004A272 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865774A24E063DE0004A272 /* StarView.swift */; };
 		C865774D24E063DE0004A272 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865774B24E063DE0004A272 /* Animations.swift */; };
 		C865774F24E064050004A272 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C865774E24E064050004A272 /* Assets.xcassets */; };
+		C86ACE7B255832C7009CFE89 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86ACE7A255832C7009CFE89 /* UIColor+Extensions.swift */; };
+		C86ACE7F255851C5009CFE89 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86ACE7E255851C5009CFE89 /* UIFont+Extensions.swift */; };
 		C881C67F2540B7DE009A960E /* NewsCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C881C67E2540B7DE009A960E /* NewsCodable.swift */; };
 		C8877DC72535F27B00DEF04C /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8877DC62535F27B00DEF04C /* String+Extensions.swift */; };
 		C88DB2A825290FC300A28687 /* ParticularFriendPhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88DB2A725290FC300A28687 /* ParticularFriendPhotoService.swift */; };
@@ -93,6 +95,8 @@
 		C865774A24E063DE0004A272 /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		C865774B24E063DE0004A272 /* Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		C865774E24E064050004A272 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C86ACE7A255832C7009CFE89 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		C86ACE7E255851C5009CFE89 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		C881C67E2540B7DE009A960E /* NewsCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCodable.swift; sourceTree = "<group>"; };
 		C8877DC62535F27B00DEF04C /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		C88DB2A725290FC300A28687 /* ParticularFriendPhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticularFriendPhotoService.swift; sourceTree = "<group>"; };
@@ -248,13 +252,13 @@
 		C865770324E0630B0004A272 /* vkAlissia-2 */ = {
 			isa = PBXGroup;
 			children = (
+				C8877DC52535F23F00DEF04C /* Extensions */,
 				C88DB2A425290E7000A28687 /* Services */,
 				C87E1D3C24E30BF80061E697 /* Managers */,
 				C865771824E063940004A272 /* Models */,
 				C862A88024F7F1F300A879DA /* Components */,
 				C862A88124F7F25100A879DA /* Screens */,
 				C865774924E063DE0004A272 /* Utils */,
-				C8877DC52535F23F00DEF04C /* Extensions */,
 				C865775224E06AF20004A272 /* SupportingFiles */,
 				C865771224E0630D0004A272 /* Info.plist */,
 			);
@@ -347,6 +351,15 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
+		C86ACE792558327E009CFE89 /* FlyWeight */ = {
+			isa = PBXGroup;
+			children = (
+				C86ACE7A255832C7009CFE89 /* UIColor+Extensions.swift */,
+				C86ACE7E255851C5009CFE89 /* UIFont+Extensions.swift */,
+			);
+			path = FlyWeight;
+			sourceTree = "<group>";
+		};
 		C87E1D3C24E30BF80061E697 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +374,7 @@
 		C8877DC52535F23F00DEF04C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C86ACE792558327E009CFE89 /* FlyWeight */,
 				C8877DC62535F27B00DEF04C /* String+Extensions.swift */,
 			);
 			path = Extensions;
@@ -508,6 +522,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C865772624E063AA0004A272 /* FriendsViewController.swift in Sources */,
+				C86ACE7B255832C7009CFE89 /* UIColor+Extensions.swift in Sources */,
 				C8BBF79C2521237D00DDA41D /* NetworkManagerPromise.swift in Sources */,
 				C865772F24E063B30004A272 /* LikeControl.swift in Sources */,
 				C865773224E063B30004A272 /* ParticularFriendCell.swift in Sources */,
@@ -534,6 +549,7 @@
 				C865773A24E063BD0004A272 /* MyGroupsViewController.swift in Sources */,
 				C865773024E063B30004A272 /* FriendPhotoViewController.swift in Sources */,
 				C89B6B1224E08D84002CB028 /* Session.swift in Sources */,
+				C86ACE7F255851C5009CFE89 /* UIFont+Extensions.swift in Sources */,
 				C865773124E063B30004A272 /* FriendLayout.swift in Sources */,
 				C865774D24E063DE0004A272 /* Animations.swift in Sources */,
 				C862A88624F7F55400A879DA /* RealmManager.swift in Sources */,

@@ -20,7 +20,7 @@ import UIKit
     }
     
     func configure() {
-        backgroundColor = .clear
+        backgroundColor = .starBackgroundColor
         
         path.move(to: CGPoint(x: 40, y: 20))
         path.addLine(to: CGPoint(x: 45, y: 40))
@@ -36,8 +36,8 @@ import UIKit
         
         shapeLayer.path = path.cgPath
         
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.red.cgColor
+        shapeLayer.fillColor = UIColor.starFillColor.cgColor
+        shapeLayer.strokeColor = UIColor.starStrokeColor.cgColor
     }
     
     func animate() {

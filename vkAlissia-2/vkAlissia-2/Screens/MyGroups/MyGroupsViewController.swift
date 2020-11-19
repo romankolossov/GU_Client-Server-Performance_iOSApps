@@ -29,7 +29,7 @@ class MyGroupsViewController: BaseViewController {
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .systemBlue
-        refreshControl.attributedTitle = NSAttributedString(string: "Reloading data...", attributes: [.font: UIFont.systemFont(ofSize: 10)])
+        refreshControl.attributedTitle = NSAttributedString(string: "Reloading data...", attributes: [.font: UIFont.refreshControlFont])
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         return refreshControl
     }()

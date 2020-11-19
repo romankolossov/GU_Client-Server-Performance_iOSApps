@@ -21,6 +21,7 @@ extension MyGroupsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MyGroupCell.self), for: indexPath) as? MyGroupCell else { fatalError() }
+        
         guard  let group = filteredGroups?[indexPath.row] else { fatalError() }
         
         cell.groupModel = group
@@ -32,6 +33,7 @@ extension MyGroupsViewController: UITableViewDataSource {
         if editingStyle == .delete {
             //myGroups.remove(at: indexPath.row)
             guard let group = filteredGroups?[indexPath.item] else { return }
+            
             try? publicRealmManager?.delete(object: group)
             
             //tableView.deleteRows(at: [indexPath], with: .fade)
